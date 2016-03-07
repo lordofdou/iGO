@@ -3,14 +3,34 @@
 <title>iGO后台首页</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript" src="javascripts/jquery-2.2.1.js"></script>
-<script type="text/javascript" src="javascripts/admin_index.js"></script>
+<script type="text/javascript" src="javascripts/admin_general.js"></script>
 
 <style>
 .numberText{
 	font-size:20px;
 	padding-left:10px;
-	/*color:#69c7e7;*/
+	color:#515151;
 }
+.note{
+	position: absolute;
+	top: 100px;
+	left:40%;
+	text-align: center;
+	width:200px;
+	height:70px;
+	background: #eee;
+	opacity: 0.7;
+	border-radius: 10px;
+	display: none;
+}
+.note h3{
+	position: relative;
+}
+
+a, a:hover{
+	color: #515151;
+}
+
 </style>
 
 </head>
@@ -24,8 +44,8 @@
 	   		</div>
 	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">概览</a></li>
-					<li><a href="#">管理员</a></li>
+					<li class="active"><a href="admin_general">概览</a></li>
+					<li><a href="admin_admin">管理员</a></li>
 					<li><a href="#">用户</a></li>
 					<li><a href="#">商品</a></li>
 					<li><a href="#">订单</a></li>
@@ -33,11 +53,22 @@
 					<li><a href="#">活动</a></li>
 					<li><a href="#">评论</a></li>	
 				</ul>
+
+				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#">登录名</a></li>
+			        <li><a href="#" style="color:#900">注销</a></li>
+			      </ul>
 			</div>
 		<div>	
 	</nav>
 
-	<div style="height:200px;"></div>
+<span id="test" title="hello"></span>
+	<div style="height:80px;"></div>
+	<div style="height:150px;">
+		<div class="note">
+			<h3></h3>
+		</div>
+	</div>
 	<div class="container">
 
 
@@ -45,19 +76,19 @@
 			<!-- 管理员 -->
 			<div class="col-md-2"></div>
 			<div class="col-md-3">
-				<span class="glyphicon glyphicon-sunglasses" style="font-size:80px;"></span>
+				<a href="#"><span class="glyphicon glyphicon-education icon" style="font-size:80px;" titleLabel="管理员"></span></a>
 				<span class="numberText">99</span>
 			</div>
 
 			<!-- 用户 -->
 			<div class="col-md-3">
-				<span class="glyphicon glyphicon-user" style="font-size:80px;"></span>
+				<a href="#"><span class="glyphicon glyphicon-user icon" style="font-size:80px;" titleLabel="用户"></span><a>
 				<span class="numberText">36</span>
 			</div>
 
 			<!-- 商品 -->
 			<div class="col-md-3">
-				<span class="glyphicon glyphicon-shopping-cart" style="font-size:80px;"></span>
+				<a href="#"><span class="glyphicon glyphicon-shopping-cart icon" style="font-size:80px;" titleLabel="商品"></span></a>
 				<span class="numberText">242</span>
 			</div>
 			<div class="col-md-1"></div>
@@ -69,17 +100,17 @@
 			<div class="col-md-2"></div>
 			<!-- 订单 -->
 			<div class="col-md-3">
-				<span class="glyphicon glyphicon-check" style="font-size:80px;"></span>
+				<a href="#"><span class="glyphicon glyphicon-check icon" style="font-size:80px;" titleLabel="订单"></span></a>
 				<span class="numberText">289</span>
 			</div>
 
 			<div class="col-md-3">
-				<span class="glyphicon glyphicon-file" style="font-size:80px;"></span>
+				<a href="#"><span class="glyphicon glyphicon-file icon" style="font-size:80px;" titleLabel="动态"></span></a>
 				<span class="numberText">289</span>
 			</div>
-			
+
 			<div class="col-md-3">
-				<span class="glyphicon glyphicon-comment" style="font-size:80px;"></span>
+				<a href="#"><span class="glyphicon glyphicon-comment icon" style="font-size:80px;" titleLabel="评论"></span></a>
 				<span class="numberText">289</span>
 			</div>
 			<div class="col-md-1"></div>
