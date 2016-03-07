@@ -8,7 +8,6 @@ var crypto = require('crypto');
 router.post('/', function(req, res, next) {
 	var username = req.body.username;
 	var password = req.body.password;
-	console.log(password);
 	var passwordMD5;
 
 	var md5 = crypto.createHash('md5');
@@ -57,10 +56,19 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/', function(req, res, next){
+	//没有登录进入不了此界面
 	if(!req.session.username){
-		res.render('/');
+		res.redirect('/');
 	}
-	res.render('admin_general');
+
+	//获取数据库信息
+	res.render('admin_general', {admin_name: req.session.username});
+});
+
+router.get('/logout', function(req, res, next){
+	req.session.username = '';
+	req.session.uid = '';
+	res.redirect('/');
 });
 
 module.exports = router;

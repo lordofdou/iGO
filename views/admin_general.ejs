@@ -55,8 +55,8 @@ a, a:hover{
 				</ul>
 
 				 <ul class="nav navbar-nav navbar-right">
-			        <li><a href="#">登录名</a></li>
-			        <li><a href="#" style="color:#900">注销</a></li>
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
 			      </ul>
 			</div>
 		<div>	
@@ -76,19 +76,19 @@ a, a:hover{
 			<!-- 管理员 -->
 			<div class="col-md-2"></div>
 			<div class="col-md-3">
-				<a href="#"><span class="glyphicon glyphicon-education icon" style="font-size:80px;" titleLabel="管理员"></span></a>
+				<a href="/admin_admin"><span class="glyphicon glyphicon-education icon" style="font-size:80px;" titleLabel="管理员"></span></a>
 				<span class="numberText">99</span>
 			</div>
 
 			<!-- 用户 -->
 			<div class="col-md-3">
-				<a href="#"><span class="glyphicon glyphicon-user icon" style="font-size:80px;" titleLabel="用户"></span><a>
+				<a href="/admin_user"><span class="glyphicon glyphicon-user icon" style="font-size:80px;" titleLabel="用户"></span><a>
 				<span class="numberText">36</span>
 			</div>
 
 			<!-- 商品 -->
 			<div class="col-md-3">
-				<a href="#"><span class="glyphicon glyphicon-shopping-cart icon" style="font-size:80px;" titleLabel="商品"></span></a>
+				<a href="/admin_products"><span class="glyphicon glyphicon-shopping-cart icon" style="font-size:80px;" titleLabel="商品"></span></a>
 				<span class="numberText">242</span>
 			</div>
 			<div class="col-md-1"></div>
@@ -100,17 +100,17 @@ a, a:hover{
 			<div class="col-md-2"></div>
 			<!-- 订单 -->
 			<div class="col-md-3">
-				<a href="#"><span class="glyphicon glyphicon-check icon" style="font-size:80px;" titleLabel="订单"></span></a>
+				<a href="/admin_orders"><span class="glyphicon glyphicon-check icon" style="font-size:80px;" titleLabel="订单"></span></a>
 				<span class="numberText">289</span>
 			</div>
 
 			<div class="col-md-3">
-				<a href="#"><span class="glyphicon glyphicon-file icon" style="font-size:80px;" titleLabel="动态"></span></a>
+				<a href="/admin_articles"><span class="glyphicon glyphicon-file icon" style="font-size:80px;" titleLabel="动态"></span></a>
 				<span class="numberText">289</span>
 			</div>
 
 			<div class="col-md-3">
-				<a href="#"><span class="glyphicon glyphicon-comment icon" style="font-size:80px;" titleLabel="评论"></span></a>
+				<a href="/admin_comments"><span class="glyphicon glyphicon-comment icon" style="font-size:80px;" titleLabel="评论"></span></a>
 				<span class="numberText">289</span>
 			</div>
 			<div class="col-md-1"></div>
