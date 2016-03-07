@@ -5,11 +5,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//session
+var session = require('express-session');
+
 var routes = require('./routes/admin_index');
 var general = require('./routes/admin_general');
 var admin = require('./routes/admin_admin');
 
 var app = express();
+
+//session
+app.use(session({
+  secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
+  cookie: { maxAge: 60 * 1000 },
+  resave: true
+}));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,6 +33,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 app.use('/', routes);
 app.use('/admin_index', routes);
