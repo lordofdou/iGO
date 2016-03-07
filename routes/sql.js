@@ -39,6 +39,16 @@ var usernameRegConfirm = function(username, callback){
 	});
 }
 
+var selectPropertyfromTable = function(pt,callback){
+	var property = pt.property;
+	var table = pt.table;
+	var sql = "select "+property+" from "+table;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
 exports.usernameRegConfirm = usernameRegConfirm;
+exports.selectPropertyfromTable = selectPropertyfromTable;
