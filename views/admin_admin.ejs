@@ -46,6 +46,14 @@
   		<tr>
   			<td>姓名</td><td>最后登录时间</td><td>权限状态</td><td>权限管理</td>
   		</tr>
+  		<% for (var i = 0; i < data.length; i++) {%>
+  			<tr>
+  			<td><%= data[i].name %></td>
+  			<td><%= data[i].lastLoginTime %></td>
+  			<td><button class="btn btn-default" onclick=""><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+  			<td><button class="btn btn-default" onclick="">删除</button></td>
+  			</tr>
+  		<% } %>
   		<!-- <tr>
   			<td>root</td>
   			<td>－－－</td>
@@ -64,6 +72,6 @@
 	<div style="text-align: center;">
 		<button  id="append"class="btn btn-default" onclick="">添加</button>
 	</div>
-	<p><%= data %></p>	
+	
 </body>
 </html>
