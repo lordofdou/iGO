@@ -19,7 +19,7 @@
    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
 			<li><a href="#">概览</a></li>
-			<li><a href="#">管理员</a></li>
+			<li class="active"><a href="#">管理员</a></li>
 			<li><a href="#">用户</a></li>
 			<li><a href="#">商品</a></li>
 			<li><a href="#">订单</a></li>
@@ -30,7 +30,7 @@
 		</div>
 	<div>	
 	</nav>
-	<div style="height: 100px;"></div>
+
 	<div id="admin_table" class="panel panel-default">
   		<!-- Default panel contents -->
   		<div class="panel-heading">
@@ -43,15 +43,22 @@
   			<td>姓名</td><td>最后登录时间</td><td>权限状态</td><td>权限管理</td>
   		</tr>
   		<tr>
-  			<td>root</td><td>－－－</td><td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td><td><button>关闭</button></td>
+  			<td>root</td>
+  			<td>－－－</td>
+  			<td><button class="btn btn-default" onclick=""><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
+  			<td><button class="btn btn-default" onclick="">删除</button></td>
   		</tr>
   		<tr>
-  			<td>ddd</td><td>－－－</td><td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td><td><button>启用</button></td>
+  			<td>ddd</td>
+  			<td>－－－</td>
+  			<td><button class="btn btn-default" onclick=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+  			<td><button class="btn btn-default" onclick="">删除</button></td>
   		</tr>
-      	</table>
-
+  	    </table>
 	</div>
-	
+	<div style="text-align: center;">
+		<button  id="append"class="btn btn-default" onclick="">添加</button>
+	</div>
 
 </body>
 </html>
