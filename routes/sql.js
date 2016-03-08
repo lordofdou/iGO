@@ -53,9 +53,32 @@ var insertRecordintoTable = function(pvt,callback){
 	var value = pvt.value;
 	var table = pvt.table;
 	var sql = "insert into "+table+" ( "+property+" ) "+"values"+" ( "+value+" )";
+	console.log(sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
+}
+
+var deleteRecordfromTable = function(pvt,callback){
+	var property = pvt.property;
+	var value = pvt.value;
+	var table = pvt.table;
+	var sql = "delete from "+table+" where "+property+" = "+value;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
+var modifyRecordfromTable = function(ipvt,callback){
+	var id = ipvt.id;
+	var property = ipvt.property;
+	var value = ipvt.value;
+	var table = ipvt.table;
+	var sql = "update "+table+" set "+property+"="+value+" where "+"id="+id;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+	 
 }
 
 exports.connect = connect;
@@ -63,3 +86,5 @@ exports.loginConfirm = loginConfirm;
 exports.usernameRegConfirm = usernameRegConfirm;
 exports.selectPropertyfromTable = selectPropertyfromTable;
 exports.insertRecordintoTable = insertRecordintoTable; 
+exports.deleteRecordfromTable = deleteRecordfromTable;
+exports.modifyRecordfromTable = modifyRecordfromTable;

@@ -4,7 +4,7 @@ var sql = require('./sql');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var pt = new Array();
-	pt.property = "name,lastLoginTime,canLogin";
+	pt.property = "id,name,lastLoginTime,canLogin";
 	pt.table = "admin";
 	sql.connect();
 	sql.selectPropertyfromTable(pt,function(err,results){
@@ -17,28 +17,74 @@ router.get('/', function(req, res, next) {
 			return;
 		}
 		// res.send(results[0]);
+		// console.log("########");
 		res.render('admin_admin',{data:results});
 		// res.render('admin_admin');
 
 	});
 });
 
-router.post('/admin_admin',function(req,res,next) {
+router.post('/',function(req,res,next) {
+	// console.log("########");
 	
-	var name = res.body.name;
-	var password = res.body.password;
+	var name = req.body.name;
+	var password = req.body.password;
 	var pvt = new Array();
 	pvt.property = "name,password,canLogin"
-	pvt.value = name+","+password+",0";
+	pvt.value = '"'+name+'"'+","+'"'+password+'"'+",0";
 	pvt.table = "admin";
+
+
 	sql.connect();
 	sql.insertRecordintoTable(pvt,function(err,results) {
 		if(err){
 			res.send(err.message);
 			return;
 		}
-		res.redirect("admin_admin");
+		res.redirect("/admin_admin");
 	});
+});
+
+router.get("/delete",function(req,res,next) {
+	var id = req.query.id;
+	var pvt = new Array();
+	pvt.property = "id"
+	pvt.value = id;
+	pvt.table = "admin";
+
+	sql.connect();
+	sql.deleteRecordfromTable(pvt,function(err,results) {
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.redirect("/admin_admin");
+	})
+
+});
+
+router.get("/canLogin",function(req,res,next) {
+	var ipvt = new Array();
+
+	ipvt.id = req.query.id;
+	ipvt.property = "canLogin";
+	if(req.query.value == 1){
+		ipvt.value = 0;
+	}else{
+		ipvt.value = 1;
+	}
+	
+	ipvt.table = "admin";
+
+	sql.connect();
+	sql.modifyRecordfromTable(ipvt,function(err,results) {
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.redirect("/admin_admin");
+	})
+
 });
 
 module.exports = router;
