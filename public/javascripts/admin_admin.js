@@ -19,7 +19,9 @@ $(document).ready(function(){
 function d(i) {
 	window.location.href="/admin_admin/delete?id="+i;
 };
-
+function canLogin(i,j) {
+	window.location.href="/admin_admin/canLogin?id="+i+"&value="+j;
+}
 
 // get ('/delete', functio()
 // {

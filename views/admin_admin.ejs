@@ -57,7 +57,7 @@
   			<% }else{ %>
   			<%  icon = "glyphicon-ok"%>
   			<% } %>
-  			<td><button class="btn btn-default" onclick=""><span class="glyphicon <%= icon %>" aria-hidden="true"></span></button></td>
+  			<td><button class="btn btn-default" onclick="canLogin(<%= data[i].id %>,<%= data[i].canLogin %>)"><span class="glyphicon <%= icon %>" aria-hidden="true"></span></button></td>
   			<td><button class="btn btn-default" onclick="d(<%= data[i].id %>)">删除</button></td>
   			</tr>
   		<% } %>

@@ -63,4 +63,28 @@ router.get("/delete",function(req,res,next) {
 
 });
 
+router.get("/canLogin",function(req,res,next) {
+	var ipvt = new Array();
+
+	ipvt.id = req.query.id;
+	ipvt.property = "canLogin";
+	if(req.query.value == 1){
+		ipvt.value = 0;
+	}else{
+		ipvt.value = 1;
+	}
+	
+	ipvt.table = "admin";
+
+	sql.connect();
+	sql.modifyRecordfromTable(ipvt,function(err,results) {
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.redirect("/admin_admin");
+	})
+
+});
+
 module.exports = router;

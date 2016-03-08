@@ -69,9 +69,22 @@ var deleteRecordfromTable = function(pvt,callback){
 	});
 }
 
+var modifyRecordfromTable = function(ipvt,callback){
+	var id = ipvt.id;
+	var property = ipvt.property;
+	var value = ipvt.value;
+	var table = ipvt.table;
+	var sql = "update "+table+" set "+property+"="+value+" where "+"id="+id;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+	 
+}
+
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
 exports.usernameRegConfirm = usernameRegConfirm;
 exports.selectPropertyfromTable = selectPropertyfromTable;
 exports.insertRecordintoTable = insertRecordintoTable; 
 exports.deleteRecordfromTable = deleteRecordfromTable;
+exports.modifyRecordfromTable = modifyRecordfromTable;
