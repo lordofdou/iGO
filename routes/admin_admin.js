@@ -4,7 +4,7 @@ var sql = require('./sql');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var pt = new Array();
-	pt.property = "name,lastLoginTime,canLogin";
+	pt.property = "id,name,lastLoginTime,canLogin";
 	pt.table = "admin";
 	sql.connect();
 	sql.selectPropertyfromTable(pt,function(err,results){
@@ -25,13 +25,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/',function(req,res,next) {
-	console.log("########");
+	// console.log("########");
 	
 	var name = req.body.name;
 	var password = req.body.password;
 	var pvt = new Array();
 	pvt.property = "name,password,canLogin"
-	pvt.value = name+","+password+",0";
+	pvt.value = '"'+name+'"'+","+'"'+password+'"'+",0";
 	pvt.table = "admin";
 
 
@@ -43,6 +43,24 @@ router.post('/',function(req,res,next) {
 		}
 		res.redirect("/admin_admin");
 	});
+});
+
+router.get("/delete",function(req,res,next) {
+	var id = req.query.id;
+	var pvt = new Array();
+	pvt.property = "id"
+	pvt.value = id;
+	pvt.table = "admin";
+
+	sql.connect();
+	sql.deleteRecordfromTable(pvt,function(err,results) {
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.redirect("/admin_admin");
+	})
+
 });
 
 module.exports = router;

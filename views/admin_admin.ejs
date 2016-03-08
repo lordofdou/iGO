@@ -44,7 +44,7 @@
   		</div>
 
   		<!-- Table -->
-  		<table class="table">
+  		<table class="table" id="table">
   		<tr>
   			<td>姓名</td><td>最后登录时间</td><td>权限管理</td><td>人员管理</td>
   		</tr>
@@ -58,7 +58,7 @@
   			<%  icon = "glyphicon-ok"%>
   			<% } %>
   			<td><button class="btn btn-default" onclick=""><span class="glyphicon <%= icon %>" aria-hidden="true"></span></button></td>
-  			<td><button class="btn btn-default" onclick="">删除</button></td>
+  			<td><button class="btn btn-default" onclick="d(<%= data[i].id %>)">删除</button></td>
   			</tr>
   		<% } %>
   		<!-- <tr>
@@ -92,6 +92,7 @@
 		      </div>
 		      <!-- body -->
 		      <div class="modal-body" style="margin: 0 auto;">
+		      <!-- form -->
 		      	<form method="post" action="/admin_admin" id="form">
 		        <div class="input-group " style="width: 250px; margin: 0 auto;">
 				  <span class="input-group-addon" >姓名</span>
