@@ -43,6 +43,19 @@ router.post('/', function(req, res, next) {
 				return;
 			}
 
+			var canLogin = result[0].canLogin;
+			if(canLogin == 0){
+				res.render('fail', {title : "登录失败", message: "您未被授权登录，请联系超级管理员"});
+				return;
+			}
+
+			//更新登陆时间
+			var now = new Date().getTime();
+			var loginInfo = new Array();
+			loginInfo.id = result[0].id;
+			loginInfo.lastLoginTime = now;
+			sql.adminLastLoginTime(loginInfo, function(err, result){});
+
 			//set session
 			req.session.username = result[0].name;
 			req.session.uid = result[0].id;

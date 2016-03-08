@@ -3,6 +3,12 @@ var router = express.Router();
 var sql = require('./sql');
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
+	//没有登录进入不了此界面
+	if(!req.session.username){
+		res.redirect('/');
+	}
+	
 	var pt = new Array();
 	pt.property = "id,name,lastLoginTime,canLogin";
 	pt.table = "admin";
@@ -16,9 +22,23 @@ router.get('/', function(req, res, next) {
 			res.send("empty");
 			return;
 		}
-		// res.send(results[0]);
+
+		var i = 0;
+		for(i=0; i<results.length; i++){
+			var admin = results[i];
+			if(!admin.lastLoginTime){
+				results[i].lastLoginTime = "- - -";
+			}else{
+				results[i].lastLoginTime = new Date(parseInt(admin.lastLoginTime)).toLocaleString();
+			}
+			
+		}
+
+		console.log(results);
+	
+		// res.send(results[0]); 
 		// console.log("########");
-		res.render('admin_admin',{data:results});
+		res.render('admin_admin',{data:results, admin_name : req.session.username});
 		// res.render('admin_admin');
 
 	});

@@ -9,6 +9,7 @@ var DATABASE_NAME = "iGO";
 var TABLE_NAME_ADMIN = "admin";
 
 
+//链接数据库
 var connect = function(){
 	client = mysql.createConnection({
 		user:'root',
@@ -25,6 +26,7 @@ var connect = function(){
 // 	});
 // }
 
+//登录用户名密码验证
 var loginConfirm = function(userinfo, callback){
 	var sql = "SELECT * from " + TABLE_NAME_ADMIN + " where name='" + userinfo.username + "' and password='" + userinfo.password + "'";
 	client.query(sql, function(err, results){
@@ -32,6 +34,17 @@ var loginConfirm = function(userinfo, callback){
 	});
 }
 
+//更新管理员最近登陆时间
+var adminLastLoginTime = function(userInfo, callback){
+	var sql = "UPDATE admin SET lastLoginTime = " + userInfo.lastLoginTime + " where id = " + userInfo.id;
+	console.log(sql);
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+
+}
+
+//用户名验证
 var usernameRegConfirm = function(username, callback){
 	var sql = "SELECT id from " + TABLE_NAME_ADMIN + " where name='" + username + "'";
 	client.query(sql, function(err, results){
@@ -39,6 +52,7 @@ var usernameRegConfirm = function(username, callback){
 	});
 }
 
+//从 指定表中 寻找 指定属性
 var selectPropertyfromTable = function(pt,callback){
 	var property = pt.property;
 	var table = pt.table;
@@ -48,6 +62,7 @@ var selectPropertyfromTable = function(pt,callback){
 	});
 }
 
+//插入一条记录 到指定表中
 var insertRecordintoTable = function(pvt,callback){
 	var property = pvt.property;
 	var value = pvt.value;
@@ -59,6 +74,7 @@ var insertRecordintoTable = function(pvt,callback){
 	});
 }
 
+//从指定表中删除一条记录
 var deleteRecordfromTable = function(pvt,callback){
 	var property = pvt.property;
 	var value = pvt.value;
@@ -69,6 +85,7 @@ var deleteRecordfromTable = function(pvt,callback){
 	});
 }
 
+//从制定表中修改一条记录
 var modifyRecordfromTable = function(ipvt,callback){
 	var id = ipvt.id;
 	var property = ipvt.property;
@@ -88,3 +105,4 @@ exports.selectPropertyfromTable = selectPropertyfromTable;
 exports.insertRecordintoTable = insertRecordintoTable; 
 exports.deleteRecordfromTable = deleteRecordfromTable;
 exports.modifyRecordfromTable = modifyRecordfromTable;
+exports.adminLastLoginTime = adminLastLoginTime;

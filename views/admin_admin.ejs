@@ -9,33 +9,39 @@
 	<script type="text/javascript" src="javascripts/admin_admin.js"></script>
 	<script type="text/javascript" src="javascripts/jquery.md5.js"></script>
 	<title>
-		admin_admin
+		iGo后台－管理员
 	</title>
+
+
 </head>
 <body>
+
+<!-- 导航条 -->
 	<nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container-fluid">
-    	<div class="navbar-header">
-    	  	<a class="navbar-brand" href="#">iGo</a>
-   		</div>
-   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		<ul class="nav navbar-nav">
-			<li><a href="/admin_general">概览</a></li>
-			<li class="active"><a href="#">管理员</a></li>
-			<li><a href="#">用户</a></li>
-			<li><a href="#">商品</a></li>
-			<li><a href="#">订单</a></li>
-			<li><a href="#">帖子</a></li>
-			<li><a href="#">活动</a></li>
-			<li><a href="#">评论</a></li>	
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#">登录名</a></li>
-			<li><a href="#" style="color:#900">注销</a></li>
-		</ul>
-		</div>
-	<div>	
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	    	  	<a class="navbar-brand" href="#">iGo</a>
+	   		</div>
+	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="admin_general">概览</a></li>
+					<li class="active"><a href="admin_admin">管理员</a></li>
+					<li><a href="admin_user">用户</a></li>
+					<li><a href="admin_products">商品</a></li>
+					<li><a href="admin_orders">订单</a></li>
+					<li><a href="admin_status">帖子</a></li>
+					<li><a href="admin_activity">活动</a></li>
+					<li><a href="admin_comments">评论</a></li>	
+				</ul>
+
+				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
+			      </ul>
+			</div>
+		<div>	
 	</nav>
+
 
 	<div id="admin_table" class="panel panel-default">
   		<!-- Default panel contents -->
@@ -49,30 +55,19 @@
   			<td>姓名</td><td>最后登录时间</td><td>权限管理</td><td>人员管理</td>
   		</tr>
   		<% for (var i = 0; i < data.length; i++) {%>
-  			<tr>
-  			<td><%= data[i].name %></td>
-  			<td><%= data[i].lastLoginTime %></td>
-  			<% if(data[i].canLogin) { %>
-  			<%	icon = "glyphicon-remove"; %>
-  			<% }else{ %>
-  			<%  icon = "glyphicon-ok"%>
-  			<% } %>
-  			<td><button class="btn btn-default" onclick="canLogin(<%= data[i].id %>,<%= data[i].canLogin %>)"><span class="glyphicon <%= icon %>" aria-hidden="true"></span></button></td>
-  			<td><button class="btn btn-default" onclick="d(<%= data[i].id %>)">删除</button></td>
+  			<tr <% if(data[i].name == admin_name){%>class="success" <%}else{} %>>
+	  			<td><%= data[i].name %></td>
+	  			<td><%= data[i].lastLoginTime %></td>
+	  			<% if(data[i].canLogin) { %>
+	  			<%	icon = "glyphicon-arrow-down"; %>
+	  			<% }else{ %>
+	  			<%  icon = "glyphicon-arrow-up"%>
+	  			<% } %>
+	  			<td><a onclick="canLogin(<%= data[i].id %>,<%= data[i].canLogin %>)"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
+	  			<td><a onclick="d(<%= data[i].id %>)"><span class="glyphicon glyphicon glyphicon-remove"></span></a></td>
   			</tr>
   		<% } %>
-  		<!-- <tr>
-  			<td>root</td>
-  			<td>－－－</td>
-  			<td><button class="btn btn-default" onclick=""><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></td>
-  			<td><button class="btn btn-default" onclick="">删除</button></td>
-  		</tr>
-  		<tr>
-  			<td>ddd</td>
-  			<td>－－－</td>
-  			<td><button class="btn btn-default" onclick=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-  			<td><button class="btn btn-default" onclick="">删除</button></td>
-  		</tr> -->
+  
   	    </table>  
 
 	</div>
