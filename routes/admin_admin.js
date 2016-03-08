@@ -17,27 +17,31 @@ router.get('/', function(req, res, next) {
 			return;
 		}
 		// res.send(results[0]);
+		// console.log("########");
 		res.render('admin_admin',{data:results});
 		// res.render('admin_admin');
 
 	});
 });
 
-router.post('/admin_admin',function(req,res,next) {
+router.post('/',function(req,res,next) {
+	console.log("########");
 	
-	var name = res.body.name;
-	var password = res.body.password;
+	var name = req.body.name;
+	var password = req.body.password;
 	var pvt = new Array();
 	pvt.property = "name,password,canLogin"
 	pvt.value = name+","+password+",0";
 	pvt.table = "admin";
+
+
 	sql.connect();
 	sql.insertRecordintoTable(pvt,function(err,results) {
 		if(err){
 			res.send(err.message);
 			return;
 		}
-		res.redirect("admin_admin");
+		res.redirect("/admin_admin");
 	});
 });
 

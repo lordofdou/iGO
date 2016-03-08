@@ -6,13 +6,11 @@ $(document).ready(function(){
 		if (comfirm != password) {
 			alert("两次输入的密码不同，请重新输入"+password+comfirm);
 		}else {
-			// var hash = $.md5(password);
+			// var hash = $.md5(password);	
+			$('#form').submit();
 			alert("信息添加成功");
 		}
-
 		
-
-		$('#form').submit;
 	});	
 	
 });
