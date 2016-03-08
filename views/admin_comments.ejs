@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>iGO后台首页</title>
+<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="javascripts/jquery-2.2.1.js"></script>
+<script type="text/javascript" src="javascripts/admin_comments.js"></script>
+
+<style>
+td, th{
+	text-align: center;
+}
+.glyphicon{
+	color:#d54545;
+}
+td a{
+
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- 导航条 -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	    	  	<a class="navbar-brand" href="#">iGo</a>
+	   		</div>
+	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="admin_general">概览</a></li>
+					<li><a href="admin_admin">管理员</a></li>
+					<li><a href="admin_user">用户</a></li>
+					<li><a href="admin_products">商品</a></li>
+					<li><a href="admin_orders">订单</a></li>
+					<li><a href="admin_status">帖子</a></li>
+					<li><a href="admin_activity">活动</a></li>
+					<li class="active"><a href="admin_comments">评论</a></li>	
+				</ul>
+
+				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
+			      </ul>
+			</div>
+		<div>	
+	</nav>
+
+
+<div class="container">
+	<div style="height:100px;"></div>
+
+	<nav style="text-align:center;">
+	  <ul class="pagination head-pagination">
+	    <li class="active" title="one"><a href="#">商品评论</a></li>
+	    <li title="two"><a href="#">帖子评论</a></li>
+	  </ul>
+	</nav>	
+
+
+	<div class="panel panel-default">
+
+	  	<table class="table table-striped">
+	  		<tr><th>ID</th><th>内容</th><th>评论人</th><th>时间</th><th>操作</th></tr>
+	  		<tr><td>1</td><td>2</td><td>3</td><td>sf</td><td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
+		</table>
+
+			
+	</div>
+
+
+	<nav style="text-align:center;">
+	  <ul class="pagination">
+	    <li>
+	      <a href="#" aria-label="Previous">
+	        <span aria-hidden="true">&laquo;</span>
+	      </a>
+	    </li>
+	    <li><a href="#">1</a></li>
+	    <li><a href="#">2</a></li>
+	    <li><a href="#">3</a></li>
+	    <li><a href="#">4</a></li>
+	    <li><a href="#">5</a></li>
+	    <li>
+	      <a href="#" aria-label="Next">
+	        <span aria-hidden="true">&raquo;</span>
+	      </a>
+	    </li>
+	  </ul>
+	</nav>
+	    
+		
+	
+</div>
+
+</body>
+</html>

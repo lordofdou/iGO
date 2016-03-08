@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>iGO后台首页</title>
+<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="javascripts/jquery-2.2.1.js"></script>
+<script type="text/javascript" src="javascripts/admin_activity.js"></script>
+
+<style>
+.square{
+	margin: 20px auto;
+	width:500px;
+	height:400px;
+	border: 0px solid #ccc;
+}
+
+.square div{
+	border: 1px solid #ddd;
+	background: url(images/activity_add.png) no-repeat center center;
+}
+.top1, .bottom1{
+	width: 200px;
+	height: 200px;
+	float: left;
+}
+.top2, .bottom2{
+	width: 100px;
+	height: 200px;
+	float: left;
+}
+.top3, .bottom3{
+	width: 100px;
+	height: 200px;
+	float:left;
+}
+.top4, .bottom4{
+	width:100px;
+	height:200px;
+	float: left;
+}
+
+.two , .three, .four{
+	display: none;
+}
+.square a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+
+</style>
+
+</head>
+<body>
+
+
+<!-- 导航条 -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	    	  	<a class="navbar-brand" href="#">iGo</a>
+	   		</div>
+	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="admin_general">概览</a></li>
+					<li><a href="admin_admin">管理员</a></li>
+					<li><a href="admin_user">用户</a></li>
+					<li><a href="admin_products">商品</a></li>
+					<li><a href="admin_orders">订单</a></li>
+					<li><a href="admin_status">帖子</a></li>
+					<li class="active"><a href="admin_activity">活动</a></li>
+					<li><a href="admin_comments">评论</a></li>	
+				</ul>
+
+				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
+			      </ul>
+			</div>
+		<div>	
+	</nav>
+
+<div class="container">
+	<div style="height:100px;"></div>
+	<nav style="text-align:center;">
+	  <ul class="pagination">
+	    <li class="active" title="one"><a href="#">超实惠</a></li>
+	    <li title="two"><a href="#">特色好货</a></li>
+	    <li title="three" title="one"><a href="#">热门宝贝</a></li>
+	    <li title="four"><a href="#">猜你喜欢</a></li>
+	  </ul>
+	</nav>		
+</div>
+
+
+<div class="square one">
+	
+	<div class="top1"><a href="#"></a></div>
+	<div class="top2"><a href="#"></a></div>
+	<div class="top3"><a href="#"></a></div>
+	<div class="top4"><a href="#"></a></div>
+
+
+	<div class="bottom1"><a href="#"></a></div>
+	<div class="bottom2"><a href="#"></a></div>
+	<div class="bottom3"><a href="#"></a><a href="#"></a></div>
+	<div class="bottom4"><a href="#"></a></div>
+
+</div>
+
+<div class="square two">
+	
+	<div class="top1"><a href="#"></a></div>
+	<div class="top2"><a href="#"></a></div>
+	<div class="top3"><a href="#"></a></div>
+	<div class="top4"><a href="#"></a></div>
+
+
+	<div class="bottom1"><a href="#"></a></div>
+	<div class="bottom2"><a href="#"></a></div>
+	<div class="bottom3"><a href="#"></a><a href="#"></a></div>
+	<div class="bottom4"><a href="#"></a></div>
+
+</div>
+
+
+<div class="square three">
+	
+	<div class="top1"><a href="#"></a></div>
+	<div class="top2"><a href="#"></a></div>
+	<div class="top3"><a href="#"></a></div>
+	<div class="top4"><a href="#"></a></div>
+
+
+	<div class="bottom1"><a href="#"></a></div>
+	<div class="bottom2"><a href="#"></a></div>
+	<div class="bottom3"><a href="#"></a><a href="#"></a></div>
+	<div class="bottom4"><a href="#"></a></div>
+
+</div>
+
+
+<div class="square four">
+	
+	<div class="top1"><a href="#"></a></div>
+	<div class="top2"><a href="#"></a></div>
+	<div class="top3"><a href="#"></a></div>
+	<div class="top4"><a href="#"></a></div>
+
+
+	<div class="bottom1"><a href="#"></a></div>
+	<div class="bottom2"><a href="#"></a></div>
+	<div class="bottom3"><a href="#"></a><a href="#"></a></div>
+	<div class="bottom4"><a href="#"></a></div>
+
+</div>
+
+
+
+
+</body>
+</html>
