@@ -12,6 +12,7 @@ var routes = require('./routes/admin_index');
 var general = require('./routes/admin_general');
 var admin = require('./routes/admin_admin');
 var activity = require('./routes/admin_activity');
+var comments = require('./routes/admin_comments');
 
 var app = express();
 
@@ -44,6 +45,8 @@ app.use('/admin_general', general);
 app.use('/admin_admin', admin);
 
 app.use('/admin_activity', activity);
+
+app.use('/admin_comments', comments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
