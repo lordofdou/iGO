@@ -6,6 +6,8 @@
 	<link rel="stylesheet" type="text/css" href="stylesheets/admin_admin.css">
 	<script type="text/javascript" src="javascripts/jquery-2.2.1.js"></script>
 	<script type="text/javascript" src="stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="javascripts/admin_admin.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.md5.js"></script>
 	<title>
 		admin_admin
 	</title>
@@ -74,9 +76,47 @@
   	    </table>  
 
 	</div>
-	<div style="text-align: center;">
-		<button  id="append"class="btn btn-default" onclick="">添加</button>
+	<div>
+		<div style="text-align: center;">
+		<!-- button -->
+			<button  id="append"class="btn btn-default" data-toggle="modal" data-target="#myModal">添加</button>
+		</div>
+		<!-- model -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="text-align: center;">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content" >
+		    <!-- head -->
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">信息添加</h4>
+		      </div>
+		      <!-- body -->
+		      <div class="modal-body" style="margin: 0 auto;">
+		      	<form method="post" action="" id="form">
+		        <div class="input-group " style="width: 250px; margin: 0 auto;">
+				  <span class="input-group-addon" >姓名</span>
+				  <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" id="name" name="name">
+				</div>
+				<div class="input-group " style="width: 250px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" >密码</span>
+				  <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon2" id="password" name="password">
+				</div>
+				<div class="input-group " style="width: 250px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" >确认</span>
+				  <input type="password" class="form-control" placeholder="Confirm" aria-describedby="sizing-addon3" id="confirm" name="confirm">
+				</div>
+				</form>
+		      </div>	
+		      <!-- footer -->
+		      <div class="modal-footer" style="text-align: center;">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" id="submit" >确认</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	</div>
+
 	
 </body>
 </html>

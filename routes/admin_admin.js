@@ -23,4 +23,22 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.post('/admin_admin',function(req,res,next) {
+	
+	var name = res.body.name;
+	var password = res.body.password;
+	var pvt = new Array();
+	pvt.property = "name,password,canLogin"
+	pvt.value = name+","+password+",0";
+	pvt.table = "admin";
+	sql.connect();
+	sql.insertRecordintoTable(pvt,function(err,results) {
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.redirect("admin_admin");
+	});
+});
+
 module.exports = router;
