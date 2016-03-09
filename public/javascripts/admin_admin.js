@@ -1,17 +1,24 @@
 $(document).ready(function(){
+
 	$('#submit').click(function(){
 		var name = $('#name').val();
 		var password = $('#password').val();
 		var comfirm = $('#confirm').val();
-		if (comfirm != password) {
-			alert("两次输入的密码不同，请重新输入"+password+comfirm);
+		if(name.length == 0 || password.length == 0) {
+			$('#comfirmnote').hide();
+			$('#npnote').show();
+			
+		}
+		else if (comfirm != password) {
+			$('#npnote').hide();
+			$('#comfirmnote').show();
+			
 		}else {
 			var hash = $.md5(password);
 			$('#password').val(hash);
 			$('#form').submit();
 			alert("信息添加成功");
-		}
-		
+		}		
 	});	
 	
 });

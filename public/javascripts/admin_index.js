@@ -10,8 +10,6 @@ $(document).ready(function(){
 		 	$('#note').show();
 		 	return false;
 		 }
-
-
 		 $('#loginForm').submit();
 	});
 });
