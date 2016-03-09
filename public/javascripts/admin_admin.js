@@ -16,10 +16,15 @@ $(document).ready(function(){
 		}else {
 			var hash = $.md5(password);
 			$('#password').val(hash);
-			$('#form').submit();
-			alert("信息添加成功");
+			$('#myModal').modal('hide');
+			$('#submitModal').modal('show');
+			// console.log("#####");
+			setTimeout("$('#form').submit()",2000);
+
+			// alert("信息添加成功");
 		}		
 	});	
+
 	
 });
 
