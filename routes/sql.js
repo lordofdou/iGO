@@ -104,8 +104,20 @@ var modifyRecordfromTable = function(ipvt,callback){
 /**** ****/
 
 
+/**** 商品相关 ****/
+var queryCommodityWithCid = function(cid,callback){
+	var sql = "select * from commodity where cid="+cid;
+	console.log(sql);
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
+/**** ****/
+
 
 /**** 活动相关 ****/
+
 var activitySelectCategoryName = function(callback){
 	var sql = "SELECT id,pop from pop;"
 	client.query(sql, function(err, results){
@@ -133,6 +145,13 @@ var activitySelectAllRecord = function(callback){
 		callback(err, results);
 	});
 }
+
+var activityGetFirstPopId = function(callback){
+	var sql = "SELECT id FROM pop order by id limit 1";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
 /**** ****/
 
 exports.connect = connect;
@@ -146,3 +165,5 @@ exports.adminLastLoginTime = adminLastLoginTime;
 exports.activitySelectCategoryName = activitySelectCategoryName;
 exports.activityInsertARecord = activityInsertARecord;
 exports.activitySelectAllRecord = activitySelectAllRecord;
+exports.activityGetFirstPopId = activityGetFirstPopId;
+exports.queryCommodityWithCid = queryCommodityWithCid;

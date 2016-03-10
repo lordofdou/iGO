@@ -20,6 +20,9 @@ function loginValidate(req, res){
 router.get('/', function(req, res, next) {
 	loginValidate(req, res);
 	sql.connect();
+
+	var indecate = req.query.indecate;
+
 	//读取数据库活动类别名称
 	sql.activitySelectCategoryName(function(err, categorys){
 		if(err){
@@ -33,8 +36,16 @@ router.get('/', function(req, res, next) {
 				res.render('fail', {title : "获取数据失败", message: "活动数据库出现错误"});
 				return;
 			}
-			console.log(results);
-			res.render('admin_activity', {admin_name: req.session.username, admin_activity_category: categorys, admin_activity_pops : results});
+
+			if(!indecate){
+				
+				sql.activityGetFirstPopId(function(err, indecateResults){
+					indecate = indecateResults[0]['id'];
+					res.render('admin_activity', {activity_indecate : indecate, admin_name: req.session.username, admin_activity_category: categorys, admin_activity_pops : results});
+				});
+			}else{
+				res.render('admin_activity', {activity_indecate : indecate, admin_name: req.session.username, admin_activity_category: categorys, admin_activity_pops : results});
+			}
 		});
 	
 	});
@@ -90,7 +101,7 @@ router.post('/uploadPic', function(req, res, next){
 	     		return;	
 	    	}
 
-	   		res.redirect('/admin_activity');
+	   		res.redirect('/admin_activity?indecate=' + popid);
 	    });
 
 
