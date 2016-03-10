@@ -14,6 +14,7 @@ var admin = require('./routes/admin_admin');
 var activity = require('./routes/admin_activity');
 var comments = require('./routes/admin_comments');
 var status = require('./routes/admin_status');
+var products = require('./routes/admin_products');
 
 var app = express();
 
@@ -50,6 +51,8 @@ app.use('/admin_activity', activity);
 app.use('/admin_comments', comments);
 
 app.use('/admin_status', status);
+
+app.use('/admin_products',products);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
