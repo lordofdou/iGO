@@ -27,10 +27,26 @@ router.get('/',function(req,res,next) {
 		// console.log("####");
 		// console.log(array);
 
-		res.render('admin_products',{array:array,admin_name : req.session.username});
+		res.render('admin_products',{array:array,admin_name: req.session.username});
 	});
 
 });
+
+router.get('/query',function(req,res,next) {
+	var cid = req.query.id;
+	console.log(req.query.id);
+	var category = req.query.category;
+	//sql query
+	sql.connect();
+	sql.queryCommodityWithCid(cid,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.render('admin_products_list',{admin_name : req.session.username,title:category,list:results});
+	});
+	
+})
 	
 
 module.exports = router;

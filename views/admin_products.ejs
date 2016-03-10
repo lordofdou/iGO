@@ -63,7 +63,7 @@
 		    				<% flag++ ;%>
 		    			<% }%>
 		    			
-		    			<td><%= record[j].category%></td>
+		    			<td ><a style="text-decoration: none;color: black;" onclick="query('<%= record[j].id %>','<%= record[j].category%>')"><%= record[j].category%></a></td>
 		    			
 		    			<% if(j%6==0) {%>
 		    				</tr>

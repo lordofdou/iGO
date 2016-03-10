@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../stylesheets/admin_admin.css">
+	<link rel="stylesheet" type="text/css" href="../stylesheets/iGo.css">
+	<script type="text/javascript" src="../javascripts/jquery-2.2.1.js"></script>
+	<script type="text/javascript" src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../javascripts/admin_products.js"></script>
+	<script type="text/javascript" src="../javascripts/jquery.md5.js"></script>
+	<title>
+		iGo后台-商品
+	</title>
+	<script type="text/javascript">
+		function onSale(i){
+
+		}
+		function d(i){
+
+		}
+	</script>
+</head>
+<body>
+	<!-- 导航条 -->
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	    	  	<a class="navbar-brand" href="#">iGo</a>
+	   		</div>
+	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="admin_general">概览</a></li>
+					<li><a href="admin_admin">管理员</a></li>
+					<li><a href="admin_user">用户</a></li>
+					<li class="active"><a href="admin_products">商品</a></li>
+					<li><a href="admin_orders">订单</a></li>
+					<li><a href="admin_status">帖子</a></li>
+					<li><a href="admin_activity">活动</a></li>
+					<li><a href="admin_comments">评论</a></li>	
+				</ul>
+
+				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
+			      </ul>
+
+			</div>
+		<div>	
+	</nav>
+	<!-- 商品分类 -->
+	<div id="products" class="panel panel-default" style="margin-top: 100px">
+  		<!-- Default panel contents -->
+  		<div class="panel-heading">
+  			<h1 class="panel-title"><%= title%> </h1>
+  		</div>
+
+  		<table class="table" id="table">
+  		<tr>
+  			<td>名称</td>
+  			<td>产地</td>
+  			<td>厂家</td>
+  			<td>图片</td>
+  			<td>价格</td>
+  			<td>销售量</td>
+  			<td>库存量</td>
+  			<td>收藏数</td>
+  			<td>上架</td>
+  			<td>删除</td>
+  		</tr>
+		<%for(var i=0;i<list.length;i++) {%>
+  			<td><%= list[i].name %></td>
+  			<td><%= list[i].region %></td>
+  			<td><%= list[i].factory %></td>
+  			<td><img src="<%= list[i].pic %>"></td>
+  			<td><%= list[i].price %></td>
+  			<td><%= list[i].sale %></td>
+  			<td><%= list[i].storage %></td>
+  			<td><%= list[i].count %></td>
+  			<% if(list[i].onSale) { %>
+  			<%	icon = "glyphicon-remove"; %>
+  			<% }else{ %>
+  			<%  icon = "glyphicon-ok"; %>
+  			<% } %>
+  			<td><a onclick="onSale(<%= list[i].id %>,<%= list[i].onSale %>)"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
+	  		<td><a onclick="d(<%= list[i].id %>)"><span class="glyphicon glyphicon glyphicon-remove"></span></a></td>
+  		<% } %>
+  		</table>
+  		
+
+  	</div>
+
+</body>
+</html>

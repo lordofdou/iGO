@@ -19,3 +19,8 @@ function drop(i) {
 		$('#'+i).css("display","none");
 	}
 }
+//查询具体分类的商品
+function query(i,j) {
+	window.location.href="/admin_products/query?id="+i+"&category="+j;
+
+}

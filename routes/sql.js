@@ -97,6 +97,15 @@ var modifyRecordfromTable = function(ipvt,callback){
 	});
 	 
 }
+//根据类别号获取commodity中的纪录
+var queryCommodityWithCid = function(cid,callback){
+	var sql = "select * from commodity where cid="+cid;
+	console.log(sql);
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+
+}
 
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
@@ -106,3 +115,4 @@ exports.insertRecordintoTable = insertRecordintoTable;
 exports.deleteRecordfromTable = deleteRecordfromTable;
 exports.modifyRecordfromTable = modifyRecordfromTable;
 exports.adminLastLoginTime = adminLastLoginTime;
+exports.queryCommodityWithCid = queryCommodityWithCid;
