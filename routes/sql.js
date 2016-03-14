@@ -19,13 +19,6 @@ var connect = function(){
 	client.query('USE ' + DATABASE_NAME);
 }
 
-// var insertUserinfo = function(userinfo, callback){
-// 	var sql = "INSERT INTO " + TABLE_NAME + " (name, password) VALUES('" + userinfo.username + "','"+ userinfo.password + "')";
-// 	client.query(sql, function(err, results){
-// 		callback(err, results);
-// 	});
-// }
-
 /**** 管理员相关 ****/
 
 //登录用户名密码验证
@@ -39,7 +32,6 @@ var loginConfirm = function(userinfo, callback){
 //更新管理员最近登陆时间
 var adminLastLoginTime = function(userInfo, callback){
 	var sql = "UPDATE admin SET lastLoginTime = " + userInfo.lastLoginTime + " where id = " + userInfo.id;
-	console.log(sql);
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});
@@ -70,7 +62,6 @@ var insertRecordintoTable = function(pvt,callback){
 	var value = pvt.value;
 	var table = pvt.table;
 	var sql = "insert into "+table+" ( "+property+" ) "+"values"+" ( "+value+" )";
-	console.log(sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -107,7 +98,6 @@ var modifyRecordfromTable = function(ipvt,callback){
 /**** 商品相关 ****/
 var queryCommodityWithCid = function(cid,callback){
 	var sql = "select * from commodity where cid="+cid;
-	console.log(sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -127,13 +117,11 @@ var activitySelectCategoryName = function(callback){
 
 var activityInsertARecord = function(info, callback){
 	//删除原来位置上的图片
-	var sql = "DELETE FROM popular where positon = '" + info.position + "' AND popid = '" + info.popid + "';";
-	console.log(sql);
+	var sql = "DELETE FROM popular where position = '" + info.position + "' AND popid = '" + info.popid + "';";
 	client.query(sql, function(err, results){});
 
 	//添加
-	var sql = "INSERT INTO popular (popid, positon, url, pid, isVisible) values("+ info.popid +"," + info.position + ",'" + info.url + "', " + info.pid + ", " + info.isVisiable + ");"
-	console.log(sql);
+	var sql = "INSERT INTO popular (popid, position, url, pid, isVisible) values("+ info.popid +"," + info.position + ",'" + info.url + "', " + info.pid + ", " + info.isVisiable + ");"
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});
@@ -152,6 +140,13 @@ var activityGetFirstPopId = function(callback){
 		callback(err, results);
 	});
 }
+
+var activitySetPid = function(info, callback){
+	var sql = "UPDATE popular SET pid = " + info.setpid_pid + " WHERE position = "+ info.setpid_position +" and popid = " + info.setpid_popid + ";";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+};
 /**** ****/
 
 exports.connect = connect;
@@ -167,3 +162,4 @@ exports.activityInsertARecord = activityInsertARecord;
 exports.activitySelectAllRecord = activitySelectAllRecord;
 exports.activityGetFirstPopId = activityGetFirstPopId;
 exports.queryCommodityWithCid = queryCommodityWithCid;
+exports.activitySetPid = activitySetPid;

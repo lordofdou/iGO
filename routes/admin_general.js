@@ -79,6 +79,7 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/logout', function(req, res, next){
+
 	req.session.username = '';
 	req.session.uid = '';
 	res.redirect('/');

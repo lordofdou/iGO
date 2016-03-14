@@ -33,19 +33,12 @@ router.get('/', function(req, res, next) {
 			}
 			
 		}
-
-		console.log(results);
 	
-		// res.send(results[0]); 
-		// console.log("########");
 		res.render('admin_admin',{data:results, admin_name : req.session.username});
-		// res.render('admin_admin');
-
 	});
 });
 
 router.post('/',function(req,res,next) {
-	// console.log("########");
 	
 	var name = req.body.name;
 	var password = req.body.password;

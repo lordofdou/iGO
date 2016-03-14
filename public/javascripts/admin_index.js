@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	//自动聚焦用户名input
+	$('#username').focus();
 	$('#loginButton').click(function(){
 
 		//用户名密码验证
@@ -12,4 +14,12 @@ $(document).ready(function(){
 		 }
 		 $('#loginForm').submit();
 	});
+
+	//回车键登录
+	document.onkeydown = function(e){ 
+	    var ev = document.all ? window.event : e;
+	    if(ev.keyCode==13) {
+	           $('#loginButton').click();
+	     }
+	}
 });
