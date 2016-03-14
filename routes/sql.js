@@ -39,7 +39,6 @@ var loginConfirm = function(userinfo, callback){
 //更新管理员最近登陆时间
 var adminLastLoginTime = function(userInfo, callback){
 	var sql = "UPDATE admin SET lastLoginTime = " + userInfo.lastLoginTime + " where id = " + userInfo.id;
-	console.log(sql);
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});
@@ -70,7 +69,6 @@ var insertRecordintoTable = function(pvt,callback){
 	var value = pvt.value;
 	var table = pvt.table;
 	var sql = "insert into "+table+" ( "+property+" ) "+"values"+" ( "+value+" )";
-	console.log(sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -107,7 +105,6 @@ var modifyRecordfromTable = function(ipvt,callback){
 /**** 商品相关 ****/
 var queryCommodityWithCid = function(cid,callback){
 	var sql = "select * from commodity where cid="+cid;
-	console.log(sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -128,12 +125,10 @@ var activitySelectCategoryName = function(callback){
 var activityInsertARecord = function(info, callback){
 	//删除原来位置上的图片
 	var sql = "DELETE FROM popular where position = '" + info.position + "' AND popid = '" + info.popid + "';";
-	console.log(sql);
 	client.query(sql, function(err, results){});
 
 	//添加
 	var sql = "INSERT INTO popular (popid, position, url, pid, isVisible) values("+ info.popid +"," + info.position + ",'" + info.url + "', " + info.pid + ", " + info.isVisiable + ");"
-	console.log(sql);
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});
