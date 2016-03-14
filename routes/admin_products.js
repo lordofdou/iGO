@@ -1,6 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var sql = require('./sql')
+var formidable = require('formidable');
+var fs = require('fs');
+var AVATAR_UPLOAD_FOLDER = '/commodityUpload/';
+var path=require('path');
+var	StringDecoder = require('string_decoder').StringDecoder;
+var	EventEmitter = require('events').EventEmitter;
+var	util=require('util');
+
 router.get('/',function(req,res,next) {
 	var pt = new Array();
 	pt.property = "*";
@@ -99,6 +107,40 @@ router.get("/delete",function(req,res,next) {
 		res.redirect(encodeURI(url));
 	})
 
+});
+
+router.post("/",function(req,res,next){
+	console.log(req);
+	return;
+	// loginValidate(req, res);
+	// EventEmitter.call(this);
+	var pic = req.pic;
+	var description = req.description;
+	var form = new formidable.IncomingForm(); 
+    form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
+ //    //上传产品图片
+    form.parse(req,function(error,fields,files){
+    	if (error) {
+	      res.render('fail', {title : "上传失败", message: err});
+	      return;		
+	    } 
+	    var extName = 'png';  //后缀名
+	    var avatarName;
+	    var picPath = new Array();
+	    console.log(files);
+	    for(var key in files) {
+	    	if(files[key]["size"]!=0){
+	    		avatarName = Math.random() + '.' + extName;
+		    	var newPath= form.path + avatarName;
+		    	fs.renameSync(files[key]["path"], newPath);
+		    	// console.log("-------"+files[key]["name"]);
+		    	picPath.push(newPath);	
+	    	}
+		};	    
+		res.send("success");
+    });
+    
+    //上传描述图片
 });
 
 module.exports = router;
