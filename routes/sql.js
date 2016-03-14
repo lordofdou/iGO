@@ -19,13 +19,6 @@ var connect = function(){
 	client.query('USE ' + DATABASE_NAME);
 }
 
-// var insertUserinfo = function(userinfo, callback){
-// 	var sql = "INSERT INTO " + TABLE_NAME + " (name, password) VALUES('" + userinfo.username + "','"+ userinfo.password + "')";
-// 	client.query(sql, function(err, results){
-// 		callback(err, results);
-// 	});
-// }
-
 /**** 管理员相关 ****/
 
 //登录用户名密码验证

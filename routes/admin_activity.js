@@ -111,6 +111,7 @@ router.post('/uploadPic', function(req, res, next){
 });
 
 router.post('/setPid', function(req, res, next){
+	loginValidate(req, res);
 	var setpid_indecate = req.body.setpid_indecate;
 	var setpid_popid = req.body.setpid_popid;
 	var setpid_position = req.body.setpid_position;

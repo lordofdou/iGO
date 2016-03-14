@@ -9,7 +9,6 @@ router.get('/', function(req, res, next) {
 		return;
 	}
 
-
   	res.render('admin_status', {admin_name: req.session.username});
 });
 

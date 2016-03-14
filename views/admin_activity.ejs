@@ -129,7 +129,6 @@
 					<% var top1 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
 					<% if(admin_activity_pops[j]['position'] == 11 && activity_indecate == admin_activity_pops[j]['popid']){ %>
 					<div class="top1 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="11"/></div>
-					<% console.log(admin_activity_pops); %>
 					<% top1 = 1;break;}} %>
 					<%if(top1 == 0){%>
 					<div class="top1"><input type="file" accept="image/png" name="11"/></div>
