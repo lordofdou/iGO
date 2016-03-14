@@ -13,10 +13,38 @@
 		iGo后台-商品
 	</title>
 	<script type="text/javascript">
-		function onSale(i){
-			window.location.href
+		$(document).ready(function(){
+			$('#submit').click(function(){
+				var name = $('#name').val();
+				var password = $('#password').val();
+				var comfirm = $('#confirm').val();
+				if(name.length == 0 || password.length == 0) {
+					$('#comfirmnote').hide();
+					$('#npnote').show();
+					
+				}
+				else if (comfirm != password) {
+					$('#npnote').hide();
+					$('#comfirmnote').show();
+					
+				}else {
+					var hash = $.md5(password);
+					$('#password').val(hash);
+					$('#myModal').modal('hide');
+					$('#submitModal').modal('show');
+					// console.log("#####");
+					// setTimeout("$('#form').submit()",2000);
+
+					// alert("信息添加成功");
+				}		
+			});	
+		});
+
+		function onSale(i,j,m,n){
+			window.location.href="/admin_products/onSale?id="+i+"&value="+j+"&cid="+m+"&category="+n;
 		}
-		function d(i){
+		function d(i,j,m){
+			window.location.href="/admin_products/delete?id="+i+"&cid="+j+"&category="+m;
 
 		}
 	</script>
@@ -83,13 +111,96 @@
   			<% }else{ %>
   			<%  icon = "glyphicon-ok"; %>
   			<% } %>
-  			<td><a onclick="onSale(<%= list[i].id %>,<%= list[i].onSale %>)"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
-	  		<td><a onclick="d(<%= list[i].id %>)"><span class="glyphicon glyphicon glyphicon-remove"></span></a></td>
+  			<td><a onclick="onSale(<%= list[i].id %>,<%= list[i].onSale %>,<%= list[i].cid%>,'<%= title%>')"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
+	  		<td><a onclick="d(<%= list[i].id %>,<%= list[i].cid%>,'<%= title%>')"><span class="glyphicon glyphicon glyphicon-remove"></span></a></td>
   		<% } %>
   		</table>
-  		
+	  	</div>
+	  	<div>
+  			<div style="text-align: center;">
+		<!-- button -->
+				<button  id="append"class="btn btn-default" data-toggle="modal" data-target="#myModal">添加</button>
+			</div>
+  		</div>
+  		<!-- model -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="text-align: center;">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content" >
+		    <!-- head -->
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">信息添加</h4>
+		      </div>
+		      <!-- body -->
+		      <div class="modal-body" style="margin: 0 auto;">
+		      <!-- form -->
+		      	<form method="post" action="/admin_products" id="form">
+		        <div class="input-group " style="width: 400px; margin: 0 auto;">
+				  <span class="input-group-addon" >名称</span>
+				  <input type="text" class="form-control" placeholder="name" aria-describedby="sizing-addon1" name="name">
+				</div>
+				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" >产地</span>
+				  <input type="text" class="form-control" placeholder="region" aria-describedby="sizing-addon2" name="region">
+				</div>
+				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" ></span>
+				  <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon2" name="">
+				</div>
+				
+				</form>
+				<!-- prompt -->
+				<div class="row" id="npnote" style="display:none; ">
+					<div class="col-md-3"></div>
+					<div class="col-md-6" style="color:red;">用户名或密码不能为空，请确认</div>
+					<div class="col-md-3"></div>
+				</div>
+				<div class="row" id="comfirmnote" style="display:none;">
+					<div class="col-md-3"></div>
+					<div class="col-md-6" style="color:red">两遍输入的密码不同，请确认</div>
+					<div class="col-md-3"></div>
+				</div>
+		      </div>	
+		      <!-- footer -->
+		      <div class="modal-footer" style="text-align: center;">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="button" class="btn btn-primary" id="submit">确认</button>
 
-  	</div>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
+		<!-- submitModal -->
+        <div class="modal fade bs-example-modal-sm" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel" style="text-align: center;">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			    <div class="modal-body" style="margin: 0 auto;height: 300px">
+		    		 <div class="col-md-3"></div>
+					<div class="col-md-6">
+						<div style="height: 50px"></div>
+						<div class="row" >
+							<div class="col-md-3"></div>
+							<div class="col-md-6" style="text-align: center;">
+								<i class=" iGo-accept " ></i>
+							</div>							
+							<div class="col-md-3"></div>
+						</div>
+						<div class="row" style="text-align: center;">
+							<div class="col-md-3"></div>
+							<div class="col-md-6">
+								<div style="font-weight: bold;text-align: center;font-size: 20px;margin-top: 10px">添加成功</div>
+							</div>							
+							<div class="col-md-3"></div>
+						</div>
+						<div style="height: 40px"></div>
+						
+					</div>
+					<div class="col-md-3"></div>
+		    	</div> 
+		    </div>
+		  </div>
+		</div> 
 
 </body>
 </html>

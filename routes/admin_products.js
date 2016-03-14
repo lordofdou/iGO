@@ -47,6 +47,58 @@ router.get('/query',function(req,res,next) {
 	});
 	
 })
-	
+
+router.get("/onSale",function(req,res,next) {
+	var ipvt = new Array();
+
+	ipvt.id = req.query.id;
+	ipvt.property = "onSale";
+	if(req.query.value == 1){
+		ipvt.value = 0;
+	}else{
+		ipvt.value = 1;
+	}
+	console.log(req.query.value+ipvt.value);
+	ipvt.table = "commodity";
+
+	cid = req.query.cid;
+	category = req.query.category;
+
+	sql.connect();
+	sql.modifyRecordfromTable(ipvt,function(err,results) {
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		// res.send("success");
+		console.log(category);
+		var url = "/admin_products/query?id="+cid+"&category="+category;
+		res.redirect(encodeURI(url));
+		// res.redirect("/admin_products/query?id="+cid+"&category="+category);
+	});
+
+})
+
+router.get("/delete",function(req,res,next) {
+	var id = req.query.id;
+	var pvt = new Array();
+	pvt.property = "id"
+	pvt.value = id;
+	pvt.table = "commodity";
+
+	cid = req.query.cid;
+	category = req.query.category;
+
+	sql.connect();
+	sql.deleteRecordfromTable(pvt,function(err,results) {
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		var url = "/admin_products/query?id="+cid+"&category="+category;
+		res.redirect(encodeURI(url));
+	})
+
+});
 
 module.exports = router;
