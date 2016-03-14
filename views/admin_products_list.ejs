@@ -16,20 +16,11 @@
 		$(document).ready(function(){
 			$('#submit').click(function(){
 				var name = $('#name').val();
-				var password = $('#password').val();
-				var comfirm = $('#confirm').val();
-				if(name.length == 0 || password.length == 0) {
-					$('#comfirmnote').hide();
-					$('#npnote').show();
-					
-				}
-				else if (comfirm != password) {
-					$('#npnote').hide();
-					$('#comfirmnote').show();
-					
+				var region = $('#region').val();
+				var factory = $('#factory').val();
+				if(name.length == 0 || region.length == 0||factory.length == 0) {
+					$('#npnote').show();	
 				}else {
-					var hash = $.md5(password);
-					$('#password').val(hash);
 					$('#myModal').modal('hide');
 					$('#submitModal').modal('show');
 					// console.log("#####");
@@ -137,27 +128,44 @@
 		      	<form method="post" action="/admin_products" id="form">
 		        <div class="input-group " style="width: 400px; margin: 0 auto;">
 				  <span class="input-group-addon" >名称</span>
-				  <input type="text" class="form-control" placeholder="name" aria-describedby="sizing-addon1" name="name">
+				  <input type="text" class="form-control" placeholder="name" aria-describedby="sizing-addon1" id="name" name="name">
 				</div>
 				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
 				  <span class="input-group-addon" >产地</span>
-				  <input type="text" class="form-control" placeholder="region" aria-describedby="sizing-addon2" name="region">
+				  <input type="text" class="form-control" placeholder="region" aria-describedby="sizing-addon2" id="region" name="region">
 				</div>
 				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
-				  <span class="input-group-addon" ></span>
-				  <input type="text" class="form-control" placeholder="" aria-describedby="sizing-addon2" name="">
+				  <span class="input-group-addon" >厂家</span>
+				  <input type="text" class="form-control" placeholder="factory" aria-describedby="sizing-addon2" id="factory" name="factory">
 				</div>
+				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" >价格</span>
+				  <input type="text" class="form-control" placeholder="price" aria-describedby="sizing-addon2" name="price">
+				</div>
+				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" >销量</span>
+				  <input type="text" class="form-control" placeholder="sale" aria-describedby="sizing-addon2" name="sale">
+				</div>
+				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" >库存</span>
+				  <input type="text" class="form-control" placeholder="storage" aria-describedby="sizing-addon2" name="storage">
+				</div>
+				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" >收藏</span>
+				  <input type="text" class="form-control" placeholder="count" aria-describedby="sizing-addon2" name="count">
+				</div>
+				<div class="input-group " style="width: 400px; margin: 0 auto; padding-top: 15px;">
+				  <span class="input-group-addon" >上架</span>
+				  <input type="text" class="form-control" placeholder="onSale" aria-describedby="sizing-addon2" name="onSale">
+				</div>
+				<div>图片</div>
+				<div>描述</div>
 				
 				</form>
 				<!-- prompt -->
 				<div class="row" id="npnote" style="display:none; ">
 					<div class="col-md-3"></div>
-					<div class="col-md-6" style="color:red;">用户名或密码不能为空，请确认</div>
-					<div class="col-md-3"></div>
-				</div>
-				<div class="row" id="comfirmnote" style="display:none;">
-					<div class="col-md-3"></div>
-					<div class="col-md-6" style="color:red">两遍输入的密码不同，请确认</div>
+					<div class="col-md-6" style="color:red;">名称／产地／厂家不能为空，请确认</div>
 					<div class="col-md-3"></div>
 				</div>
 		      </div>	
