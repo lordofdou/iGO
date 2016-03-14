@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+	//是否有未添加商品id的图片
+	$.each($('div'), function(n, value){
+		if($(value).hasClass('blur')){
+			$('.alert-danger').show();
+		}
+	});	
 
 	var selectedID = $('#indecate').attr('title');
 
@@ -9,8 +15,6 @@ $(document).ready(function(){
 		
 		if(selectedClass == selectedID){
 			$($('.pagination li')[i]).addClass('active');
-			// $('.square').hide();
-			// $('.' + selectedClass).show();
 		}
 	}
 
@@ -18,7 +22,6 @@ $(document).ready(function(){
 	//顶部segment切换
 	$('.pagination li').click(function(){
 		window.location.href = "/admin_activity?indecate=" + $(this).attr('activity_title');
-
 	});
 
 
@@ -26,4 +29,33 @@ $(document).ready(function(){
 	$('input[type="file"]').change(function(){
 		$("#uploadForm").submit();
 	});
+
+	$('div').click(function(){
+		if($(this).hasClass('blur')){
+
+			var selectedID = $('#indecate').attr('title');
+			var position = $($(this).find("input")[0]).attr('name');
+			$($('input[name="setpid_indecate"]')[0]).val(selectedID);
+			$($('input[name="setpid_popid"]')[0]).val(selectedID);
+			$($('input[name="setpid_position"]')[0]).val(position);
+
+			$('#myModal').modal('show');
+			return false;
+		}
+	});
+
+
+	$('#myModal').on('shown.bs.modal', function () {
+	  $('#myInput').focus();
+	});
+
+	$('#pidSure').click(function(){
+		var val = $($('input[name="setpid_pid"]')[0]).val();
+		if(parseInt(val) && val.length != 0){
+			$('#setpid_form').submit();
+		}else{
+			$('.alert-warning').show();
+		}
+	});
+
 });

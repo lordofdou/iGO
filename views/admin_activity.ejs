@@ -3,6 +3,7 @@
 <title>iGO后台－活动</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript" src="javascripts/jquery-2.2.1.js"></script>
+<script type="text/javascript" src="stylesheets/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="javascripts/admin_activity.js"></script>
 <style>
 .square{
@@ -59,6 +60,17 @@
     cursor:pointer;
 }
 
+.blur {	
+    filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+    
+    -webkit-filter: blur(10px); /* Chrome, Opera */
+       -moz-filter: blur(10px);
+        -ms-filter: blur(10px);    
+            filter: blur(10px);
+    
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+}
+
 
 </style>
 
@@ -95,6 +107,8 @@
 
 <div class="container">
 	<div style="height:100px;"></div>
+	<div class="alert alert-danger text-center" style="display:none;" role="alert">有未添加商品ID的图片，请 &nbsp;点击模糊图片&nbsp;进行添加！</div>
+
 	<nav style="text-align:center;">
 	  <ul class="pagination">
 	  	<% for(var i = 0; i < admin_activity_category.length; i++){%>
@@ -110,65 +124,68 @@
 			<input type="input" style="display:none;" name="popid" value="<%= activity_indecate %>" />
 
 
+					
+
 					<% var top1 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
-					<% if(admin_activity_pops[j]['positon'] == 11 && activity_indecate == admin_activity_pops[j]['popid']){ %>
-					<div class="top1" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="11"/></div>
+					<% if(admin_activity_pops[j]['position'] == 11 && activity_indecate == admin_activity_pops[j]['popid']){ %>
+					<div class="top1 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="11"/></div>
+					<% console.log(admin_activity_pops); %>
 					<% top1 = 1;break;}} %>
 					<%if(top1 == 0){%>
 					<div class="top1"><input type="file" accept="image/png" name="11"/></div>
 					<%}%> 
 
 					<% var top2 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
-					<% if(admin_activity_pops[j]['positon'] == 12 && activity_indecate == admin_activity_pops[j]['popid']){ %>
-					<div class="top2" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="12"/></div>
+					<% if(admin_activity_pops[j]['position'] == 12 && activity_indecate == admin_activity_pops[j]['popid']){ %>
+					<div class="top2 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="12"/></div>
 					<% top2 = 1;break;}} %>
 					<%if(top2 == 0){%>
 					<div class="top2"><input type="file" accept="image/png" name="12"/></div>
 					<%}%>
 
 					<% var top3 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
-					<% if(admin_activity_pops[j]['positon'] == 13 && activity_indecate == admin_activity_pops[j]['popid']){ %>
-					<div class="top3" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="13"/></div>	
+					<% if(admin_activity_pops[j]['position'] == 13 && activity_indecate == admin_activity_pops[j]['popid']){ %>
+					<div class="top3 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="13"/></div>	
 					<% top3 = 1;break;}} %>
 					<%if(top3 == 0){%>
 					<div class="top3"><input type="file" accept="image/png" name="13"/></div>
 					<%}%>
 
 					<% var top4 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
-					<% if(admin_activity_pops[j]['positon'] == 14 && activity_indecate == admin_activity_pops[j]['popid']){ %>
-					<div class="top4" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="14"/></div>
+					<% if(admin_activity_pops[j]['position'] == 14 && activity_indecate == admin_activity_pops[j]['popid']){ %>
+					<div class="top4 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="14"/></div>
 					<% top4 = 1;break;}} %>
 					<%if(top4 == 0){%>
 					<div class="top4"><input type="file" accept="image/png" name="14"/></div>
 					<%}%>
 
 					<% var bottom1 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
-					<% if(admin_activity_pops[j]['positon'] == 21 && activity_indecate == admin_activity_pops[j]['popid']){ %>
-					<div class="bottom1" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="21"/></div>
+					<% if(admin_activity_pops[j]['position'] == 21 && activity_indecate == admin_activity_pops[j]['popid']){ %>
+					<div class="bottom1 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="21"/></div>
 					<% bottom1 = 1;break;}} %>
 					<%if(bottom1 == 0){%>
 					<div class="bottom1"><input type="file" accept="image/png" name="21"/></div>
 					<%}%>
 
 					<% var bottom2 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
-					<% if(admin_activity_pops[j]['positon'] == 22 && activity_indecate == admin_activity_pops[j]['popid']){ %>
-					<div class="bottom2" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="22"/></div>
+					<% if(admin_activity_pops[j]['position'] == 22 && activity_indecate == admin_activity_pops[j]['popid']){ %>
+					<div class="bottom2 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="22"/></div>
 					<% bottom2 = 1;break;}} %>
 					<%if(bottom2 == 0){%>
 					<div class="bottom2"><input type="file" accept="image/png" name="22"/></div>
 					<%}%>
 	
 					<% var bottom3 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
-					<% if(admin_activity_pops[j]['positon'] == 23 && activity_indecate == admin_activity_pops[j]['popid']){ %>
-					<div class="bottom3" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="23"/></div>
+					<% if(admin_activity_pops[j]['position'] == 23 && activity_indecate == admin_activity_pops[j]['popid']){ %>
+					<div class="bottom3 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="23"/></div>
 					<% bottom3 = 1;break;}} %>
 					<%if(bottom3 == 0){%>
 					<div class="bottom3"><input type="file" accept="image/png" name="23"/></div>
 					<%}%>
 
 					<% var bottom4 = 0;for(var j = 0; j < admin_activity_pops.length; j++){ %>
-					<% if(admin_activity_pops[j]['positon'] == 24 && activity_indecate == admin_activity_pops[j]['popid']){ %>
-					<div class="bottom4" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="24"/></div>
+					<% if(admin_activity_pops[j]['position'] == 24 && activity_indecate == admin_activity_pops[j]['popid']){ %>
+					<div class="bottom4 <% if(admin_activity_pops[j]['pid'] == 0){ %>blur<%}%>" style="background-size:100%;background-image:url(<%= admin_activity_pops[j]['url'] %>)"><input type="file" accept="image/png" name="24"/></div>
 					<% bottom4 = 1;break;}} %>
 					<%if(bottom4 == 0){%>
 					<div class="bottom4"><input type="file" accept="image/png" name="24"/></div>
@@ -176,14 +193,34 @@
 							
 			
 
-			
-			
-			
-			
-
 		</div>
 	</form>
 
+
+<!-- 输入商品ID模态框 -->
+<div class="modal fade" id="myModal">
+<form id="setpid_form" method="post" action="/admin_activity/setPid">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">输入商品ID</h4>
+      </div> 
+      <div class="modal-body">
+      	<div class="alert alert-warning" style="display:none;" role="alert">请输入正确的商品ID</div>
+      	<input type="text" style="display:none" name="setpid_indecate" />
+      	<input type="text" style="display:none" name="setpid_popid" />
+      	<input type="text" style="display:none" name="setpid_position" />
+        <input type="text" class="form-control" name="setpid_pid" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="pidSure">确认</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</from>
+</div><!-- /.modal -->
 
 
 

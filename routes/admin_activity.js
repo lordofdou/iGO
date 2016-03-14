@@ -108,7 +108,28 @@ router.post('/uploadPic', function(req, res, next){
     });
 
 	return;
+});
 
+router.post('/setPid', function(req, res, next){
+	var setpid_indecate = req.body.setpid_indecate;
+	var setpid_popid = req.body.setpid_popid;
+	var setpid_position = req.body.setpid_position;
+	var setpid_pid = req.body.setpid_pid;
+
+	var info = new Array();
+	info.setpid_pid = setpid_pid;
+	info.setpid_position = setpid_position;
+	info.setpid_popid = setpid_popid;
+
+	sql.activitySetPid(info, function(err, result){
+		if(err){
+			res.render('fail', {title : "设置pid失败", message: "活动数据库出错"});
+	     	return;	
+		}
+		res.redirect('/admin_activity?indecate=' + setpid_indecate);
+	});
+	
+	
 });
 
 module.exports = router;

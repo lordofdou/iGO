@@ -127,12 +127,12 @@ var activitySelectCategoryName = function(callback){
 
 var activityInsertARecord = function(info, callback){
 	//删除原来位置上的图片
-	var sql = "DELETE FROM popular where positon = '" + info.position + "' AND popid = '" + info.popid + "';";
+	var sql = "DELETE FROM popular where position = '" + info.position + "' AND popid = '" + info.popid + "';";
 	console.log(sql);
 	client.query(sql, function(err, results){});
 
 	//添加
-	var sql = "INSERT INTO popular (popid, positon, url, pid, isVisible) values("+ info.popid +"," + info.position + ",'" + info.url + "', " + info.pid + ", " + info.isVisiable + ");"
+	var sql = "INSERT INTO popular (popid, position, url, pid, isVisible) values("+ info.popid +"," + info.position + ",'" + info.url + "', " + info.pid + ", " + info.isVisiable + ");"
 	console.log(sql);
 	client.query(sql, function(err, results){
 		callback(err, results);
@@ -152,6 +152,13 @@ var activityGetFirstPopId = function(callback){
 		callback(err, results);
 	});
 }
+
+var activitySetPid = function(info, callback){
+	var sql = "UPDATE popular SET pid = " + info.setpid_pid + " WHERE position = "+ info.setpid_position +" and popid = " + info.setpid_popid + ";";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+};
 /**** ****/
 
 exports.connect = connect;
@@ -167,3 +174,4 @@ exports.activityInsertARecord = activityInsertARecord;
 exports.activitySelectAllRecord = activitySelectAllRecord;
 exports.activityGetFirstPopId = activityGetFirstPopId;
 exports.queryCommodityWithCid = queryCommodityWithCid;
+exports.activitySetPid = activitySetPid;
