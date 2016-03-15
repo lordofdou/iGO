@@ -18,6 +18,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 
+			// 监控input的输入
 			var desNum = 1;
 			var lastNum = desNum;
 
@@ -39,7 +40,7 @@
 		  		$(this).parent().after(desDom);
 		  	});
 
-
+		  	// 获取文件url
 		  	function getObjectURL(file) {
 		        var url = null;
 		        if (window.createObjectURL != undefined) {
@@ -90,14 +91,7 @@
 			// console.log(ul);
 			$('#'+ul).show();
 		}
-
-		function onSale(i,j,m,n){
-			window.location.href="/admin_products/onSale?id="+i+"&value="+j+"&cid="+m+"&category="+n;
-		}
-		function d(i,j,m){
-			window.location.href="/admin_products/delete?id="+i+"&cid="+j+"&category="+m;
-
-		}
+	// 样式
 	</script>
 	<style type="text/css">
 		input[type='file']{
@@ -112,7 +106,6 @@
 		    cursor:pointer;
 		    
 		}
-
 	</style>
 </head>
 <body>
@@ -143,204 +136,183 @@
 			</div>
 		<div>	
 	</nav>
-	
-  		<!-- model -->
-		<!-- <div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="text-align: center;margin-top: 100px">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content" > -->
-		    <!-- head -->
-		     <!--  <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">信息添加</h4>
-		      </div> -->
-		      <!-- body -->
-		      <!-- <div class="modal-body" style="margin: 0 auto;"> -->
-		      <!-- form -->
-		      	<form method="post" action="/admin_products" id="form"  enctype="multipart/form-data" style="margin-top: 100px">
-		      		<div class="row">
-		      			<div class="col-md-3"></div>
-		      			<div class="col-md-6">
-					        <div class="input-group">
-							  <span class="input-group-addon" >名称</span>
-							  <input type="text" class="form-control" placeholder="name" id="name" name="name">
-							</div>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-
-					<div class="row" style="margin-top: 15px">
-		      			<div class="col-md-3"></div>
-		      			<div class="col-md-6">
-					        <div class="input-group " >
-							  <span class="input-group-addon" >产地</span>
-							  <input type="text" class="form-control" placeholder="region" id="region" name="region">
-							</div>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-					
-					<div class="row" style="margin-top: 15px">
-		      			<div class="col-md-3"></div>
-		      			<div class="col-md-6">
-					        <div class="input-group " >
-							  <span class="input-group-addon" >厂家</span>
-							  <input type="text" class="form-control" placeholder="factory" id="factory" name="factory">
-							</div>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-
-					<div class="row" style="margin-top: 15px">
-						<div class="col-md-3"></div>
-						<div class="col-md-3">
-							<div class="input-group">
-							  <span class="input-group-addon" >价格</span>
-							  <input type="text" class="form-control" placeholder="price"  name="price">
-							</div>
-						</div>
-							
-						<div class="col-md-3">
-							<div class="input-group">
-							  <span class="input-group-addon" >销量</span>
-							  <input type="text" class="form-control" placeholder="sale"  name="sale">
-							</div>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-
-					<div class="row" style="margin-top: 15px">
-						<div class="col-md-3"></div>
-						<div class="col-md-3">
-							<div class="input-group " >
-							  <span class="input-group-addon" >库存</span>
-							  <input type="text" class="form-control" placeholder="storage"  name="storage">
-							</div>
-						</div>
-							
-						<div class="col-md-3">
-							<div class="input-group " >
-							  <span class="input-group-addon" >收藏</span>
-							  <input type="text" class="form-control" placeholder="count"  name="count">
-							</div>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-
-					<div class="row" style="margin-top: 15px">
-						<div class="col-md-3"></div>
-						<div class="col-md-3">
-							<div class="input-group " >
-							  <span class="input-group-addon" >类别</span>
-							  <input type="text" class="form-control" placeholder="category"   name="category">
-							</div>
-						</div>
-							
-						<div class="col-md-3">
-							<div class="input-group " >
-							  <span class="input-group-addon" >上架</span>
-							  <input type="text" class="form-control" placeholder="onSale"  name="onSale">
-							</div>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-					
-					<div class="row" style="margin-top: 15px;">
-						<div class="col-md-3"></div>
-						<div class="col-md-6">	
-							<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
-								图片
-							</div>
-							<div>
-								<ul id="picul" style="border:1px solid #cccccc;list-style-type: none;display: none">
-									<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
-										<input type="file" id="p1" name="p1" ></input>	
-									</li>	
-								</ul>
-							</div>	  
-							<div style="text-align: right;border: 1px solid #cccccc;height: 42px;">
-								<button type="button" class="btn btn-default" style="margin-top:4px ;font-size: 10px" onclick="save('picul')">保存</button>
-								<button type="button" class="btn btn-default" style="margin-top:4px;margin-right: 7px;font-size: 10px "onclick="modify('picul')">选取</button>
-							</div>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-					
-
-					<div class="row" style="margin-top: 15px">
-						<div class="col-md-3"></div>
-						<div class="col-md-6">	
-							<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
-								描述
-							</div>
-							<div>
-								<ul id="descul" style="border:1px solid #cccccc;list-style-type: none;display: none">
-									<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
-										<input type="file" id="d1" name="d1" ></input>	
-									</li>	
-								</ul>
-							</div>	  
-							<div style="text-align: right;border: 1px solid #cccccc;height: 42px;">
-								<button type="button" class="btn btn-default" style="margin-top:4px;font-size: 10px " onclick="save('descul')">保存</button>
-								<button type="button" class="btn btn-default" style="margin-top:4px;margin-right: 7px;font-size: 10px "onclick="modify('descul')">选取</button>
-							</div>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-				</form>
-				<div class="row" style="margin-top: 15px">
-					<div class="col-md-3"></div>
-					<div class="col-md-6" style="text-align: right;">
-						<button type="button" class="btn btn-primary" id="submit">确认</button>
-					</div>
-					<div class="col-md-3"></div>
+	<!-- 表单 -->
+  	<form method="post" action="/admin_products" id="form"  enctype="multipart/form-data" style="margin-top: 100px">
+  		<div class="row">
+  			<div class="col-md-3"></div>
+  			<div class="col-md-6">
+		        <div class="input-group">
+				  <span class="input-group-addon" >名称</span>
+				  <input type="text" class="form-control" placeholder="name" id="name" name="name">
 				</div>
-				<!-- prompt -->
-				<!-- <div class="row" id="npnote" style="display:none; ">
-					<div class="col-md-3"></div>
-					<div class="col-md-6" style="color:red;">名称／产地／厂家不能为空，请确认</div>
-					<div class="col-md-3"></div>
-				</div> -->
-		      <!-- </div>	 -->
-		      <!-- footer -->
-<!-- 		      <div class="modal-footer" style="text-align: center;">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-		        <button type="button" class="btn btn-primary" id="submit">确认</button>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
 
-		      </div>
- -->
-	<!-- 	    </div>
-		  </div>
-		</div> -->
+		<div class="row" style="margin-top: 15px">
+  			<div class="col-md-3"></div>
+  			<div class="col-md-6">
+		        <div class="input-group " >
+				  <span class="input-group-addon" >产地</span>
+				  <input type="text" class="form-control" placeholder="region" id="region" name="region">
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		
+		<div class="row" style="margin-top: 15px">
+  			<div class="col-md-3"></div>
+  			<div class="col-md-6">
+		        <div class="input-group " >
+				  <span class="input-group-addon" >厂家</span>
+				  <input type="text" class="form-control" placeholder="factory" id="factory" name="factory">
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+
+		<div class="row" style="margin-top: 15px">
+			<div class="col-md-3"></div>
+			<div class="col-md-3">
+				<div class="input-group">
+				  <span class="input-group-addon" >价格</span>
+				  <input type="text" class="form-control" placeholder="price"  name="price">
+				</div>
+			</div>
+				
+			<div class="col-md-3">
+				<div class="input-group">
+				  <span class="input-group-addon" >销量</span>
+				  <input type="text" class="form-control" placeholder="sale"  name="sale">
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+
+		<div class="row" style="margin-top: 15px">
+			<div class="col-md-3"></div>
+			<div class="col-md-3">
+				<div class="input-group " >
+				  <span class="input-group-addon" >库存</span>
+				  <input type="text" class="form-control" placeholder="storage"  name="storage">
+				</div>
+			</div>
+				
+			<div class="col-md-3">
+				<div class="input-group " >
+				  <span class="input-group-addon" >收藏</span>
+				  <input type="text" class="form-control" placeholder="count"  name="count">
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+
+		<div class="row" style="margin-top: 15px">
+			<div class="col-md-3"></div>
+			<div class="col-md-3">
+				<div class="input-group " >
+				  <span class="input-group-addon" >类别</span>
+				  <input type="text" class="form-control" placeholder="category"   name="category">
+				</div>
+			</div>
+				
+			<div class="col-md-3">
+				<div class="input-group " >
+				  <span class="input-group-addon" >上架</span>
+				  <input type="text" class="form-control" placeholder="onSale"  name="onSale">
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		
+		<div class="row" style="margin-top: 15px;">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">	
+				<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
+					图片
+				</div>
+				<div>
+					<ul id="picul" style="border:1px solid #cccccc;list-style-type: none;display: none">
+						<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
+							<input type="file" id="p1" name="p1" ></input>	
+						</li>	
+					</ul>
+				</div>	  
+				<div style="text-align: right;border: 1px solid #cccccc;height: 42px;">
+					<button type="button" class="btn btn-default" style="margin-top:4px ;font-size: 10px" onclick="save('picul')">保存</button>
+					<button type="button" class="btn btn-default" style="margin-top:4px;margin-right: 7px;font-size: 10px "onclick="modify('picul')">选取</button>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		
+
+		<div class="row" style="margin-top: 15px">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">	
+				<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
+					描述
+				</div>
+				<div>
+					<ul id="descul" style="border:1px solid #cccccc;list-style-type: none;display: none">
+						<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
+							<input type="file" id="d1" name="d1" ></input>	
+						</li>	
+					</ul>
+				</div>	  
+				<div style="text-align: right;border: 1px solid #cccccc;height: 42px;">
+					<button type="button" class="btn btn-default" style="margin-top:4px;font-size: 10px " onclick="save('descul')">保存</button>
+					<button type="button" class="btn btn-default" style="margin-top:4px;margin-right: 7px;font-size: 10px "onclick="modify('descul')">选取</button>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</form>
+	<!-- 提交按钮 -->
+	<div class="row" style="margin-top: 15px">
+		<div class="col-md-3"></div>
+		<div class="col-md-6" style="text-align: right;">
+			<button type="button" class="btn btn-primary" id="submit">确认</button>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	<!-- prompt -->
+	<!-- <div class="row" id="npnote" style="display:none; ">
+		<div class="col-md-3"></div>
+		<div class="col-md-6" style="color:red;">名称／产地／厂家不能为空，请确认</div>
+		<div class="col-md-3"></div>
+	</div> -->
+
 		<!-- submitModal -->
-        <div class="modal  bs-example-modal-sm" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel" style="text-align: center;">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-			    <div class="modal-body" style="margin: 0 auto;height: 300px">
-		    		 <div class="col-md-3"></div>
-					<div class="col-md-6">
-						<div style="height: 50px"></div>
-						<div class="row" >
-							<div class="col-md-3"></div>
-							<div class="col-md-6" style="text-align: center;">
-								<i class=" iGo-accept " ></i>
-							</div>							
-							<div class="col-md-3"></div>
-						</div>
-						<div class="row" style="text-align: center;">
-							<div class="col-md-3"></div>
-							<div class="col-md-6">
-								<div style="font-weight: bold;text-align: center;font-size: 20px;margin-top: 10px">添加成功</div>
-							</div>							
-							<div class="col-md-3"></div>
-						</div>
-						<div style="height: 40px"></div>
-						
+    <div class="modal  bs-example-modal-sm" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel" style="text-align: center;">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+		    <div class="modal-body" style="margin: 0 auto;height: 300px">
+	    		 <div class="col-md-3"></div>
+				<div class="col-md-6">
+					<div style="height: 50px"></div>
+					<div class="row" >
+						<div class="col-md-3"></div>
+						<div class="col-md-6" style="text-align: center;">
+							<i class=" iGo-accept " ></i>
+						</div>							
+						<div class="col-md-3"></div>
 					</div>
-					<div class="col-md-3"></div>
-		    	</div> 
-		    </div>
-		  </div>
-		</div> 
+					<div class="row" style="text-align: center;">
+						<div class="col-md-3"></div>
+						<div class="col-md-6">
+							<div style="font-weight: bold;text-align: center;font-size: 20px;margin-top: 10px">添加成功</div>
+						</div>							
+						<div class="col-md-3"></div>
+					</div>
+					<div style="height: 40px"></div>
+					
+				</div>
+				<div class="col-md-3"></div>
+	    	</div> 
+	    </div>
+	  </div>
+	</div> 
 
 </body>
 </html>
