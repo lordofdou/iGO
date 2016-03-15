@@ -36,14 +36,14 @@
 	   		</div>
 	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="admin_general">概览</a></li>
-					<li><a href="admin_admin">管理员</a></li>
-					<li><a href="admin_user">用户</a></li>
-					<li class="active"><a href="admin_products">商品</a></li>
-					<li><a href="admin_orders">订单</a></li>
-					<li><a href="admin_status">帖子</a></li>
-					<li><a href="admin_activity">活动</a></li>
-					<li><a href="admin_comments">评论</a></li>	
+					<li><a href="/admin_general">概览</a></li>
+					<li><a href="/admin_admin">管理员</a></li>
+					<li><a href="/admin_user">用户</a></li>
+					<li class="active"><a href="/admin_products">商品</a></li>
+					<li><a href="/admin_orders">订单</a></li>
+					<li><a href="/admin_status">帖子</a></li>
+					<li><a href="/admin_activity">活动</a></li>
+					<li><a href="/admin_comments">评论</a></li>	
 				</ul>
 
 				 <ul class="nav navbar-nav navbar-right">
@@ -64,9 +64,9 @@
   		<table class="table" id="table">
   		<tr>
   			<td>名称</td>
-  			<td>产地</td>
+  			<!-- <td>产地</td>
   			<td>厂家</td>
-  			<td>图片</td>
+  			<td>图片</td> -->
   			<td>价格</td>
   			<td>销售量</td>
   			<td>库存量</td>
@@ -76,9 +76,9 @@
   		</tr>
 		<%for(var i=0;i<list.length;i++) {%>
   			<td><%= list[i].name %></td>
-  			<td><%= list[i].region %></td>
+  			<!-- <td><%= list[i].region %></td>
   			<td><%= list[i].factory %></td>
-  			<td><img src="<%= list[i].pic %>"></td>
+  			<td><img src="<%= list[i].pic %>"></td> -->
   			<td><%= list[i].price %></td>
   			<td><%= list[i].sale %></td>
   			<td><%= list[i].storage %></td>
