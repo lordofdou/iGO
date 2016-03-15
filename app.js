@@ -18,6 +18,7 @@ var products = require('./routes/admin_products');
 
 var app = express();
 
+
 //session
 app.use(session({
   secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串

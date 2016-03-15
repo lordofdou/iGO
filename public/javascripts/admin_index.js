@@ -9,7 +9,7 @@ $(document).ready(function(){
 		var password = $('#password').val();
 
 		 if(username.length == 0 || password.length == 0){
-		 	$('#note').show();
+		 	$('.alert-danger').show();
 		 	return false;
 		 }
 		 $('#loginForm').submit();

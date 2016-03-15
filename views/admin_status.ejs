@@ -6,15 +6,13 @@
 <script type="text/javascript" src="javascripts/admin_status.js"></script>
 
 <style>
+table{
+	table-layout:fixed ; 
+}
 td, th{
 	text-align: center;
 }
-.glyphicon{
-	color:#d54545;
-}
-td a{
 
-}
 </style>
 
 </head>
@@ -53,7 +51,7 @@ td a{
 
 	<div class="topButtons text-right">
 		<div class="btn-group" role="group">
-			<button type="button" class="btn btn-danger">全部删除</button>
+			<a type="button" class="btn btn-danger" href="/admin_status/deleteAll">全部删除</a>
 			<a type="button" class="btn btn-success" href="/admin_status/add">添加</a>
 		</div>
 	</div>
@@ -66,31 +64,46 @@ td a{
 
 	  	<table class="table table-striped">
 	  		<tr><th>ID</th><th>标题</th><th>发表人</th><th>时间</th><th>操作</th></tr>
-	  		<tr><td>1</td><td>2</td><td>3</td><td>sf</td><td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
+	  		<% for(var i = 0; i<status.length; i++){ %>
+	  		<tr>
+	  			<td><%= status[i]["id"]%></td>
+	  			<td title="<%= status[i]["title"] %>" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><%= status[i]["title"] %></td>
+	  			<td><%= status[i]["username"]%></td>
+	  			<td><%= status[i]["time"]%></td>
+	  			<td>
+	  				<a href="/admin_status/modify?id=<%= status[i]['id']%>" style="color:blue;" title="编辑"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;
+	  				<a class="deleteA" href="#" style="color:red;" title="删除" deleteID="<%= status[i]["id"]%>"><span class="glyphicon glyphicon-remove"></span></a>
+	  			</td>
+	  		</tr>
+	  		<%}%>
+	  		<% if(status.length == 0){ %>
+	  		<tr><td colspan="5"><a style="display:block;" href="/admin_status/add"><img src="/images/activity_add.png" /></a></td></tr>
+	  		<%}%>
 		</table>
 
 		
 	</div>
 
+	<p style="display:none;" id="curP"><%= currentPage%></p>
+	<% if(pagesNum != 0){ %>
 	<nav style="text-align:center;">
 	  <ul class="pagination">
-	    <li>
+	    <li class="back">
 	      <a href="#" aria-label="Previous">
 	        <span aria-hidden="true">&laquo;</span>
 	      </a>
 	    </li>
-	    <li><a href="#">1</a></li>
-	    <li><a href="#">2</a></li>
-	    <li><a href="#">3</a></li>
-	    <li><a href="#">4</a></li>
-	    <li><a href="#">5</a></li>
-	    <li>
+	    <% for(var i = 0; i < pagesNum; i++){%>
+	    <li <% if(i+1 == currentPage){ %>class="active"<%}%>><a href="#"><%= i+1 %></a></li>
+	    <%}%>
+	    <li class="forward">
 	      <a href="#" aria-label="Next">
 	        <span aria-hidden="true">&raquo;</span>
 	      </a>
 	    </li>
 	  </ul>
 	</nav>
+	<%}%>
 	    
 		
 	

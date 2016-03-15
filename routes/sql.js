@@ -21,6 +21,22 @@ var connect = function(){
 
 /**** 管理员相关 ****/
 
+//查询管理员id 和 name
+var adminSelectUsers = function(callback){
+	var sql = "SELECT id,name FROM admin;";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+//根据管理员id返回名称
+var adminUsernameByID = function(uid, callback){
+	var sql = "SELECT name FROM admin where id = " + uid;
+	client.query(sql, function(err, results){
+		callback(results[0]['name']);
+	});
+};
+
 //登录用户名密码验证
 var loginConfirm = function(userinfo, callback){
 	var sql = "SELECT * from " + TABLE_NAME_ADMIN + " where name='" + userinfo.username + "' and password='" + userinfo.password + "'";
@@ -151,9 +167,56 @@ var activitySetPid = function(info, callback){
 
 
 /**** 帖子相关 ****/
+//查询一个帖子信息
+var statusSelectARecord = function(id, callback){
+	var sql = "SELECT * FROM community WHERE id="+id;
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+//帖子数量
+var statusAllNumber = function(callback){
+	var sql = "SELECT COUNT(*) as count FROM community;"
+	client.query(sql, function(err, results){
+		callback(results[0]['count']);
+	});
+}
+//添加一条帖子
 var statusInsertARecord = function(info, callback){
 	var sql = "INSERT INTO community (pid, uid, time, count, description, title, pic, description_title) VALUES ("+ info.pid +", " + info.uid + ", " + info.time + ", " + info.count + ", '" + info.description + "', '" + info.title + "', '" + info.pic + "', '" + info.description_title + "');";
-	console.log(sql);
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+//修改帖子
+var statusModifyARecord = function(info, callback){
+	var sql = "UPDATE community SET pid="+info.pid+",uid="+info.uid+",time='"+info.time+"',count="+info.count+",description='"+info.description+"',title='"+info.title+"',pic='"+info.pic+"',description_title='"+info.description_title+"' WHERE id=" + info.id;
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+//数据库分页查找帖子
+var statusSelectAllRecord = function(count, callback){
+	var start = count.start ? count.start : 0;
+	var num = count.num ? count.num : 0;
+	var sql = "SELECT * FROM community ORDER BY time desc limit "+start+","+num+";";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+//删除帖子
+var statusDeleteAStatu = function(id, callback){
+	var sql = "DELETE FROM community WHERE id=" + id;
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+//删除全部帖子
+var statusDelstaAllStatus = function(callback){
+	var sql = "truncate table community";
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});
@@ -162,6 +225,8 @@ var statusInsertARecord = function(info, callback){
 /**** ****/
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
+exports.adminSelectUsers = adminSelectUsers;
+exports.adminUsernameByID = adminUsernameByID;
 exports.usernameRegConfirm = usernameRegConfirm;
 exports.selectPropertyfromTable = selectPropertyfromTable;
 exports.insertRecordintoTable = insertRecordintoTable; 
@@ -175,3 +240,9 @@ exports.activityGetFirstPopId = activityGetFirstPopId;
 exports.queryCommodityWithCid = queryCommodityWithCid;
 exports.activitySetPid = activitySetPid;
 exports.statusInsertARecord = statusInsertARecord;
+exports.statusSelectAllRecord = statusSelectAllRecord;
+exports.statusAllNumber = statusAllNumber;
+exports.statusDeleteAStatu = statusDeleteAStatu;
+exports.statusDelstaAllStatus = statusDelstaAllStatus;
+exports.statusSelectARecord = statusSelectARecord;
+exports.statusModifyARecord = statusModifyARecord;
