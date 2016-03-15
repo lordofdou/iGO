@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>iGO后台－帖子</title>
+<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="/javascripts/jquery-2.2.1.js"></script>
+<script type="text/javascript" src="/javascripts/admin_status_add.js"></script>
+
+<style>
+td, th{
+	text-align: center;
+}
+.glyphicon{
+	color:#d54545;
+}
+.uploadArea{
+	margin: 0 auto;
+}
+.uploadArea tr{
+	height:100px;
+	
+}
+.uploadArea tr td{
+	border: 1px solid #ccc;
+	width:100px;
+}
+
+table{
+	
+}
+
+table tr td{
+	position: relative;
+	background: url(/images/activity_add.png) no-repeat center center;
+}
+
+input[type='file']{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+    position:absolute;
+    right:0;
+    top:0;
+    opacity: 0;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- 导航条 -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	    	  	<a class="navbar-brand" href="#">iGo</a>
+	   		</div>
+	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="/admin_general">概览</a></li>
+					<li><a href="/admin_admin">管理员</a></li>
+					<li><a href="/admin_user">用户</a></li>
+					<li><a href="/admin_products">商品</a></li>
+					<li><a href="/admin_orders">订单</a></li>
+					<li class="active"><a href="/admin_status">帖子</a></li>
+					<li><a href="/admin_activity">活动</a></li>
+					<li><a href="/admin_comments">评论</a></li>	
+				</ul>
+
+				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
+			      </ul>
+			</div>
+		<div>	
+	</nav>
+
+
+<div class="container">
+	<div style="height:100px;"></div>
+
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="topButtons">
+				<a href="javascript:history.go(-1);" class="btn btn-default">返回</a>
+				<div class="text-right" style="float:right">
+				<div class="btn-group" role="group">
+					<a type="button" class="btn btn-danger" href="#" id="clearBtn">清空</a>
+					<a type="button" class="btn btn-success" href="#" id="saveBtn">保存</a>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+	<br /> <br />
+
+<form method="post" action="add" class="form-horizontal" id="addForm" enctype="multipart/form-data">
+
+	<!-- 上传图片 -->
+	<br />
+	<br />
+	<table class="uploadArea">
+	  		<tr>
+	  			<td><input type="file" name="pic1" /></td>
+	  			<td><input type="file" name="pic2" /></td>
+	  			<td><input type="file" name="pic3" /></td>
+	  		</tr>
+  	</table>
+
+  	<br />
+  	<br />
+  	<div class="alert alert-danger text-center" style="width:400px;margin:0 auto;display:none;" role="alert"></div>
+  	<br />
+  	<br />
+	<!-- pid -->
+	<div class="form-group">
+	    <label for="input_pid" class="col-sm-2 control-label">商品ID</label>
+	    <div class="col-sm-10">
+	      <input name="pid" type="text" style="width:200px;" class="form-control" id="input_pid" placeholder="PID">
+	    </div>
+  	</div>
+
+  	<!-- title -->
+  	<div class="form-group">
+	    <label for="input_title" class="col-sm-2 control-label">标题</label>
+	    <div class="col-sm-10">
+	      <input name="title" type="text" style="width:600px;" class="form-control" id="input_title" placeholder="Title">
+
+	    </div>
+  	</div>
+
+  	<!-- description -->
+  	<div class="form-group" id="tailAdd">
+	    <label class="col-sm-2 control-label"></label>
+	    <div class="col-sm-10">
+	    	<a class="btn btn-success" id="addDes">添加描述</a>
+	    </div>
+  	</div>
+	
+</form>
+</div>
+
+</body>
+</html>
