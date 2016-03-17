@@ -119,6 +119,13 @@ var queryCommodityWithCid = function(cid,callback){
 	});
 }
 
+var queryIdAndName = function(callback){
+	var sql = "select id, name from commodity";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
 /**** ****/
 
 
@@ -222,6 +229,30 @@ var statusDelstaAllStatus = function(callback){
 	});
 }
 
+var statusQueryIdAndTitle = function(callback){
+	var sql = "select id, title from community";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+/*
+*评论信息相关操作
+*/
+//根据评论ID计数
+var countByPidFromComment = function(pid,callback){
+	var sql = "select count(*) from comment where pid="+pid;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+var countByCidFromComment =function(cid,callback){
+	var sql = "select count(*) from comment where cid="+cid;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
+
 /**** ****/
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
@@ -246,3 +277,10 @@ exports.statusDeleteAStatu = statusDeleteAStatu;
 exports.statusDelstaAllStatus = statusDelstaAllStatus;
 exports.statusSelectARecord = statusSelectARecord;
 exports.statusModifyARecord = statusModifyARecord;
+exports.statusQueryIdAndTitle = statusQueryIdAndTitle;
+exports.queryIdAndName = queryIdAndName;
+exports.countByPidFromComment = countByPidFromComment;
+exports.countByCidFromComment = countByCidFromComment;
+
+
+

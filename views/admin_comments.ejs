@@ -62,20 +62,24 @@ td a{
 		<div id="ptable" class="panel panel-default">
 		  	<table class="table table-striped">
 		  		<tr><th>ID</th><th>名称</th><th>收藏数</th><th>删除</th></tr>
-		  		<tr onclick="pdetail()">
-		  			<td>1</td>
-		  			<td>2</td>
-		  			<td>3</td>
-		  			<td>
-		  				<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
-		  			</td>
-		  		</tr>
+
+		  		<% for(var i=0;i<plist.length;i++) { %>
+			  		<tr onclick="pdetail()">
+			  			<td><%= plist[i].id %></td>
+			  			<td><%= plist[i].name%></td>
+			  			<td><%= plist[i]["count(*)"]%></td>
+			  			<td>
+			  				<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+			  			</td>
+			  		</tr>
+		  		<% } %>
 			</table>		
 		</div>
 		<!-- community table -->
 		<div id="ctable" class="panel panel-default" style="display: none">
 		  	<table class="table table-striped">
-		  		<tr><th>ID</th><th>帖子</th><th>评论数</th><th>删除</th></tr>
+		  		<tr><th>ID</th><th>标题</th><th>评论数</th><th>删除</th></tr>
+		  		<% clist %>
 		  		<tr onclick="cdetail()">
 		  			<td>1</td>
 		  			<td>2</td>
