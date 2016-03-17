@@ -13,4 +13,26 @@ router.get('/', function(req, res, next) {
   	res.render('admin_comments', {admin_name: req.session.username});
 });
 
+router.get('/admin_comments_products',function(req,res,next) {
+	if(!req.session.username){
+		res.redirect('/');
+		return;
+	}
+
+
+  	res.render('admin_comments_products', {admin_name: req.session.username});
+});
+
+router.get('/admin_comments_community',function(req,res,next) {
+	if(!req.session.username){
+		res.redirect('/');
+		return;
+	}
+
+
+  	res.render('admin_comments_community', {admin_name: req.session.username});
+});
+
+
+
 module.exports = router;
