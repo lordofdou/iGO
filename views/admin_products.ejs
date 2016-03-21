@@ -36,10 +36,10 @@
 				 <ul class="nav navbar-nav navbar-right">
 			        <li><a href="#"><%= admin_name %></a></li>
 			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
-			      </ul>
+			     </ul>
 
 			</div>
-		<div>	
+		</div>	
 	</nav>
 	<!-- 商品分类 -->
 	<div id="products" class="panel panel-default" style="margin-top: 100px">
@@ -48,12 +48,14 @@
   			<h1 class="panel-title">商品分类</h1>
   		</div>
   		<ul class="list-group">
-  		<p>
+  		
   			<% for(var i=0;i<array.length;i++) {%>
   			<%  	if(array[i] == null) {%>
   			<%  		continue;%>
   			<%		}%>
-  			<li class="list-group-item"><a style="text-decoration: none;color: black;font-weight: bold;" onclick="drop('d<%= i%>')"><%=	array[i][0].category %></a></li>
+  			<li class="list-group-item" onclick="drop('d<%= i%>')">
+  			<a style="text-decoration: none;color: black;font-weight: bold;width: 100%;" ><%=	array[i][0].category %></a>
+  			</li>
   			<div id="d<%= i%>" style="display: none;">
   				<table style="width: 100%;">
 	  				<% var record = array[i] %>
@@ -76,7 +78,7 @@
 		    	</table>
   			</div>
   			<% }%>
-  		</p>
+  		
 
 		
 	  	</ul>

@@ -39,10 +39,10 @@ td a{
 					<li class="active"><a href="admin_comments">评论</a></li>	
 				</ul>
 
-				 <ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right">
 			        <li><a href="#"><%= admin_name %></a></li>
 			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
-			      </ul>
+			    </ul>
 			</div>
 		<div>	
 	</nav>
@@ -53,23 +53,60 @@ td a{
 
 	<nav style="text-align:center;">
 	  <ul class="pagination head-pagination">
-	    <li class="active" title="one"><a href="#">商品评论</a></li>
-	    <li title="two"><a href="#">帖子评论</a></li>
+	    <li id="products" class="active" title="one" onclick="showlist('products')"><a href="#">商品评论</a></li>
+	    <li id="community" title="two" onclick="showlist('community')"><a href="#">帖子评论</a></li>
 	  </ul>
 	</nav>	
+	<div>
+		<!-- products table -->
+		<div id="ptable" class="panel panel-default">
+		  	<table class="table table-striped">
+		  		<tr><th>ID</th><th>名称</th><th>收藏数</th><th>删除</th></tr>
+		  		<tr onclick="pdetail()">
+		  			<td>1</td>
+		  			<td>2</td>
+		  			<td>3</td>
+		  			<td>
+		  				<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+		  			</td>
+		  		</tr>
+			</table>		
+		</div>
+		<!-- community table -->
+		<div id="ctable" class="panel panel-default" style="display: none">
+		  	<table class="table table-striped">
+		  		<tr><th>ID</th><th>帖子</th><th>评论数</th><th>删除</th></tr>
+		  		<tr onclick="cdetail()">
+		  			<td>1</td>
+		  			<td>2</td>
+		  			<td>3</td>
+		  			<td>
+		  				<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+		  			</td>
+		  		</tr>
+			</table>		
+		</div>
 
+	</div>
 
-	<div class="panel panel-default">
+	<!-- 表格 -->
+<!-- 	<div class="panel panel-default">
 
 	  	<table class="table table-striped">
 	  		<tr><th>ID</th><th>内容</th><th>评论人</th><th>时间</th><th>操作</th></tr>
-	  		<tr><td>1</td><td>2</td><td>3</td><td>sf</td><td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
-		</table>
+	  		<tr>
+	  			<td>1</td>
+	  			<td>2</td>
+	  			<td>3</td>
+	  			<td>sf</td>
+	  			<td>
+	  				<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+	  			</td>
+	  		</tr>
+		</table>		
+	</div> -->
 
-			
-	</div>
-
-
+	<!-- 分页 -->
 	<nav style="text-align:center;">
 	  <ul class="pagination">
 	    <li>
@@ -89,9 +126,6 @@ td a{
 	    </li>
 	  </ul>
 	</nav>
-	    
-		
-	
 </div>
 
 </body>

@@ -12,3 +12,24 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function showlist(name) {
+	if(name == "products"){
+		$('#ctable').hide();
+		$('#ptable').show();
+		
+	}else{
+		$('#ptable').hide();
+		$('#ctable').show();
+		
+	}
+}
+
+function pdetail(){
+	window.location.href="/admin_comments/admin_comments_products";
+}
+
+function cdetail(){
+	window.location.href="admin_comments/admin_comments_community";
+}
+
