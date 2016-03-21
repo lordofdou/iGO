@@ -235,16 +235,21 @@ var statusQueryIdAndTitle = function(callback){
 		callback(err,results);
 	});
 }
+
 /*
 *评论信息相关操作
 */
 //根据评论ID计数
 var countByPidFromComment = function(pid,callback){
+	console.log("-------"+pid);
 	var sql = "select count(*) from comment where pid="+pid;
 	client.query(sql,function(err,results){
+		
 		callback(err,results);
 	});
 }
+
+//根据帖子ID计数
 var countByCidFromComment =function(cid,callback){
 	var sql = "select count(*) from comment where cid="+cid;
 	client.query(sql,function(err,results){

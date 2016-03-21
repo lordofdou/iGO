@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var sql = require('./sql');
+// var step = require('Step');
+var async = require('async');
 
 router.get('/', function(req, res, next) {
 	//没有登录不能进入
@@ -14,45 +16,87 @@ router.get('/', function(req, res, next) {
 	var community = new Array();
 
 	var index ;
-	sql.connect();
+	
+	sql.connect(),
+	async.auto({
+	//任务处理
+		getproducts:sql.queryIdAndName(function(err,results){
+			
+			if(err){
+				res.send(err.message);
+				return;
+			}
+			for(var key in results){
 
-	sql.queryIdAndName(function(err,results){
-		// console.log("#######"+results[0].name);
+				index = results[key].id;
+				products[index] = new Array();
+				products[index].push(results[key].name);
+				sql.countByPidFromComment(index,function(err,results){
+					console.log("/////////"+results[0]['count(*)']);
+					products[index].push(results[0]['count(*)']);
+				});
+				
+
+			}
+			console.log("(((((((("+products.length);
+
+			
+		}),
+		getcommunity:['getproducts',console.log(")))))))))"+products.length)],
+		sendinfo:['getproducts','getcommunity',res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community})]
+	},
+
+	//错误处理
+	function(err,results){
 		if(err){
 			res.send(err.message);
-			return;
 		}
-		for(var key in results){
 
-			index = results[key].id;
-			products[index] = new Array();
-			products[index].push(results[key].name);
-			sql.countByPidFromComment(key,function(err,results){
-				console.log("#######"+results[0]['count(*)'])
-				products[index].push(results[0]['count(*)']);
-			});
-			console.log("$$$$$$"+products);
+	}
 
-		}
-	});
-	// console.log("%%%%%%"+products);
-
-	// sql.countByPidFromComment(function(err,results){
-	// 	if (err) {
-	// 		res.send(err.message);
-	// 		return;
-	// 	};
-	// 	for(var key in results){
-	// 		community[key] = new Array();
-	// 		community[key].push(results[key].title);
-	// 		sql.countByCidFromComment(key,function(err,results){
-	// 			community[key].push(results[0]['count(*)']);
-	// 		});
-	// 	}
-	// });
+	);
 	
+		// sql.queryIdAndName(function(err,results){
+			
+		// 	if(err){
+		// 		res.send(err.message);
+		// 		return;
+		// 	}
+		// 	for(var key in results){
 
-  	res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community});
+		// 		index = results[key].id;
+		// 		products[index] = new Array();
+		// 		products[index].push(results[key].name);
+		// 		sql.countByPidFromComment(index,function(err,results){
+		// 			console.log("/////////"+results[0]['count(*)']);
+		// 			products[index].push(results[0]['count(*)']);
+		// 		});
+				
+
+		// 	}
+		// 	console.log("(((((((("+products.length);
+		// 	// console.log("$$$$$$"+products);
+		// }),
+		// console.log("%%%%%%"+products);
+
+		// sql.countByPidFromComment(function(err,results){
+		// 	if (err) {
+		// 		res.send(err.message);
+		// 		return;
+		// 	};
+		// 	for(var key in results){
+		// 		community[key] = new Array();
+		// 		community[key].push(results[key].title);
+		// 		sql.countByCidFromComment(key,function(err,results){
+		// 			community[key].push(results[0]['count(*)']);
+		// 		});
+		// 	}
+		// });
+		// setTimeout(console.log("%%%%%%"+products.length),5000)
+		// console.log("%%%%%%"+products.length)
+	  	
+  	
+  	// res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community});
 });
 
 router.get('/admin_comments_products',function(req,res,next) {
