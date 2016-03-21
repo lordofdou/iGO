@@ -10,93 +10,62 @@ router.get('/', function(req, res, next) {
 	// 	res.redirect('/');
 	// 	return;
 	// }
-	//商品评论信息
+	
+	
 	var products = new Array();
-	//帖子评论信息
 	var community = new Array();
 
-	var index ;
-	
-	sql.connect(),
-	async.auto({
-	//任务处理
-		getproducts:sql.queryIdAndName(function(err,results){
-			
-			if(err){
-				res.send(err.message);
-				return;
-			}
-			for(var key in results){
-
-				index = results[key].id;
-				products[index] = new Array();
-				products[index].push(results[key].name);
-				sql.countByPidFromComment(index,function(err,results){
-					console.log("/////////"+results[0]['count(*)']);
-					products[index].push(results[0]['count(*)']);
-				});
-				
-
-			}
-			console.log("(((((((("+products.length);
-
-			
-		}),
-		getcommunity:['getproducts',console.log(")))))))))"+products.length)],
-		sendinfo:['getproducts','getcommunity',res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community})]
-	},
-
-	//错误处理
-	function(err,results){
+	sql.connect();
+	//获取商品id与名称
+	sql.queryIdAndName(products,community,function(err,results){
 		if(err){
 			res.send(err.message);
 		}
-
-	}
-
-	);
-	
-		// sql.queryIdAndName(function(err,results){
+		for (var p in results){
+			products[results[p].id] = new Array();
+			products[results[p].id].push(results[p].name);
+		}
+		//获取商品的评论数
+		sql.countByPidFromComment(products,community,function(err,results2){
+			if(err){
+				res.send(err.message);
+			}
 			
-		// 	if(err){
-		// 		res.send(err.message);
-		// 		return;
-		// 	}
-		// 	for(var key in results){
+			for(var i in products){
+				for(var j in results2){
+					
+					if( products[i][0] != null && i == results2[j].pid){
+						// console.log("=========="+results2[j]['c']);
+						products[i].push(results2[j]['c']);
+					}
+				}
+			}
+			//获取帖子的id与标题
+			sql.queryIdandTitle(products,community,function(err,results3){
+				if(err){
+					res.send(err.message);
+				}
+				for(var q in results3){
+					community[results3[q].id] = new Array();
+					community[results3[q].id].push(results3[q].title);
+				}
+				//获取帖子id对应的评论数
+				sql.countByCidFromComment(products,community,function(err,results4){
+					if(err){
+						res.send(err.message);
+					}
+					for(var m in community){
+						for (var n in results4){
+							if( community[m][0] != null && m == results4[n].cid)
+								community[m].push(results4[n]['c']);
+						}
+					}
 
-		// 		index = results[key].id;
-		// 		products[index] = new Array();
-		// 		products[index].push(results[key].name);
-		// 		sql.countByPidFromComment(index,function(err,results){
-		// 			console.log("/////////"+results[0]['count(*)']);
-		// 			products[index].push(results[0]['count(*)']);
-		// 		});
-				
-
-		// 	}
-		// 	console.log("(((((((("+products.length);
-		// 	// console.log("$$$$$$"+products);
-		// }),
-		// console.log("%%%%%%"+products);
-
-		// sql.countByPidFromComment(function(err,results){
-		// 	if (err) {
-		// 		res.send(err.message);
-		// 		return;
-		// 	};
-		// 	for(var key in results){
-		// 		community[key] = new Array();
-		// 		community[key].push(results[key].title);
-		// 		sql.countByCidFromComment(key,function(err,results){
-		// 			community[key].push(results[0]['count(*)']);
-		// 		});
-		// 	}
-		// });
-		// setTimeout(console.log("%%%%%%"+products.length),5000)
-		// console.log("%%%%%%"+products.length)
-	  	
-  	
-  	// res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community});
+					res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community});
+				})
+			})
+		});
+	});
 });
 
 router.get('/admin_comments_products',function(req,res,next) {

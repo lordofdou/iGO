@@ -119,7 +119,7 @@ var queryCommodityWithCid = function(cid,callback){
 	});
 }
 
-var queryIdAndName = function(callback){
+var queryIdAndName = function(products,community,callback){
 	var sql = "select id, name from commodity";
 	client.query(sql,function(err,results){
 		callback(err,results);
@@ -236,22 +236,28 @@ var statusQueryIdAndTitle = function(callback){
 	});
 }
 
+var queryIdandTitle = function(products,community,callback){
+	var sql = "select id, title from community";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
 /*
 *评论信息相关操作
 */
 //根据评论ID计数
-var countByPidFromComment = function(pid,callback){
-	console.log("-------"+pid);
-	var sql = "select count(*) from comment where pid="+pid;
-	client.query(sql,function(err,results){
+var countByPidFromComment = function(products,community,callback){
+	// console.log("-------"+pid);
+	var sql = "select pid, count(*) as c from comment group by pid";
+	client.query(sql,function(err,results){	
 		
 		callback(err,results);
 	});
 }
 
 //根据帖子ID计数
-var countByCidFromComment =function(cid,callback){
-	var sql = "select count(*) from comment where cid="+cid;
+var countByCidFromComment =function(products,community,callback){
+	var sql = "select cid, count(*) as c from comment group by cid";
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -286,6 +292,6 @@ exports.statusQueryIdAndTitle = statusQueryIdAndTitle;
 exports.queryIdAndName = queryIdAndName;
 exports.countByPidFromComment = countByPidFromComment;
 exports.countByCidFromComment = countByCidFromComment;
-
+exports.queryIdandTitle = queryIdandTitle;
 
 
