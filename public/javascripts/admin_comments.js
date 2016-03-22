@@ -11,6 +11,22 @@ $(document).ready(function(){
 			
 		}
 	});
+	$('.pagination li').click(function(){
+		var num = $(this).text() - 1;
+		// var num;
+		// if($(this).text() == null){
+		// 	num = 0;
+		// }else {
+		// 	num = $(this).text() - 1;
+		// }
+		// console.log(num)
+		
+		if( $('#ptable').css('display') == 'block' ){
+			window.location.href="/admin_comments?p="+num;
+		}else {
+			window.location.href="/admin_comments?c="+num;
+		}
+	});
 });
 
 function showlist(name) {

@@ -119,9 +119,20 @@ var queryCommodityWithCid = function(cid,callback){
 	});
 }
 
-var queryIdAndName = function(products,community,callback){
-	var sql = "select id, name from commodity";
+var queryIdAndName = function(pagination,products,community,callback){
+	start = pagination['products']*pagination['range'];
+	
+	// var presql = "select count(*) as length form community group by id";
+
+	var sql = "select id, name from commodity where id in (select pid from comment) limit "+start+","+pagination['range'];
 	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+var getLengthOfCommodity = function(pagination,products,community,callback){
+	var sql = "select count(*) as length from commodity "
+	client.query(sql,function(err,results){
+		// console.log("--------sql-------"+results[0]['length']);
 		callback(err,results);
 	});
 }
@@ -236,8 +247,17 @@ var statusQueryIdAndTitle = function(callback){
 	});
 }
 
-var queryIdandTitle = function(products,community,callback){
-	var sql = "select id, title from community";
+var queryIdandTitle = function(pagination,products,community,callback){
+	start = pagination['community']*pagination['range'];
+	
+	var sql = "select id, title from community where id in (select pid from comment) limit "+start+","+pagination['range'];
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
+var getLengthOfCommunity = function(pagination,products,community,callback){
+	var sql = "select count(*) as length from community "
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -246,7 +266,7 @@ var queryIdandTitle = function(products,community,callback){
 *评论信息相关操作
 */
 //根据评论ID计数
-var countByPidFromComment = function(products,community,callback){
+var countByPidFromComment = function(pagination,products,community,callback){
 	// console.log("-------"+pid);
 	var sql = "select pid, count(*) as c from comment group by pid";
 	client.query(sql,function(err,results){	
@@ -256,7 +276,7 @@ var countByPidFromComment = function(products,community,callback){
 }
 
 //根据帖子ID计数
-var countByCidFromComment =function(products,community,callback){
+var countByCidFromComment =function(pagination,products,community,callback){
 	var sql = "select cid, count(*) as c from comment group by cid";
 	client.query(sql,function(err,results){
 		callback(err,results);
@@ -293,5 +313,6 @@ exports.queryIdAndName = queryIdAndName;
 exports.countByPidFromComment = countByPidFromComment;
 exports.countByCidFromComment = countByCidFromComment;
 exports.queryIdandTitle = queryIdandTitle;
-
+exports.getLengthOfCommunity = getLengthOfCommunity;
+exports.getLengthOfCommodity = getLengthOfCommodity;
 
