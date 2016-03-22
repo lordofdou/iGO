@@ -39,7 +39,7 @@ $(document).ready(function(){
 	$('.pagination-c li').click(function(){
 		var num = $(this).text() - 1;	
 		var currentPage = $('#ccur').text();
-		var pnum = $('#cnum').text();
+		var cnum = $('#cnum').text();
 
 		if($(this).hasClass('forward')){
 			num = (parseInt(currentPage) + 1)%cnum;

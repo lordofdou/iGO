@@ -50,17 +50,21 @@ td a{
 
 <div class="container">
 	<div style="height:100px;"></div>
-
+	<% if(status == 0) {%>
+	<% pstatus='block';cstatus='none';pa='active';ca=''%>
+	<% }else{%>
+	<% cstatus='block';pstatus='none';ca='active';pa=''%>
+	<% }%>
 	<nav style="text-align:center;">
 	  <ul class="pagination head-pagination">
-	    <li id="products" class="active" title="one" onclick="showlist('products')"><a href="#">商品评论</a></li>
-	    <li id="community" title="two" onclick="showlist('community')"><a href="#">帖子评论</a></li>
+	    <li id="products" class="<%= pa%>" title="one" onclick="showlist('products')"><a href="#">商品评论</a></li>
+	    <li id="community" class="<%= ca%>" title="two" onclick="showlist('community')"><a href="#">帖子评论</a></li>
 	  </ul>
 	</nav>	
 	<div>
 		
 		<!-- products table -->
-		<div id="ptable">
+		<div id="ptable" style="display: <%= pstatus%>">
 			<div  class="panel panel-default">
 			  	<table class="table table-striped">
 			  		<tr><th>ID</th><th>名称</th><th>评论数</th></tr>
@@ -103,9 +107,8 @@ td a{
 		</div>
 
 		<!-- community table -->
-		<div id="ctable" style="display: none;">
+		<div id="ctable" style="display:<%= cstatus%>;">
 			<div  class="panel panel-default" >
-			<%= clist.length%>
 			  	<table class="table table-striped">
 			  		<tr><th>ID</th><th>标题</th><th>评论数</th></tr>
 			  		
@@ -135,7 +138,7 @@ td a{
 			    </li>
 			    <p style="display:none;" id="cnum"><%= cpageNum %></p>
 			    <% for (var i=0;i < cpageNum ;i++) {%>
-			    	<li><a href="#" <% if (i+1 == ccurrentPage) {%>class="active"<% } %>><%= i+1 %></a></li>
+			    	<li <% if(i == ccurrentPage){ %> class="active"<%}%>><a href="#"><%= i+1 %></a></li>
 			    
 			    <% }%>    
 			    <li class="forward">

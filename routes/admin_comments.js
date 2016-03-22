@@ -20,15 +20,17 @@ router.get('/', function(req, res, next) {
 		pagination['products'] = 0;
 		pagination['community'] = 0;
 		pagination['currentPage'] = 0;	
+		pagination['status'] = 0;
 	}else if(req.query.p != undefined){
 		pagination['products'] = req.query.p;
 		pagination['community'] = 0;	
 		pagination['currentPage'] = pagination['products'];
-
+		pagination['status'] = 0;
 	}else{
 		pagination['community'] = req.query.c;
 		pagination['products'] = 0;
 		pagination['currentPage'] = pagination['community'];
+		pagination['status'] = 1;
 	}
 
 	pagination['range'] = 2;
@@ -85,7 +87,7 @@ router.get('/', function(req, res, next) {
 						community[results3[q].id] = new Array();
 						community[results3[q].id].push(results3[q].title);
 					}
-					console.log("----results3----"+results3.length);
+					// console.log("----results3----"+results3.length);
 					//获取community表长度
 					sql.getLengthOfCommunity(pagination,products,community,function(err,results){
 						if(err){
@@ -113,7 +115,7 @@ router.get('/', function(req, res, next) {
 								pageNum = pagination['cpageNum']	
 							}
 
-							res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community,pcurrentPage:pagination['products'],ccurrentPage:pagination['community'],ppageNum:pagination['ppageNum'],cpageNum:pagination['cpageNum']});
+							res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community,pcurrentPage:pagination['products'],ccurrentPage:pagination['community'],ppageNum:pagination['ppageNum'],cpageNum:pagination['cpageNum'],status:pagination['status']});
 						})
 
 					});
