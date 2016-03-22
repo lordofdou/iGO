@@ -21,6 +21,7 @@ router.get('/', function(req, res, next) {
 		if(err){
 			res.send(err.message);
 		}
+		console.log("1111"+results.length);
 		for (var p in results){
 			products[results[p].id] = new Array();
 			products[results[p].id].push(results[p].name);
@@ -60,7 +61,7 @@ router.get('/', function(req, res, next) {
 								community[m].push(results4[n]['c']);
 						}
 					}
-
+					
 					res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community});
 				})
 			})

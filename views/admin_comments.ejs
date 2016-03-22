@@ -58,12 +58,13 @@ td a{
 	  </ul>
 	</nav>	
 	<div>
-	
+		
 		<!-- products table -->
 		<div id="ptable" class="panel panel-default">
 		  	<table class="table table-striped">
-		  		<tr><th>ID</th><th>名称</th><th>收藏数</th><th>删除</th></tr>
+		  		<tr><th>ID</th><th>名称</th><th>收藏数</th></tr>
 		  		<% for(var i=0; i<plist.length;i++) {%>
+		  		
 		  		<% 		if(plist[i] == null || plist[i][1] == null) {%>
 		  		<% 			continue;%>
 		  		<% 		}%>
@@ -71,9 +72,7 @@ td a{
 			  			<td><%= i%></td>
 			  			<td><%= plist[i][0]%></td>
 			  			<td><%= plist[i][1]%></td>
-			  			<td>
-			  				<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
-			  			</td>
+			  			
 			  		</tr>
 		  		<% }%>
 				
@@ -82,7 +81,7 @@ td a{
 		<!-- community table -->
 		<div id="ctable" class="panel panel-default" style="display: none">
 		  	<table class="table table-striped">
-		  		<tr><th>ID</th><th>标题</th><th>评论数</th><th>删除</th></tr>
+		  		<tr><th>ID</th><th>标题</th><th>评论数</th></tr>
 		  		<% for(var i=0; i<clist.length;i++) {%>
 		  		<% 		if(clist[i] == null || clist[i][1] == null) {%>
 		  		<% 			continue;%>
@@ -91,9 +90,7 @@ td a{
 			  			<td><%= i%></td>
 			  			<td><%= clist[i][0]%></td>
 			  			<td><%= clist[i][1]%></td>
-			  			<td>
-			  				<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
-			  			</td>
+			  			
 			  		</tr>
 		  		<% }%>
 			</table>		
