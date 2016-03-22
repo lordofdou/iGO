@@ -41,7 +41,7 @@ router.get('/', function(req, res, next) {
 		if(err){
 			res.send(err.message);
 		}
-		console.log("-----results----"+results.length);
+		
 		for (var p in results){
 			products[results[p].id] = new Array();
 			products[results[p].id].push(results[p].name);
@@ -74,24 +74,27 @@ router.get('/', function(req, res, next) {
 						}
 					}
 				}
-				//获取community表长度
-				sql.getLengthOfCommunity(pagination,products,community,function(err,results){
+
+
+				//获取帖子的id与标题
+				sql.queryIdandTitle(pagination,products,community,function(err,results3){
 					if(err){
 						res.send(err.message);
 					}
-					if( parseInt(results[0]['length']) % pagination['range'] == 0){
-						pagination['cpageNum'] = parseInt(results[0]['length']/pagination['range']);
-					}else {
-						pagination['cpageNum'] = parseInt(results[0]['length']/pagination['range'])+1;
+					for(var q in results3){
+						community[results3[q].id] = new Array();
+						community[results3[q].id].push(results3[q].title);
 					}
-					//获取帖子的id与标题
-					sql.queryIdandTitle(pagination,products,community,function(err,results3){
+					console.log("1111111"+results3.length);
+					//获取community表长度
+					sql.getLengthOfCommunity(pagination,products,community,function(err,results){
 						if(err){
 							res.send(err.message);
 						}
-						for(var q in results3){
-							community[results3[q].id] = new Array();
-							community[results3[q].id].push(results3[q].title);
+						if( parseInt(results[0]['length']) % pagination['range'] == 0){
+							pagination['cpageNum'] = parseInt(results[0]['length']/pagination['range']);
+						}else {
+							pagination['cpageNum'] = parseInt(results[0]['length']/pagination['range'])+1;
 						}
 						//获取帖子id对应的评论数
 						sql.countByCidFromComment(pagination,products,community,function(err,results4){
@@ -110,11 +113,13 @@ router.get('/', function(req, res, next) {
 								pageNum = pagination['cpageNum']	
 							}
 
-							res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community,currentPage:pagination['currentPage'],pageNum:pageNum});
+							res.render('admin_comments', {admin_name: req.session.username,plist:products,clist:community,pcurrentPage:pagination['products'],ccurrentPage:pagination['community'],ppageNum:pagination['ppageNum'],cpageNum:pagination['cpageNum']});
 						})
-					})
+
+					});
+					
+				})
 				
-				});
 				
 			});
 

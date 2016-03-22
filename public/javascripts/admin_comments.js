@@ -11,22 +11,49 @@ $(document).ready(function(){
 			
 		}
 	});
-	$('.pagination li').click(function(){
-		var num = $(this).text() - 1;
-		// var num;
-		// if($(this).text() == null){
-		// 	num = 0;
-		// }else {
-		// 	num = $(this).text() - 1;
-		// }
-		// console.log(num)
+
+	$('.pagination-p li').click(function(){
 		
-		if( $('#ptable').css('display') == 'block' ){
-			window.location.href="/admin_comments?p="+num;
-		}else {
-			window.location.href="/admin_comments?c="+num;
+		var num = $(this).text() - 1;	
+		var currentPage = $('#pcur').text();
+		var pnum = $('#pnum').text();
+
+		
+		if($(this).hasClass('forward')){
+			
+			num = (parseInt(currentPage) + 1)%pnum;
+
+		}else if($(this).hasClass('back')){
+			num = parseInt(currentPage) - 1;
+			
+			if(num < 0){
+				num = pnum-1;
+			}
+			
+
 		}
+
+		window.location.href="/admin_comments?p="+num;
 	});
+
+	$('.pagination-c li').click(function(){
+		var num = $(this).text() - 1;	
+		var currentPage = $('#ccur').text();
+		var pnum = $('#cnum').text();
+
+		if($(this).hasClass('forward')){
+			num = (parseInt(currentPage) + 1)%cnum;
+		}else if($(this).hasClass('back')){
+			num = parseInt(currentPage) - 1;
+			if(num < 0){
+				num = cnum - 1;
+			}
+
+		}
+		window.location.href="/admin_comments?c="+num;
+		
+	});
+
 });
 
 function showlist(name) {
