@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>iGO后台－推送</title>
+<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="javascripts/jquery-2.2.1.js"></script>
+<script type="text/javascript" src="stylesheets/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="javascripts/admin_status_add.js"></script>
+<script type="text/javascript" src="javascripts/admin_notification.js"></script>
+
+<style>
+.uploadFile{
+	position: relative;
+	width:100px;
+	height:100px;
+	border: 1px solid #ccc;
+	margin:20px auto;
+	background: url(/images/activity_add.png) no-repeat center center;
+}
+
+input[type='file']{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+    position:absolute;
+    right:0;
+    top:0;
+    opacity: 0;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- 导航条 -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	    	  	<a class="navbar-brand" href="#">iGo</a>
+	   		</div>
+	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="admin_general">概览</a></li>
+					<li><a href="admin_admin">管理员</a></li>
+					<li><a href="admin_user">用户</a></li>
+					<li><a href="admin_products">商品</a></li>
+					<li><a href="admin_orders">订单</a></li>
+					<li><a href="admin_status">帖子</a></li>
+					<li><a href="admin_activity">活动</a></li>
+					<li><a href="admin_comments">评论</a></li>	
+					<li class="active"><a href="admin_notification">推送</a></li>	
+				</ul>
+
+				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
+			      </ul>
+			</div>
+		<div>	
+	</nav>
+
+	<div style="height:150px"></div>
+
+	<div class="container">
+		<div style="margin-bottom:20px;" class="text-right"><a class="btn btn-success" id="push">现在推送</a></div>
+		<table class="table">
+			<tr><th>#</th><th>标题</th><th>描述</th></tr>
+			<tr><td>1</td><td>音乐大牌，周末来袭</td><td>经典浪漫名曲音乐会低！价！来！袭！ 久石让等国际大牌来！华！等！你！</td></tr>
+			<tr><td>2</td><td>音乐大牌，周末来袭</td><td>经典浪漫名曲音乐会低！价！来！袭！ 久石让等国际大牌来！华！等！你！</td></tr>
+		</table>
+
+	</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">现在推送一条消息</h4>
+      </div>
+
+      <div class="modal-body">
+      
+
+<!-- 推送内容表单 -->
+<form id="pushForm" method="post" action="/admin_notification/add" class="form-horizontal" enctype="multipart/form-data">
+
+<!-- 图片 -->
+<div class="uploadFile">
+<input type="file" name="pic" />
+</div>
+
+<!-- pid -->
+<div class="row">
+<div class="col-md-2"></div>
+
+<div class="form-group col-md-8">
+	<label class="sr-only" for="pid">PID</label>
+	<div class="input-group">
+		<div class="input-group-addon">商品</div>
+		<input type="text" class="form-control" name="pid" id="pid" placeholder="PID">
+	</div>
+</div>
+
+<div class="col-md-2"></div>
+</div>
+
+
+<!-- 标题 -->
+<div class="row">
+<div class="col-md-2"></div>
+
+<div class="form-group col-md-8">
+	<label class="sr-only" for="title">Title</label>
+	<div class="input-group">
+		<div class="input-group-addon">标题</div>
+		<input type="text" class="form-control" name="title" id="title" placeholder="Title">
+	</div>
+</div>
+
+<div class="col-md-2"></div>
+</div>
+
+
+<!-- 描述 -->
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8 form-group">
+<textarea style="resize:none;" class="form-control" name="description" placeholder="描述" rows="3"></textarea>
+</div>
+<div class="col-md-2"></div>
+</div>
+
+</form>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" id="pushBtn" class="btn btn-primary">立即推送</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

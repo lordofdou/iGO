@@ -250,7 +250,7 @@ var statusQueryIdAndTitle = function(callback){
 var queryIdandTitle = function(pagination,products,community,callback){
 	start = pagination['community']*pagination['range'];
 	
-	var sql = "select id, title from community where id in (select pid from comment) limit "+start+","+pagination['range'];
+	var sql = "select id, title from community where id in (select cid from comment) limit "+start+","+pagination['range'];
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -283,8 +283,18 @@ var countByCidFromComment =function(pagination,products,community,callback){
 	});
 }
 
-
 /**** ****/
+
+
+/**** 推送相关 ****/
+var notificationAddRecory = function(info, callback){
+	var sql = "INSERT INTO notification (pid, title, description, createTime) VALUES ("+ info.pid +", '"+ info.title +"', '"+ info.description +"', "+ info.createTime +");";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+/**** ****/
+
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
 exports.adminSelectUsers = adminSelectUsers;
@@ -315,4 +325,5 @@ exports.countByCidFromComment = countByCidFromComment;
 exports.queryIdandTitle = queryIdandTitle;
 exports.getLengthOfCommunity = getLengthOfCommunity;
 exports.getLengthOfCommodity = getLengthOfCommodity;
+exports.notificationAddRecory = notificationAddRecory;
 
