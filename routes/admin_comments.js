@@ -85,7 +85,7 @@ router.get('/', function(req, res, next) {
 						community[results3[q].id] = new Array();
 						community[results3[q].id].push(results3[q].title);
 					}
-					console.log("1111111"+results3.length);
+					console.log("----results3----"+results3.length);
 					//获取community表长度
 					sql.getLengthOfCommunity(pagination,products,community,function(err,results){
 						if(err){
