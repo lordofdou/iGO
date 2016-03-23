@@ -18,7 +18,14 @@ router.get('/', function(req, res, next){
 	}
 	
 	//获取数据库信息
-	res.render('admin_notification', {admin_name: req.session.username});
+	sql.notificationSelectAll(function(err, result){
+		if (err) {
+		      res.render('fail', {title : "查询通知失败", message: "请稍后重试"});
+		      return;		
+	    } 
+
+		res.render('admin_notification', {admin_name: req.session.username, notes:result});
+	});
 });
 
 router.post('/add', function(req, res, next){
@@ -52,9 +59,16 @@ router.post('/add', function(req, res, next){
 	    info.description = fields["description"];
 	    info.createTime = new Date().getTime();
 
-	    sql.notificationAddRecory(info, function(err, result{
+	    sql.notificationAddRecory(info, function(err, result){
+	    	if (err) {
+		      res.render('fail', {title : "发送失败", message: "请稍后重试"});
+		      return;		
+		    } 
+
+		    //使用 极光推送
+
 	    	res.redirect('/admin_notification');
-	    }));
+	    });
 	    
 
 	});

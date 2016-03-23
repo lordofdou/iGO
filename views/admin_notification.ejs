@@ -65,9 +65,15 @@ input[type='file']{
 	<div class="container">
 		<div style="margin-bottom:20px;" class="text-right"><a class="btn btn-success" id="push">现在推送</a></div>
 		<table class="table">
-			<tr><th>#</th><th>标题</th><th>描述</th></tr>
-			<tr><td>1</td><td>音乐大牌，周末来袭</td><td>经典浪漫名曲音乐会低！价！来！袭！ 久石让等国际大牌来！华！等！你！</td></tr>
-			<tr><td>2</td><td>音乐大牌，周末来袭</td><td>经典浪漫名曲音乐会低！价！来！袭！ 久石让等国际大牌来！华！等！你！</td></tr>
+			<tr><th>#</th><th>图标</th><th>标题</th><th>描述</th></tr>
+			<% for(var i = 0; i<notes.length; i++){ %>
+			<tr>
+				<td><%= i+1 %></td>
+				<td><img style="height:25px;" src="/<%= notes[i]['pic'] %>" /></td>
+				<td><%= notes[i]['title'] %></td>
+				<td><%= notes[i]['description'] %></td>
+			</tr>
+			<% } %>
 		</table>
 
 	</div>
