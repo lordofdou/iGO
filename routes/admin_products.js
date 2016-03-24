@@ -148,10 +148,13 @@ router.post("/",function(req,res,next){
 				continue;
 			}
 			avatarName = Math.random() + '.' + extName;
+			//存储路径
 	    	newPath= form.path + avatarName;
 	    	//重命名图片并同步到磁盘上
 	    	fs.renameSync(files[key]["path"], newPath);
-
+	    	//访问路径
+	    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
+	    	
 	    	if(key[0]=='p'){
 	    		picArray.push(newPath);
 	    	}else{

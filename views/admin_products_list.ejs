@@ -75,6 +75,7 @@
   			<td>删除</td>
   		</tr>
 		<%for(var i=0;i<list.length;i++) {%>
+			<tr>
   			<td><%= list[i].name %></td>
   			<!-- <td><%= list[i].region %></td>
   			<td><%= list[i].factory %></td>
@@ -90,6 +91,7 @@
   			<% } %>
   			<td><a onclick="onSale(<%= list[i].id %>,<%= list[i].onSale %>,<%= list[i].cid%>,'<%= title%>')"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
 	  		<td><a onclick="d(<%= list[i].id %>,<%= list[i].cid%>,'<%= title%>')"><span class=" glyphicon glyphicon-remove"></span></a></td>
+	  		</tr>
   		<% } %>
   		</table>
 	  	</div>

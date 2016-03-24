@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 	$('.head-pagination li').click(function(){
 		$('.head-pagination li').removeClass("active");
@@ -54,7 +55,19 @@ $(document).ready(function(){
 		
 	});
 
+	// $('[data-toggle="tooltip"]').tooltip();
+
+	
+	// $("[data-toggle=popover]").popover();
+	
+		
+	
+
 });
+
+// jQuery('body').popover(
+//     {'selector':'[rel=popover]'}
+// );
 
 function showlist(name) {
 	if(name == "products"){
@@ -67,12 +80,20 @@ function showlist(name) {
 		
 	}
 }
+function showdetail(i){
+	if($('#'+i).css("display") == 'none'){
+		$('#'+i).show();
+	}else{
+		$('#'+i).hide();
+	}
+	
 
+}
 function pdetail(pid){
 	window.location.href="/admin_comments/admin_comments_products?pid="+pid;
 }
 
-function cdetail(){
-	window.location.href="admin_comments/admin_comments_community";
+function cdetail(cid){
+	window.location.href="/admin_comments/admin_comments_community?cid="+cid;
 }
 

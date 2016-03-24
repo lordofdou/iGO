@@ -46,6 +46,64 @@
 		<div>	
 	</nav>
 
+	<div style="margin-top: 200px">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div  class="panel panel-default">
+					<div class="row">
+						<div class="col-md-2">
+						<!-- pic -->
+							<img src="<%= communityinfo[0]['pic']%>" style="width: 140px;height: 140px">
+						</div>
+
+						<div class="col-md-10" style="text-align: left;">
+							<table class="table" >
+								<tr >
+									<td style="border-color: #fff"><p>帖子ID：<%= communityinfo[0]['id']%></p></td>
+									<td style="border-color: #fff"><p>帖子标题：<%= communityinfo[0]['title']%></p></td>
+									<td style="border-color: #fff"><p>上传时间：<%= communityinfo[0]['time']%></p></td>
+								</tr>
+								<tr >
+									<td style="border-color: #fff"><p>商品ID：<%= communityinfo[0]['pid']%></p></td>
+									<td style="border-color: #fff"><p>评论条数：<%= communityinfo[0]['count']%></p></td>
+									<td style="border-color: #fff"><p>推荐描述：<%= communityinfo[0]['description']%></p></td>
+								</tr>
+							</table>
+							
+
+						</div>
+					</div>
+				</div>
+				
+				<div  class="panel panel-default">	
+					<table class="table table-striped" style="table-layout: fixed;">
+						<tr>
+							<td width="20%" style="text-align: center;">用户ID</td>
+							<td width="60%" style="text-align: center;">评论内容</td>
+							
+						</tr>
+						<% for (var i = 0;i<commtinfo.length;i++) {%>
+						<tr onclick="showdetail(<%= commtinfo[i]['uid']%>)">
+							<td width="20%" style="text-align: center;"><%= commtinfo[i]['uid']%></td>
+							<td width="80%" style="text-align: center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><%= commtinfo[i]['comment']%></td>
+							
+						</tr >	
+						<tr >
+							<td></td>
+							<td><p id="<%= commtinfo[i]['uid']%>"  style="display: none"><%= commtinfo[i]['comment']%></p></td>
+						</tr>
+						<% }%>
+						
+					</table>
+
+				</div>
+				
+
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
 
 
 </body>

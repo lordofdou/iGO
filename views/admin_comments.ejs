@@ -117,7 +117,7 @@ td a{
 			  		<% 		if(clist[i] == null || clist[i][1] == null) {%>
 			  		<% 			continue;%>
 			  		<% 		}%>
-				  		<tr onclick="cdetail()">
+				  		<tr onclick="cdetail(<%= i%>)">
 				  			<td><%= i%></td>
 				  			<td><%= clist[i][0]%></td>
 				  			<td><%= clist[i][1]%></td>

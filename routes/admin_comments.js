@@ -145,6 +145,7 @@ router.get('/admin_comments_products',function(req,res,next) {
 			if(err){
 				res.send(err.message);
 			}
+			console.log("------"+results2[1]['comment'])
 			res.render('admin_comments_products', {admin_name: req.session.username,prodinfo:results,commtinfo:results2});
 		});
 
@@ -154,13 +155,27 @@ router.get('/admin_comments_products',function(req,res,next) {
 });
 
 router.get('/admin_comments_community',function(req,res,next) {
-	if(!req.session.username){
-		res.redirect('/');
-		return;
-	}
+	// if(!req.session.username){
+	// 	res.redirect('/');
+	// 	return;
+	// }
+	var cid = req.query.cid;
+	sql.connect();
+	sql.queryCommunityWithId(cid,function(err,results){
+		if(err){
+			res.send(err.message);
+		}
+		sql.queryCommentWithComunityinfo(results,function(err,results2){
+			if(err){
+				res.send(err.message);
+			}
+			// console.log("------"+results2[1]['comment'])
+			res.render('admin_comments_community', {admin_name: req.session.username,communityinfo:results,commtinfo:results2});
+		});
 
+	});
 
-  	res.render('admin_comments_community', {admin_name: req.session.username});
+  	// res.render('admin_comments_community', {admin_name: req.session.username});
 });
 
 

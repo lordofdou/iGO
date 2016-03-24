@@ -268,6 +268,13 @@ var getLengthOfCommunity = function(pagination,products,community,callback){
 		callback(err,results);
 	});
 }
+
+var queryCommunityWithId = function(id,callback){
+	var sql = "select * from community where id="+id;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
 /*
 *评论信息相关操作
 */
@@ -292,6 +299,14 @@ var countByCidFromComment =function(pagination,products,community,callback){
 var queryCommentWithProdinfo = function(prodinfo,callback){
 	var pid = prodinfo[0]['id'];
 	var sql = "select * from comment where pid="+pid;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
+var  queryCommentWithComunityinfo = function(communityinfo,callback){
+	var cid = communityinfo[0]['id'];
+	var sql = "select * from comment where cid="+cid;
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -357,3 +372,5 @@ exports.notificationSelectAll = notificationSelectAll;
 exports.queryCommodityWithId = queryCommodityWithId;
 exports.queryCommentWithProdinfo = queryCommentWithProdinfo;
 exports.notificationAllNumbers = notificationAllNumbers;
+exports.queryCommunityWithId = queryCommunityWithId;
+exports.queryCommentWithComunityinfo = queryCommentWithComunityinfo;
