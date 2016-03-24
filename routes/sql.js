@@ -208,6 +208,7 @@ var statusAllNumber = function(callback){
 //添加一条帖子
 var statusInsertARecord = function(info, callback){
 	var sql = "INSERT INTO community (pid, uid, time, count, description, title, pic, description_title) VALUES ("+ info.pid +", " + info.uid + ", " + info.time + ", " + info.count + ", '" + info.description + "', '" + info.title + "', '" + info.pic + "', '" + info.description_title + "');";
+	console.log(sql);
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});

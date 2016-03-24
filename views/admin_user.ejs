@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>iGO后台－用户</title>
+<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/admin_user.css">
+<script type="text/javascript" src="javascripts/jquery-2.2.1.js"></script>
+<script type="text/javascript" src="javascripts/admin_user.js"></script>
+
+<style>
+.table tr td{
+	border-top:0px solid red;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- 导航条 -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	    	  	<a class="navbar-brand" href="#">iGo</a>
+	   		</div>
+	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="admin_general">概览</a></li>
+					<li><a href="admin_admin">管理员</a></li>
+					<li class="active"><a href="admin_user">用户</a></li>
+					<li><a href="admin_products">商品</a></li>
+					<li><a href="admin_orders">订单</a></li>
+					<li><a href="admin_status">帖子</a></li>
+					<li><a href="admin_activity">活动</a></li>
+					<li><a href="admin_comments">评论</a></li>	
+					<li><a href="admin_notification">推送</a></li>	
+				</ul>
+
+				 <ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
+			      </ul>
+			</div>
+		<div>	
+	</nav>
+
+
+<div class="container">
+	<div style="height:100px;"></div>
+
+	<div class="topButtons text-right">
+		<div class="btn-group" role="group">
+			<a type="button" class="btn btn-danger" href="/admin_user/disableAll">关闭登录功能</a>
+		</div>
+		<hr />
+	</div>
+	<br/>
+
+	<table class="table">
+		<tr>
+			<td style="border-top:0px solid white;">
+				<dl>
+					<dt><img src="/images/icon.png" />
+						<div class="functions">
+							<span id="deleteUser" style="color:#ba3030;" class="glyphicon glyphicon-remove"></span>
+							<span style="color:#06b5e2;" class="glyphicon glyphicon-ban-circle"></span>
+						</div>
+					</dt>
+					<dd>昵称：轩轩的一个梦想</dd>
+					<dd>手机：15251977332</dd>
+					<dd>性别：男</dd>
+					<dd>上次登录：2016.3.18</dd>
+				</dl>
+			</td>
+			<td style="border-top:0px solid white;">
+				<dl>
+					<dt><img src="/images/icon.png" />
+						<div class="functions">
+							<span id="deleteUser" style="color:#ba3030;" class="glyphicon glyphicon-remove"></span>
+							<span style="color:#06b5e2;" class="glyphicon glyphicon-ban-circle"></span>
+						</div>
+					</dt>
+					<dd>昵称：轩轩的一个梦想</dd>
+					<dd>手机：15251977332</dd>
+					<dd>性别：男</dd>
+					<dd>上次登录：2016.3.18</dd>
+				</dl>
+			</td>
+			<td style="border-top:0px solid white;">
+				<dl>
+					<dt><img src="/images/icon.png" />
+						<div class="functions">
+							<span id="deleteUser" style="color:#ba3030;" class="glyphicon glyphicon-remove"></span>
+							<span style="color:#06b5e2;" class="glyphicon glyphicon-ban-circle"></span>
+						</div>
+					</dt>
+					<dd>昵称：轩轩的一个梦想</dd>
+					<dd>手机：15251977332</dd>
+					<dd>性别：男</dd>
+					<dd>上次登录：2016.3.18</dd>
+				</dl>
+			</td>
+		</tr>
+	</table>
+
+	
+		
+	
+</div>
+
+</body>
+</html>

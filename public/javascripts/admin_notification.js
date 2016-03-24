@@ -21,6 +21,24 @@ $(document).ready(function(){
 	});
 
 	$('#pushBtn').click(function(){
+		$('form div').removeClass("has-error");
+
+		var pid = parseInt($('input[name="pid"]').val());
+		var title = $('input[name="title"]').val();
+		var description = $('textarea[name="description"]').val();
+
+		if(!pid){
+			$('input[name="pid"]').parent().addClass("has-error");
+			return false;
+		}
+		if(title.length <= 4){
+			$('input[name="title"]').parent().addClass("has-error");
+			return false;
+		}
+		if(description.length <= 5){
+			$('input[name="description"]').parent().addClass("has-error");
+			return false;
+		}
 		//表单验证
 		$('#pushForm').submit();
 	});
