@@ -145,7 +145,6 @@ router.get('/admin_comments_products',function(req,res,next) {
 			if(err){
 				res.send(err.message);
 			}
-			console.log("------"+results2[1]['comment'])
 			res.render('admin_comments_products', {admin_name: req.session.username,prodinfo:results,commtinfo:results2});
 		});
 
