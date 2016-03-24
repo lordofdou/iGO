@@ -8,7 +8,6 @@ var	StringDecoder = require('string_decoder').StringDecoder;
 var	EventEmitter = require('events').EventEmitter;
 var	util=require('util');
 var sql = require('./sql');
-var EventProxy = require('eventproxy');
 
 var PER_PAGE = 15;
 

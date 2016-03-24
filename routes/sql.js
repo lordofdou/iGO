@@ -283,8 +283,25 @@ var countByCidFromComment =function(pagination,products,community,callback){
 	});
 }
 
-
 /**** ****/
+
+
+/**** 推送相关 ****/
+var notificationAddRecory = function(info, callback){
+	var sql = "INSERT INTO notification (pid, pic, title, description, createTime) VALUES ("+ info.pid +", '"+ info.pic +"','"+ info.title +"', '"+ info.description +"', "+ info.createTime +");";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+var notificationSelectAll = function(callback){
+	var sql = "SELECT * FROM notification ORDER by createTime DESC";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+/**** ****/
+
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
 exports.adminSelectUsers = adminSelectUsers;
@@ -315,4 +332,6 @@ exports.countByCidFromComment = countByCidFromComment;
 exports.queryIdandTitle = queryIdandTitle;
 exports.getLengthOfCommunity = getLengthOfCommunity;
 exports.getLengthOfCommodity = getLengthOfCommodity;
+exports.notificationAddRecory = notificationAddRecory;
+exports.notificationSelectAll = notificationSelectAll;
 
