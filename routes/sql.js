@@ -137,6 +137,12 @@ var getLengthOfCommodity = function(pagination,products,community,callback){
 	});
 }
 
+var queryCommodityWithId = function(id,callback){
+	var sql = "select * from commodity where id="+id;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
 /**** ****/
 
 
@@ -283,6 +289,13 @@ var countByCidFromComment =function(pagination,products,community,callback){
 	});
 }
 
+var queryCommentWithProdinfo = function(prodinfo,callback){
+	var pid = prodinfo[0]['id'];
+	var sql = "select * from comment where pid="+pid;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
 /**** ****/
 
 
@@ -334,4 +347,5 @@ exports.getLengthOfCommunity = getLengthOfCommunity;
 exports.getLengthOfCommodity = getLengthOfCommodity;
 exports.notificationAddRecory = notificationAddRecory;
 exports.notificationSelectAll = notificationSelectAll;
-
+exports.queryCommodityWithId = queryCommodityWithId;
+exports.queryCommentWithProdinfo = queryCommentWithProdinfo;

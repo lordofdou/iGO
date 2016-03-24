@@ -131,13 +131,26 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/admin_comments_products',function(req,res,next) {
-	if(!req.session.username){
-		res.redirect('/');
-		return;
-	}
+	// if(!req.session.username){
+	// 	res.redirect('/');
+	// 	return;
+	// }
+	var pid = req.query.pid;
+	sql.connect();
+	sql.queryCommodityWithId(pid,function(err,results){
+		if(err){
+			res.send(err.message);
+		}
+		sql.queryCommentWithProdinfo(results,function(err,results2){
+			if(err){
+				res.send(err.message);
+			}
+			res.render('admin_comments_products', {admin_name: req.session.username,prodinfo:results,commtinfo:results2});
+		});
 
+	});
 
-  	res.render('admin_comments_products', {admin_name: req.session.username});
+  	// res.render('admin_comments_products', {admin_name: req.session.username,prodinfo:,commtinfo});
 });
 
 router.get('/admin_comments_community',function(req,res,next) {

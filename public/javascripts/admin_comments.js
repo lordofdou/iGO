@@ -68,8 +68,8 @@ function showlist(name) {
 	}
 }
 
-function pdetail(){
-	window.location.href="/admin_comments/admin_comments_products";
+function pdetail(pid){
+	window.location.href="/admin_comments/admin_comments_products?pid="+pid;
 }
 
 function cdetail(){
