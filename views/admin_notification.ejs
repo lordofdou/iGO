@@ -76,7 +76,32 @@ input[type='file']{
 			<% } %>
 		</table>
 
+		<p style="display:none;" id="curP"><%= currentPage%></p>
+		
+		<% if(pagesNum != 0){ %>
+		<nav style="text-align:center;">
+		  <ul class="pagination">
+		    <li class="back">
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <% for(var i = 0; i < pagesNum; i++){%>
+		    <li <% if(i+1 == currentPage){ %>class="active"<%}%>><a href="#"><%= i+1 %></a></li>
+		    <%}%>
+		    <li class="forward">
+		      <a href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+		<%}%>
+	    
+
 	</div>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

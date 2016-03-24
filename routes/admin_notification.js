@@ -9,6 +9,8 @@ var	StringDecoder = require('string_decoder').StringDecoder;
 var	EventEmitter = require('events').EventEmitter;
 var	util=require('util');
 
+var PER_PAGE = 10;
+
 
 router.get('/', function(req, res, next){
 
@@ -16,16 +18,47 @@ router.get('/', function(req, res, next){
 	if(!req.session.username){
 		res.redirect('/');
 	}
-	
-	//获取数据库信息
-	sql.notificationSelectAll(function(err, result){
-		if (err) {
-		      res.render('fail', {title : "查询通知失败", message: "请稍后重试"});
-		      return;		
-	    } 
 
-		res.render('admin_notification', {admin_name: req.session.username, notes:result});
+	/**** 分页 *****/
+	var currentPage = 1;
+	if(req.query.page){
+		currentPage = (req.query.page >= 1) ? req.query.page : 1;
+	}
+
+	//创建count
+	var count = new Array();
+	count.start = (currentPage - 1) * PER_PAGE;
+	count.num = PER_PAGE;
+	/**** 分页 *****/
+
+	sql.notificationAllNumbers(function(err, result){
+		/**** 分页 *****/
+		recordCount = result[0]['count'];
+		var pagesNum = parseInt(parseInt(recordCount / PER_PAGE));
+		if(recordCount != 0){
+			if(recordCount%PER_PAGE){
+				pagesNum = pagesNum + 1;
+			}
+			if(currentPage > pagesNum){
+				count.start = (pagesNum - 1) * PER_PAGE;
+				currentPage = pagesNum;
+			}
+		}
+		/**** 分页 *****/
+
+		//获取数据库信息
+		sql.notificationSelectAll(count, function(err, notes){
+			if (err) {
+			      res.render('fail', {title : "查询通知失败", message: "请稍后重试"});
+			      return;		
+		    } 
+
+			res.render('admin_notification', {admin_name: req.session.username, notes:notes,  pagesNum: pagesNum, currentPage: currentPage});
+		});
+
 	});
+	
+	
 });
 
 router.post('/add', function(req, res, next){
