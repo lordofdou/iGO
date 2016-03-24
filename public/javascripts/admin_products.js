@@ -24,3 +24,7 @@ function query(i,j) {
 	window.location.href="/admin_products/query?id="+i+"&category="+j;
 
 }
+
+function detail(id) {
+	window.location.href="/admin_products/detail?id="+id;
+}

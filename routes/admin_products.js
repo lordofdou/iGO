@@ -201,4 +201,18 @@ router.post("/",function(req,res,next){
 router.get("/add",function(req,res,next){
 	res.render('admin_products_add',{admin_name: req.session.username});
 });
+
+router.get("/detail",function(req,res,next){
+	var id = req.query.id;
+	sql.connect();
+	sql.queryCommodityWithId(id,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.render('admin_products_detail',{admin_name: req.session.username,prodinfo:results});
+	});
+	// res.render('admin_products_add',{admin_name: req.session.username});
+
+});
 module.exports = router;

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>iGO-评论</title>
+	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript" src="../javascripts/jquery-2.2.1.js"></script>
+	<script type="text/javascript" src="../javascripts/admin_comments.js"></script>
+	
+	<style>
+		
+		td, th{
+			text-align: left;
+		}
+		.glyphicon{
+			color:#d54545;
+		}
+		td {
+			border:1px solid #fff;
+			
+		}
+	</style>
+	
+</head>
+<body>
+<!-- 导航条 -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+	    	<div class="navbar-header">
+	    	  	<a class="navbar-brand" href="#">iGo</a>
+	   		</div>
+	   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="/admin_general">概览</a></li>
+					<li><a href="/admin_admin">管理员</a></li>
+					<li><a href="/admin_user">用户</a></li>
+					<li class="active"><a href="/admin_products">商品</a></li>
+					<li><a href="/admin_orders">订单</a></li>
+					<li><a href="/admin_status">帖子</a></li>
+					<li><a href="/admin_activity">活动</a></li>
+					<li><a href="/admin_comments">评论</a></li>
+					<li><a href="/admin_notification">推送</a></li>	
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+			        <li><a href="#"><%= admin_name %></a></li>
+			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
+			    </ul>
+			</div>
+		<div>	
+	</nav>
+	
+	
+	<div style="margin-top: 200px">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div  class="panel panel-default">
+					<div class="row">
+						<div class="col-md-2">
+						<!-- pic -->
+							<img src="<%= prodinfo[0]['pic']%>" style="width: 140px;height: 140px">
+						</div>
+
+						<div class="col-md-10" style="text-align: left;">
+							<table class="table" >
+								<tr >
+									<td style="border-color: #fff"><p>ID：<%= prodinfo[0]['id']%></p></td>
+									<td style="border-color: #fff"><p>名称：<%= prodinfo[0]['name']%></p></td>
+									<td style="border-color: #fff"><p>分类：<%= prodinfo[0]['cid']%></p></td>
+								</tr>
+								<tr>
+									<td><p>厂家：<%= prodinfo[0]['factory']%></p></td>
+									<td><p>地区：<%= prodinfo[0]['region']%></p></td>
+									<td><p>价格：<%= prodinfo[0]['price']%></p></td>
+								</tr>
+
+								<tr>
+									<td><p>销售：<%= prodinfo[0]['sale']%></p></td>
+									<td><p>库存：<%= prodinfo[0]['storage']%></p></td>
+									<td><p>收藏；<%= prodinfo[0]['count']%></p></td>
+								</tr>
+
+								<tr>
+									<td><p>上架：<%= prodinfo[0]['onSale']%></p></td>
+									<td><p>描述：<%= prodinfo[0]['id']%></p></td>
+									<td><p></p></td>
+								</tr>
+							</table>
+							<!-- 商品ID：id；名称：name；分类：cid；
+							厂家：factory；地区：region；价格：price；
+							销售量：sale；库存：storage；收藏量；count；
+							上架：onSale；描述：description； -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>
