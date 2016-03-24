@@ -45,7 +45,7 @@ router.get('/', function(req, res, next) {
 		/**** 分页 *****/
 		
 		var pagesNum = parseInt(parseInt(recordCount) / PER_PAGE);
-		if(pagesNum != 0){
+		if(recordCount != 0){
 			if(recordCount%PER_PAGE){
 				pagesNum = pagesNum + 1;
 			}

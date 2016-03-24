@@ -307,8 +307,15 @@ var notificationAddRecory = function(info, callback){
 	});
 }
 
-var notificationSelectAll = function(callback){
-	var sql = "SELECT * FROM notification ORDER by createTime DESC";
+var notificationSelectAll = function(count, callback){
+	var sql = "SELECT * FROM notification ORDER by createTime DESC limit "+ count.start +","+ count.num +"";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+var notificationAllNumbers = function(callback){
+	var sql = "SELECT COUNT(*) AS count FROM notification ORDER BY createTime DESC";
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});
@@ -349,3 +356,4 @@ exports.notificationAddRecory = notificationAddRecory;
 exports.notificationSelectAll = notificationSelectAll;
 exports.queryCommodityWithId = queryCommodityWithId;
 exports.queryCommentWithProdinfo = queryCommentWithProdinfo;
+exports.notificationAllNumbers = notificationAllNumbers;
