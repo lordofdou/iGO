@@ -8,13 +8,13 @@
 
 	<style>
 	td, th{
-		text-align: center;
+		text-align: left;
 	}
 	.glyphicon{
 		color:#d54545;
 	}
-	td a{
-
+	td {
+		border:1px solid #fff;
 	}
 </style>
 </head>
@@ -46,7 +46,7 @@
 		<div>	
 	</nav>
 	<% prodinfo %>
-	<% commtinfo %>
+	
 	<div style="margin-top: 200px">
 		<div class="row">
 			<div class="col-md-2"></div>
@@ -55,40 +55,34 @@
 					<div class="row">
 						<div class="col-md-2">
 						<!-- pic -->
-							<img src="#" style="background-color: blue;width: 150px;height: 150px">
+							<img src="<%= prodinfo[0]['pic']%>" style="width: 140px;height: 140px">
 						</div>
 
-						<div class="col-md-10" style="text-align: center;">
-							<table class="table">
+						<div class="col-md-10" style="text-align: left;">
+							<table class="table" >
+								<tr >
+									<td style="border-color: #fff"><p>ID：<%= prodinfo[0]['id']%></p></td>
+									<td style="border-color: #fff"><p>名称：<%= prodinfo[0]['name']%></p></td>
+									<td style="border-color: #fff"><p>分类：<%= prodinfo[0]['cid']%></p></td>
+								</tr>
 								<tr>
-									<td><p>商品ID：id</p></td>
-									<td><p>名称：name</p></td>
-									<td><p>分类：cid</p></td>
+									<td><p>厂家：<%= prodinfo[0]['factory']%></p></td>
+									<td><p>地区：<%= prodinfo[0]['region']%></p></td>
+									<td><p>价格：<%= prodinfo[0]['price']%></p></td>
+								</tr>
+
+								<tr>
+									<td><p>销售：<%= prodinfo[0]['sale']%></p></td>
+									<td><p>库存：<%= prodinfo[0]['storage']%></p></td>
+									<td><p>收藏；<%= prodinfo[0]['count']%></p></td>
+								</tr>
+
+								<tr>
+									<td><p>上架：<%= prodinfo[0]['onSale']%></p></td>
+									<td><p>描述：<%= prodinfo[0]['id']%></p></td>
+									<td><p></p></td>
 								</tr>
 							</table>
-							<!-- <div class="row">
-								<div class="col-md-4"><p>商品ID：id</p></div>
-								<div class="col-md-4"><p>名称：name</p></div>
-								<div class="col-md-4"><p>分类：cid</p></div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-4"><p>厂家：factory</p></div>
-								<div class="col-md-4"><p>地区：region</p></div>
-								<div class="col-md-4"><p>价格：price</p></div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-4"><p>销售量：sale</p></div>
-								<div class="col-md-4"><p>库存：storage</p></div>
-								<div class="col-md-4"><p>收藏量；count</p></div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-4"><p>上架：onSale</p></div>
-								<div class="col-md-4"><p>描述：description</p></div>
-								<div class="col-md-4"><p></p></div>		
-							</div> -->
 							<!-- 商品ID：id；名称：name；分类：cid；
 							厂家：factory；地区：region；价格：price；
 							销售量：sale；库存：storage；收藏量；count；
@@ -104,7 +98,17 @@
 							<td width="20%">用户ID</td>
 							<td width="80%">评论</td>
 						</tr>
-
+						<% commtinfo %>
+						<% for (var i=0;i<commtinfo.lenght;i++) {%>
+							<tr>
+								<td width="20%"><%= commtinfo[i]['id'] %></td>
+								<td width="80%"></td>
+							</tr>
+						<% }%>
+						<%%>
+						<%%>
+						<%%>
+						<%%>
 					</table>
 				</div>
 			</div>
