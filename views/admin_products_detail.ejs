@@ -18,6 +18,10 @@
 			border:1px solid #fff;
 			
 		}
+		.dl-horizontal{
+			font-size: 15px;
+			text-align: left;
+		}
 	</style>
 	
 </head>
@@ -54,15 +58,80 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
+			<!-- <hr/> -->
 				<div  class="panel panel-default">
-					<div class="row">
-						<div class="col-md-2">
-						<!-- pic -->
-							<img src="<%= prodinfo[0]['pic']%>" style="width: 140px;height: 140px">
-						</div>
+					<div class="panel-heading" style="text-align: center;">
+			  			<h1 class="panel-title"style="font-size: 25px"><%= prodinfo[0]['name']%></h1>
+			  		</div>
+			  		<div class="panel-body">
+<!-- 			  			<div class="row">
+			  				<div class="col-md-6"><p>ID：<%= prodinfo[0]['id']%></p></div>
+			  				<div class="col-md-6"><p>名称：<%= prodinfo[0]['name']%></p></div>
+			  			</div> -->
+			  			<dl class="dl-horizontal">
+		  				<hr/>
 
-						<div class="col-md-10" style="text-align: left;">
-							<table class="table" >
+						  <dt >商品ID</dt>
+						  <dd >：<%= prodinfo[0]['id']%></dd>
+						  <hr/>
+
+						  <dt >商品名称</dt>
+						  <dd >：<%= prodinfo[0]['name']%></dd>
+						  <hr/>
+
+						  <dt >商品分类</dt>
+						  <dd >：<%= prodinfo[0]['cid']%></dd>
+						  <hr/>
+
+						  <dt >商品厂家</dt>
+						  <dd >：<%= prodinfo[0]['factory']%></dd>
+						  <hr/>
+
+						  <dt >商品地区</dt>
+						  <dd >：<%= prodinfo[0]['region']%></dd>
+						  <hr/>
+
+						  <dt >商品价格</dt>
+						  <dd >：<%= prodinfo[0]['price']%></dd>
+						  <hr/>
+
+						  <dt >商品销售</dt>
+						  <dd >：<%= prodinfo[0]['sale']%></dd>
+						  <hr/>
+
+						  <dt >商品库存</dt>
+						  <dd >：<%= prodinfo[0]['storage']%></dd>
+						  <hr/>
+
+						  <dt >商品收藏</dt>
+						  <dd >：<%= prodinfo[0]['count']%></dd>
+						  <hr/>
+
+						  <dt >商品上架</dt>
+						  <dd >：<%= prodinfo[0]['onSale']%></dd>
+						  <hr/>
+
+						  <dt >商品图片</dt>
+						  <dd ><img src="<%= prodinfo[0]['pic']%>" style="width: 150px;height: 150px"></dd>
+						  <hr/>
+
+						  <dt >商品描述</dt>
+						  <dd >
+						  	<% string = prodinfo[0]['description'] %>
+						  	<% des = string.split('|') %>
+						  	<% for (var i=0;i<des.length;i++) {%>
+						  		<img src="<%= des[i]%>" style="width: 150px;height: 150px">
+						  	<% }%>
+						  </dd>
+						  <hr/>
+						</dl>
+			  			
+
+			  		<!-- </div> -->
+
+							<!-- <%= prodinfo[0]['pic']%>
+
+								<table class="table" >
 								<tr >
 									<td style="border-color: #fff"><p>ID：<%= prodinfo[0]['id']%></p></td>
 									<td style="border-color: #fff"><p>名称：<%= prodinfo[0]['name']%></p></td>
@@ -85,14 +154,14 @@
 									<td><p>描述：<%= prodinfo[0]['id']%></p></td>
 									<td><p></p></td>
 								</tr>
-							</table>
+							</table> -->
 							<!-- 商品ID：id；名称：name；分类：cid；
 							厂家：factory；地区：region；价格：price；
 							销售量：sale；库存：storage；收藏量；count；
 							上架：onSale；描述：description； -->
 
-						</div>
-					</div>
+
+			
 				</div>
 			</div>
 			<div class="col-md-2"></div>
