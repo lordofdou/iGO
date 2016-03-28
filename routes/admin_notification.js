@@ -8,6 +8,9 @@ var path=require('path');
 var	StringDecoder = require('string_decoder').StringDecoder;
 var	EventEmitter = require('events').EventEmitter;
 var	util=require('util');
+// 极光推送
+var JPush = require("jpush-sdk");
+var client = JPush.buildClient('8d2303a73a1fd7356c91ea51', 'e9023b7baee10be66eb12db1');
 
 var PER_PAGE = 10;
 
@@ -99,6 +102,19 @@ router.post('/add', function(req, res, next){
 		    } 
 
 		    //使用 极光推送
+			client.push().setPlatform(JPush.ALL)
+			    .setAudience(JPush.ALL)
+			    .setNotification('Hi~', JPush.android(info.title, null, 1))
+			    .send(function(err, res) {
+			        if (err) {
+			            res.render('fail', {title : "推送失败", message: err.message});
+		    			return;
+			        } 
+			        // else {
+			        //     console.log('Sendno: ' + res.sendno);
+			        //     console.log('Msg_id: ' + res.msg_id);
+			        // }
+			    });
 
 	    	res.redirect('/admin_notification');
 	    });

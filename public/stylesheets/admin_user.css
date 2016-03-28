@@ -1,0 +1,38 @@
+dl{
+	width:300px;
+	height:200px;
+}
+
+dl dt{
+	height:180px;
+	width:130px;
+	float:left;
+	line-height: 200px;
+	text-align: center;
+	position: relative;
+}
+dl dt .functions{
+	position: absolute;
+	top:10%;
+	left:35%;
+}
+dl dt .functions span{
+	cursor: pointer;
+}
+
+dl dt img{
+	width:70px;
+	height:70px;
+	margin-top: 20px;
+	border-radius: 50%;
+}
+
+dl dd{
+	font-size: 15px;
+	height:35px;
+	line-height: 35px;
+}
+
+table td{
+	border:0px solid red;
+}

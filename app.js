@@ -16,6 +16,7 @@ var comments = require('./routes/admin_comments');
 var status = require('./routes/admin_status');
 var products = require('./routes/admin_products');
 var notification = require('./routes/admin_notification');
+var user = require('./routes/admin_user');
 
 var app = express();
 
@@ -57,6 +58,8 @@ app.use('/admin_status', status);
 app.use('/admin_products',products);
 
 app.use('/admin_notification', notification);
+
+app.use('/admin_user', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
