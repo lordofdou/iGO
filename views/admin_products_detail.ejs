@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap/css/bootstrap.min.css">
 	<script type="text/javascript" src="../javascripts/jquery-2.2.1.js"></script>
 	<script type="text/javascript" src="../javascripts/admin_comments.js"></script>
-	
+	<script type="text/javascript" src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
 	<style>
 		
 		td, th{
@@ -115,7 +115,22 @@
 						  <hr/>
 
 						  <dt >商品图片</dt>
-						  <dd ><img src="<%= prodinfo[0]['pic']%>" style="width: 150px;height: 150px"></dd>
+						  <dd ><img src="<%= prodinfo[0]['pic']%>" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal"></dd>
+
+						  <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      
+						      <div class="modal-body">
+						        <img src="<%= prodinfo[0]['pic']%>" style="width: 560px;height: 300px" >
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        
+						      </div>
+						    </div>
+						  </div>
+						</div>
 						  <hr/>
 
 						  <dt >商品描述</dt>
@@ -123,48 +138,25 @@
 						  	<% string = prodinfo[0]['description'] %>
 						  	<% des = string.split('|') %>
 						  	<% for (var i=0;i<des.length;i++) {%>
-						  		<img src="<%= des[i]%>" style="width: 150px;height: 150px">
+						  		<img src="<%= des[i]%>" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal<%= i%>">
+						  		<div class="modal fade" id="imgModal<%= i%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      
+								      <div class="modal-body">
+								        <img src="<%= prodinfo[0]['pic']%>" style="width: 560px;height: 300px" >
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								        
+								      </div>
+								    </div>
+								  </div>
 						  	<% }%>
 						  </dd>
 						  <hr/>
 						</dl>
-			  			
 
-			  		<!-- </div> -->
-
-							<!-- <%= prodinfo[0]['pic']%>
-
-								<table class="table" >
-								<tr >
-									<td style="border-color: #fff"><p>ID：<%= prodinfo[0]['id']%></p></td>
-									<td style="border-color: #fff"><p>名称：<%= prodinfo[0]['name']%></p></td>
-									<td style="border-color: #fff"><p>分类：<%= prodinfo[0]['cid']%></p></td>
-								</tr>
-								<tr>
-									<td><p>厂家：<%= prodinfo[0]['factory']%></p></td>
-									<td><p>地区：<%= prodinfo[0]['region']%></p></td>
-									<td><p>价格：<%= prodinfo[0]['price']%></p></td>
-								</tr>
-
-								<tr>
-									<td><p>销售：<%= prodinfo[0]['sale']%></p></td>
-									<td><p>库存：<%= prodinfo[0]['storage']%></p></td>
-									<td><p>收藏；<%= prodinfo[0]['count']%></p></td>
-								</tr>
-
-								<tr>
-									<td><p>上架：<%= prodinfo[0]['onSale']%></p></td>
-									<td><p>描述：<%= prodinfo[0]['id']%></p></td>
-									<td><p></p></td>
-								</tr>
-							</table> -->
-							<!-- 商品ID：id；名称：name；分类：cid；
-							厂家：factory；地区：region；价格：price；
-							销售量：sale；库存：storage；收藏量；count；
-							上架：onSale；描述：description； -->
-
-
-			
 				</div>
 			</div>
 			<div class="col-md-2"></div>

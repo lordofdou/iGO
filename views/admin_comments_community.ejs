@@ -50,49 +50,59 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<div  class="panel panel-default">
-					<div class="row">
-						<div class="col-md-2">
-						<!-- pic -->
-							<img src="<%= communityinfo[0]['pic']%>" style="width: 140px;height: 140px" data-toggle="modal" data-target="#imgModal">
-							<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-							  <div class="modal-dialog" role="document">
-							    <div class="modal-content">
-							      
-							      <div class="modal-body">
-							        <img src="<%= communityinfo[0]['pic']%>"  style="width: 560px;height: 300px" >
-							        
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							        
-							      </div>
-							    </div>
-							  </div>
-							</div>
+				
+				<div class="row">
 
-						</div>
-
-						<div class="col-md-10" style="text-align: left;">
-							<table class="table" >
-								<tr >
-									<td style="border-color: #fff"><p>帖子ID：<%= communityinfo[0]['id']%></p></td>
-									<td style="border-color: #fff"><p>帖子标题：<%= communityinfo[0]['title']%></p></td>
-									<td style="border-color: #fff"><p>上传时间：<%= communityinfo[0]['time']%></p></td>
-								</tr>
-								<tr >
-									<td style="border-color: #fff"><p>商品ID：<%= communityinfo[0]['pid']%></p></td>
-									<td style="border-color: #fff"><p>评论条数：<%= communityinfo[0]['count']%></p></td>
-									<td style="border-color: #fff"><p>推荐描述：<%= communityinfo[0]['description']%></p></td>
-								</tr>
-							</table>
-							
-
+					<div class="col-md-2"></div>
+					<div class="col-md-2">
+					<!-- pic -->
+						<img src="<%= communityinfo[0]['pic']%>" style="width: 140px;height: 140px" data-toggle="modal" data-target="#imgModal">
+						<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      
+						      <div class="modal-body">
+						        <img src="<%= communityinfo[0]['pic']%>"  style="width: 560px;height: 300px" >
+						        
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        
+						      </div>
+						    </div>
+						  </div>
 						</div>
 					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-4" >
+						<dl class="dl-horizontal">
+							<dt >帖子ID</dt>
+					  		<dd >：<%= communityinfo[0]['id']%></dd>
+						
+							<dt >帖子标题</dt>
+					  		<dd >：<%= communityinfo[0]['title']%></dd>
+						
+							<dt >商品详情</dt>
+					  		<dd >：<a href="/admin_status/modify?id=<%= communityinfo[0]['id']%>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="color: blue"></span></a></dd>
+					  	</dl>
+						<!-- <table class="table" >
+							<tr >
+								<td style="border-color: #fff"><p>帖子ID：<%= communityinfo[0]['id']%></p></td>
+								<td style="border-color: #fff"><p>帖子标题：<%= communityinfo[0]['title']%></p></td>
+								<td style="border-color: #fff"><p>上传时间：<%= communityinfo[0]['time']%></p></td>
+							</tr>
+							<tr >
+								<td style="border-color: #fff"><p>商品ID：<%= communityinfo[0]['pid']%></p></td>
+								<td style="border-color: #fff"><p>评论条数：<%= communityinfo[0]['count']%></p></td>
+								<td style="border-color: #fff"><p>推荐描述：<%= communityinfo[0]['description']%></p></td>
+							</tr>
+						</table> -->
+					</div>
+					<div class="col-md-2"></div>
 				</div>
 				
-				<div  class="panel panel-default">	
+				
+				<div  class="panel panel-default" style="margin-top: 100px">	
 					<table class="table table-striped" style="table-layout: fixed;">
 						<tr>
 							<td width="20%" style="text-align: center;">用户ID</td>
@@ -100,7 +110,7 @@
 							
 						</tr>
 						<% for (var i = 0;i<commtinfo.length;i++) {%>
-						<tr onclick="showdetail(<%= commtinfo[i]['uid']%>)" data-toggle="modal" data-target="#commModal<%= commtinfo[i]['uid']%>">
+						<tr onclick="showdetail(<%= commtinfo[i]['uid']%>)" data-toggle="modal" data-target="#commModal<%= commtinfo[i]['uid']%>" style="cursor:pointer;">
 							<td width="20%" style="text-align: center;"><%= commtinfo[i]['uid']%></td>
 							<td width="80%" style="text-align: center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><%= commtinfo[i]['comment']%></td>
 							
@@ -134,7 +144,7 @@
 			<div class="col-md-2"></div>
 		</div>
 	</div>
-
+<!-- /admin_status/modify?id=1 -->
 
 </body>
 </html>

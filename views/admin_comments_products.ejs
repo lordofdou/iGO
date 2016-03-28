@@ -19,6 +19,11 @@
 			border:1px solid #fff;
 			
 		}
+		.dl-horizontal{
+			font-size: 17px;
+			text-align: left;
+		}
+
 	</style>
 	
 </head>
@@ -55,82 +60,48 @@
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<div  class="panel panel-default">
-					<div class="row">
-						<div class="col-md-2"></div>
+				<!-- <div  class="panel panel-default"> -->
+				<div class="row">
+					<div class="col-md-2"></div>
 
-						<div class="col-md-2">
-						<!-- pic -->
-							<img src="<%= prodinfo[0]['pic']%>" style="width: 140px;height: 140px" data-toggle="modal" data-target="#imgModal">
-							<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-							  <div class="modal-dialog" role="document">
-							    <div class="modal-content">
-							      
-							      <div class="modal-body">
-							        <img src="<%= prodinfo[0]['pic']%>" style="width: 560px;height: 300px" >
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							        
-							      </div>
-							    </div>
-							  </div>
-							</div>	
-						</div><!-- pic -->
-
-						<div class="col-md-6">
-							<dl class="dl-horizontal">
-								<dt >商品ID</dt>
-						  		<dd >：<%= prodinfo[0]['id']%></dd>
-							</dl>
-							<dl class="dl-horizontal">
-								<dt >商品名称</dt>
-						  		<dd >：<%= prodinfo[0]['name']%></dd>
-							</dl>
-							<dl class="dl-horizontal">
-								<dt >商品ID</dt>
-						  		<dd >：<%= prodinfo[0]['id']%></dd>
-							</dl>		
-						</div>
-							
-
-						<div class="col-md-2"> </div>
-								
-					
-							<!-- <table class="table" >
-								<tr >
-									<td style="border-color: #fff"><p>ID：<%= prodinfo[0]['id']%></p></td>
-									<td style="border-color: #fff"><p>名称：<%= prodinfo[0]['name']%></p></td>
-									<td style="border-color: #fff"><p>分类：<%= prodinfo[0]['cid']%></p></td>
-								</tr>
-								<tr>
-									<td><p>厂家：<%= prodinfo[0]['factory']%></p></td>
-									<td><p>地区：<%= prodinfo[0]['region']%></p></td>
-									<td><p>价格：<%= prodinfo[0]['price']%></p></td>
-								</tr>
-
-								<tr>
-									<td><p>销售：<%= prodinfo[0]['sale']%></p></td>
-									<td><p>库存：<%= prodinfo[0]['storage']%></p></td>
-									<td><p>收藏；<%= prodinfo[0]['count']%></p></td>
-								</tr>
-
-								<tr>
-									<td><p>上架：<%= prodinfo[0]['onSale']%></p></td>
-									<td><p>描述：<%= prodinfo[0]['id']%></p></td>
-									<td><p></p></td>
-								</tr>
-							</table> -->
-							<!-- 商品ID：id；名称：name；分类：cid；
-							厂家：factory；地区：region；价格：price；
-							销售量：sale；库存：storage；收藏量；count；
-							上架：onSale；描述：description； -->
-
-						</div>
+					<div class="col-md-2" >
+					<!-- pic -->
+						<img src="<%= prodinfo[0]['pic']%>" style="width: 200px;" data-toggle="modal" data-target="#imgModal">
+						<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      
+						      <div class="modal-body">
+						        <img src="<%= prodinfo[0]['pic']%>" style="width: 560px;height: 300px" >
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        
+						      </div>
+						    </div>
+						  </div>
+						</div>	
+					</div><!-- pic -->
+					<div class="col-md-2"></div>
+					<div class="col-md-4" >
+						<dl class="dl-horizontal">
+							<dt >商品ID</dt>
+					  		<dd >：<%= prodinfo[0]['id']%></dd>
+						
+							<dt >商品名称</dt>
+					  		<dd >：<%= prodinfo[0]['name']%></dd>
+						
+							<dt >商品详情</dt>
+					  		<dd >：<a href="/admin_products/detail?id=<%= prodinfo[0]['id']%>"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="color: blue"></span></a></dd>
+						</dl>		
 					</div>
+					
+					<div class="col-md-2"> </div>
+
 				</div>
+				<!-- </div> -->
 				
-				<div  class="panel panel-default">	
+				<div  class="panel panel-default" style="margin-top: 100px">	
 					<table class="table table-striped" style="table-layout: fixed;">
 						<tr>
 							<td width="20%" style="text-align: center;">用户ID</td>
@@ -138,7 +109,7 @@
 							
 						</tr>
 						<% for (var i = 0;i<commtinfo.length;i++) {%>
-						<tr onclick="showdetail(<%= commtinfo[i]['uid']%>)" data-toggle="modal" data-target="#commModal<%= commtinfo[i]['uid']%>">
+						<tr onclick="showdetail(<%= commtinfo[i]['uid']%>)" data-toggle="modal" data-target="#commModal<%= commtinfo[i]['uid']%>" style="cursor:pointer;">
 							<td width="20%" style="text-align: center;"><%= commtinfo[i]['uid']%></td>
 							<td width="80%" style="text-align: center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><%= commtinfo[i]['comment']%></td>
 							
@@ -166,8 +137,6 @@
 						
 					</table>
 				</div>
-				
-
 			</div>
 
 			<div class="col-md-2"></div>
