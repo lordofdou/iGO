@@ -18,13 +18,16 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 
-			// 监控input的输入
+	// 监控input的输入
 			var desNum = 1;
 			var lastNum = desNum;
 
 		  	$('body').on('change', 'input[type="file"]', function(){
 		  		var src = getObjectURL(this.files[0]);
 		  		// console.log(src);
+		  		rawbackground = $(this).parent().css('background'); 
+		  		console.log(rawbackground);
+
 		  		$(this).parent().css('background', 'url(' + src + ') no-repeat center center').css('background-size', '100%');
 		  		lastNum = desNum
 		  		desNum++;
@@ -36,8 +39,11 @@
 		  		}else{
 		  			label='d'
 		  		}
-		  		var desDom='<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px"><input type="file" id="'+label+desNum+'" name="'+label+desNum+'"></input></li>';
-		  		$(this).parent().after(desDom);
+
+		  		if(rawbackground == 'rgba(0, 0, 0, 0) url("http://127.0.0.1:3000/images/activity_add.png") no-repeat scroll 50% 50% / auto padding-box border-box') {
+			  		var desDom='<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px"><input type="file" id="'+label+desNum+'" name="'+label+desNum+'"></input></li>';
+			  		$(this).parent().after(desDom);
+		  		}
 		  	});
 
 		  	// 获取文件url
@@ -54,25 +60,7 @@
 		    };
 			
 			$('#submit').click(function(){	
-				// var name = $('#name').val();
-				// var region = $('#region').val();
-				// var factory = $('#factory').val();
-				// $('#npnote').hide();
-				// if(name.length == 0 || region.length == 0||factory.length == 0) {
-
-				// 	$('#npnote').show();	
-				// }else {
-				// 	$('#myModal').modal('hide');
-				// 	$('#submitModal').modal('show');
-
-				// 	$('input[type="file"]').change(function(){
-
-				// 	});
-				// 	console.log("#####");
-				// 	setTimeout("$('#form').submit()",2000);
-
-				// 	alert("信息添加成功");
-				// }	
+					
 				$('form').submit();	
 			});
 
@@ -131,8 +119,9 @@
 			</div>
 		<div>	
 	</nav>
+	<a href="javascript:history.go(-1);" class="btn btn-default" style="margin-top: 80px;margin-left: 1000px">返回</a><hr/>
 	<!-- 表单 -->
-  	<form method="post" action="/admin_products" id="form"  enctype="multipart/form-data" style="margin-top: 100px">
+  	<form method="post" action="/admin_products" id="form"  enctype="multipart/form-data" style="margin-top: 80px">
   		<div class="row">
   			<div class="col-md-3"></div>
   			<div class="col-md-6">

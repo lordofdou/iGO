@@ -198,6 +198,10 @@ router.post("/",function(req,res,next){
     //上传描述图片
 });
 
+router.post('/modify',function(err,results){
+	res.send("success");
+})
+
 router.get("/add",function(req,res,next){
 	res.render('admin_products_add',{admin_name: req.session.username});
 });

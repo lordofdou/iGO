@@ -50,58 +50,77 @@
 
 	<div class="topButtons text-right">
 		<div class="btn-group" role="group">
-			<a type="button" class="btn btn-danger" href="/admin_user/disableAll">关闭登录功能</a>
+			
+				<%if(parseInt(loginStatus) == 1){%>
+				<a type="button" class="btn btn-danger" href="/admin_user/changeLoginStatus">关闭登录功能</a>
+				<%}else{%>
+				<a type="button" class="btn btn-success" href="/admin_user/changeLoginStatus">开启登录功能</a>
+				<%}%>
 		</div>
+		
+		<div class="btn-group" role="group">
+			<form class="navbar-form navbar-left" role="search" method="get" actino="/admin_user">
+				<div class="form-group">
+					<input type="text" <%if(username){%>value="<%= username%>"<%}%> name="username" class="form-control" placeholder="用户名">
+				</div>
+				<button type="submit" class="btn btn-default">搜索</button>
+			</form>
+		</div>
+
 		<hr />
 	</div>
 	<br/>
 
 	<table class="table">
+		<% for(var i = 0; i<users.length; i++){ %>
 		<tr>
+		<% for(var j = 0; j<3 && (j+i)<users.length; j++){%>
+
 			<td style="border-top:0px solid white;">
 				<dl>
-					<dt><img src="/images/icon.png" />
-						<div class="functions">
-							<span id="deleteUser" style="color:#ba3030;" class="glyphicon glyphicon-remove"></span>
-							<span style="color:#06b5e2;" class="glyphicon glyphicon-ban-circle"></span>
+					<dt><img src="/<%= users[i+j]['icon']%>" />
+						<div class="functions" idNumber="<%= users[i+j]['id']%>">
+							<span idNumber="<%= users[i+j]['id']%>" style="color:#ba3030;" class="glyphicon glyphicon-remove deleteUser"></span>
+							<span style="color:#06b5e2;"<% if(users[i+j]['canLogin']){%> class="glyphicon glyphicon-ban-circle canLoginBtn"<%}else{%> class="glyphicon glyphicon-circle-arrow-up canLoginBtn"<%}%>></span>
 						</div>
 					</dt>
-					<dd>昵称：轩轩的一个梦想</dd>
-					<dd>手机：15251977332</dd>
-					<dd>性别：男</dd>
-					<dd>上次登录：2016.3.18</dd>
+					<dd>昵称：<%= users[i+j]['name']%></dd>
+					<dd>手机：<%= users[i+j]['tel']%></dd>
+					<dd>性别：<%= users[i+j]['sexText']%></dd>
+					<dd>上次登录：<%= users[i+j]['lastLoginTimeText']%></dd>
 				</dl>
 			</td>
-			<td style="border-top:0px solid white;">
-				<dl>
-					<dt><img src="/images/icon.png" />
-						<div class="functions">
-							<span id="deleteUser" style="color:#ba3030;" class="glyphicon glyphicon-remove"></span>
-							<span style="color:#06b5e2;" class="glyphicon glyphicon-ban-circle"></span>
-						</div>
-					</dt>
-					<dd>昵称：轩轩的一个梦想</dd>
-					<dd>手机：15251977332</dd>
-					<dd>性别：男</dd>
-					<dd>上次登录：2016.3.18</dd>
-				</dl>
-			</td>
-			<td style="border-top:0px solid white;">
-				<dl>
-					<dt><img src="/images/icon.png" />
-						<div class="functions">
-							<span id="deleteUser" style="color:#ba3030;" class="glyphicon glyphicon-remove"></span>
-							<span style="color:#06b5e2;" class="glyphicon glyphicon-ban-circle"></span>
-						</div>
-					</dt>
-					<dd>昵称：轩轩的一个梦想</dd>
-					<dd>手机：15251977332</dd>
-					<dd>性别：男</dd>
-					<dd>上次登录：2016.3.18</dd>
-				</dl>
-			</td>
+
+		<%}i+=(j-1);%>
 		</tr>
+		
+		<%}%>
+	</tr>
+	
 	</table>
+
+
+	<p style="display:none;" id="curP"><%= currentPage%></p>
+	<% if(pagesNum != 0){ %>
+	<nav style="text-align:center;">
+	  <ul class="pagination">
+	    <li class="back">
+	      <a href="#" aria-label="Previous">
+	        <span aria-hidden="true">&laquo;</span>
+	      </a>
+	    </li>
+	    <% for(var i = 0; i < pagesNum; i++){%>
+	    <li <% if(i+1 == currentPage){ %>class="active"<%}%>><a href="#"><%= i+1 %></a></li>
+	    <%}%>
+	    <li class="forward">
+	      <a href="#" aria-label="Next">
+	        <span aria-hidden="true">&raquo;</span>
+	      </a>
+	    </li>
+	  </ul>
+	</nav>
+	<%}%>
+	    
 
 	
 		

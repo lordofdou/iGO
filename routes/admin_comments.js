@@ -181,13 +181,13 @@ router.get('/admin_comments_deletepcomm',function(req,res,next) {
 	var id = req.query.id;
 	var pid = req.query.pid;
 	sql.connect();
-	// sql.deleteCommentFromCommentByid(id,function(err,results){
-	// 	if(err){
-	// 		res.send(err.message);
-	// 	}
+	sql.deleteCommentFromCommentByid(id,function(err,results){
+		if(err){
+			res.send(err.message);
+		}
 		res.redirect('/admin_comments/admin_comments_products?pid='+pid);
-	// });
-	res.send("success");
+	});
+	// res.send("success");
 	
 })
 
@@ -195,13 +195,13 @@ router.get('/admin_comments_deleteccomm',function(req,res,next){
 	var id = req.query.id;
 	var cid = req.query.cid;
 	sql.connect();
-	// sql.deleteCommentFromCommentByid(id,function(err,results){
-	// 	if(err){
-	// 		res.send(err.message);
-	// 	}
+	sql.deleteCommentFromCommentByid(id,function(err,results){
+		if(err){
+			res.send(err.message);
+		}
 		res.redirect('/admin_comments/admin_comments_community?cid='+cid);
-	// });
-	res.send("success");
+	});
+	// res.send("success");
 })
 
 module.exports = router;

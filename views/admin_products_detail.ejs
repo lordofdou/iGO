@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap/css/bootstrap.min.css">
 	<script type="text/javascript" src="../javascripts/jquery-2.2.1.js"></script>
 	<script type="text/javascript" src="../javascripts/admin_comments.js"></script>
+	<script type="text/javascript" src="../javascripts/admin_products.js"></script>
 	<script type="text/javascript" src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
 	<style>
 		
@@ -22,6 +23,19 @@
 			font-size: 15px;
 			text-align: left;
 		}
+		input[type='file']{
+			width: 100%;
+			height: 200px;
+			overflow: hidden;
+			
+		    /*position:absolute;*/
+		    /*right:0;
+		    top:0;*/
+		    opacity: 0;
+		    cursor:pointer;
+		    
+		}
+		
 	</style>
 	
 </head>
@@ -55,89 +69,128 @@
 	
 	<a href="javascript:history.go(-1);" class="btn btn-default" style="margin-top: 80px;margin-left: 1000px">返回</a><hr/>
 	<div style="margin-top: 120px">
-		
-		<div class="row">
+
+		<form method="post" action="/admin_products/modify" id="form"  enctype="multipart/form-data" style="margin-top: 100px">
+	  		<div class="row">
+	  			<div class="col-md-3"></div>
+	  			<div class="col-md-6">
+			        <div class="input-group">
+					  <span class="input-group-addon" >名称</span>
+					  <input type="text" class="form-control" placeholder="name" id="name" name="name" value="<%= prodinfo[0]['name']%>">
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+
+			<div class="row" style="margin-top: 15px">
+	  			<div class="col-md-3"></div>
+	  			<div class="col-md-6">
+			        <div class="input-group " >
+					  <span class="input-group-addon" >地区</span>
+					  <input type="text" class="form-control" placeholder="region" id="region" name="region" value="<%= prodinfo[0]['region']%>">
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
 			
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-			<!-- <hr/> -->
-				<div  class="panel panel-default">
-					<div class="panel-heading" style="text-align: center;">
-			  			<h1 class="panel-title"style="font-size: 25px"><%= prodinfo[0]['name']%></h1>
-			  		</div>
-			  		<div class="panel-body">
-<!-- 			  			<div class="row">
-			  				<div class="col-md-6"><p>ID：<%= prodinfo[0]['id']%></p></div>
-			  				<div class="col-md-6"><p>名称：<%= prodinfo[0]['name']%></p></div>
-			  			</div> -->
+			<div class="row" style="margin-top: 15px">
+	  			<div class="col-md-3"></div>
+	  			<div class="col-md-6">
+			        <div class="input-group " >
+					  <span class="input-group-addon" >厂家</span>
+					  <input type="text" class="form-control" placeholder="factory" id="factory" name="factory" value="<%= prodinfo[0]['factory']%>">
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
 
-			  			<dl class="dl-horizontal">
-		  				<hr/>
+			<div class="row" style="margin-top: 15px">
+				<div class="col-md-3"></div>
+				<div class="col-md-3">
+					<div class="input-group">
+					  <span class="input-group-addon" >价格</span>
+					  <input type="text" class="form-control" placeholder="price"  name="price" value="<%= prodinfo[0]['price']%>">
+					</div>
+				</div>
+					 
+				<div class="col-md-3">
+					<div class="input-group">
+					  <span class="input-group-addon" >销量</span>
+					  <input type="text" class="form-control" placeholder="sale"  name="sale" value="<%= prodinfo[0]['sale']%>">
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
 
-						  <dt >商品ID</dt>
-						  <dd >：<%= prodinfo[0]['id']%></dd>
-						  <hr/>
+			<div class="row" style="margin-top: 15px">
+				<div class="col-md-3"></div>
+				<div class="col-md-3">
+					<div class="input-group " >
+					  <span class="input-group-addon" >库存</span>
+					  <input type="text" class="form-control" placeholder="storage"  name="storage" value="<%= prodinfo[0]['storage']%>">
+					</div>
+				</div>
+					
+				<div class="col-md-3">
+					<div class="input-group " >
+					  <span class="input-group-addon" >收藏</span>
+					  <input type="text" class="form-control" placeholder="count"  name="count" value="<%= prodinfo[0]['count']%>">
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
 
-						  <dt >商品名称</dt>
-						  <dd >：<%= prodinfo[0]['name']%></dd>
-						  <hr/>
+			<div class="row" style="margin-top: 15px">
+				<div class="col-md-3"></div>
+				<div class="col-md-3">
+					<div class="input-group " >
+					  <span class="input-group-addon" >类别</span>
+					  <input type="text" class="form-control" placeholder="category"   name="category" value="<%= prodinfo[0]['cid']%>">
+					</div>
+				</div>
+					
+				<div class="col-md-3">
+					<div class="input-group " >
+					  <span class="input-group-addon" >上架</span>
+					  <input type="text" class="form-control" placeholder="onSale"  name="onSale" value="<%= prodinfo[0]['onSale']%>">
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			
+			<div class="row" style="margin-top: 15px;">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">	
+					<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
+						图片
+					</div>
+					<div>
+						<ul id="picul" style="border:1px solid #cccccc;list-style-type: none;">
+							<% for (var i=0;i<des.length;i++) {%>
+							<li style="background: url(<%= prodinfo[0]['pic']%>) no-repeat center center;list-style-type: none;margin-right:40px">
+								<input type="file" id="p<%= i%>" name="p<%= i%>" ></input>	
+							</li>
+							<% }%>
+							<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
+								<input type="file" id="p0" name="p0" ></input>	
+							</li>	
+						</ul>
+					</div>	  
+					
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			
 
-						  <dt >商品分类</dt>
-						  <dd >：<%= prodinfo[0]['cid']%></dd>
-						  <hr/>
-
-						  <dt >商品厂家</dt>
-						  <dd >：<%= prodinfo[0]['factory']%></dd>
-						  <hr/>
-
-						  <dt >商品地区</dt>
-						  <dd >：<%= prodinfo[0]['region']%></dd>
-						  <hr/>
-
-						  <dt >商品价格</dt>
-						  <dd >：<%= prodinfo[0]['price']%></dd>
-						  <hr/>
-
-						  <dt >商品销售</dt>
-						  <dd >：<%= prodinfo[0]['sale']%></dd>
-						  <hr/>
-
-						  <dt >商品库存</dt>
-						  <dd >：<%= prodinfo[0]['storage']%></dd>
-						  <hr/>
-
-						  <dt >商品收藏</dt>
-						  <dd >：<%= prodinfo[0]['count']%></dd>
-						  <hr/>
-
-						  <dt >商品上架</dt>
-						  <dd >：<%= prodinfo[0]['onSale']%></dd>
-						  <hr/>
-
-						  <dt >商品图片</dt>
-						  <dd ><img src="<%= prodinfo[0]['pic']%>" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal"></dd>
-
-						  <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      
-						      <div class="modal-body">
-						        <img src="<%= prodinfo[0]['pic']%>" style="width: 560px;height: 300px" >
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						        
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						  <hr/>
-
-						  <dt >商品描述</dt>
-						  <dd >
-						  	<% string = prodinfo[0]['description'] %>
-						  	<% des = string.split('|') %>
-						  	<% for (var i=0;i<des.length;i++) {%>
+			<div class="row" style="margin-top: 15px">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">	
+					<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
+						描述
+					</div>
+					<div>
+						<ul id="descul" style="border:1px solid #cccccc;list-style-type: none;">
+							<% for (var i=0;i<des.length;i++) {%>
 						  		<img src="<%= des[i]%>" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal<%= i%>">
 						  		<div class="modal fade" id="imgModal<%= i%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 								  <div class="modal-dialog" role="document">
@@ -153,16 +206,30 @@
 								    </div>
 								  </div>
 						  	<% }%>
-						  </dd>
-						  <hr/>
-						</dl>
 
+							<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
+								<input type="file" id="d1" name="d1" ></input>	
+							</li>	
+						</ul>
+					</div>	  
+					
 				</div>
+				<div class="col-md-3"></div>
 			</div>
-			<div class="col-md-2"></div>
+		</form>
+		<!-- 提交按钮 -->
+		<div class="row" style="margin-top: 15px">
+			<div class="col-md-3"></div>
+			<div class="col-md-6" style="text-align: right;">
+				<button type="button" class="btn btn-primary" id="submit">修改并保存</button>
+			</div>
+			<div class="col-md-3"></div>
 		</div>
+		
+
 	</div>
 
+	
 
 
 </body>

@@ -249,7 +249,7 @@ router.get('/deleteA', function(req, res, next){
 		      return;		
 		} 
 
-		res.redirect('/admin_status?page' + req.query.page);
+		res.redirect('/admin_status?page=' + req.query.page);
 	});
 });
 
