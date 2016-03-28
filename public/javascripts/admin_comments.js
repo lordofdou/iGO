@@ -97,3 +97,10 @@ function cdetail(cid){
 	window.location.href="/admin_comments/admin_comments_community?cid="+cid;
 }
 
+function deletepcomm(id,pid){
+	window.location.href="/admin_comments/admin_comments_deletepcomm?id="+id+"&pid="+pid;	
+}
+
+function deleteccomm(id,cid){
+	window.location.href="/admin_comments/admin_comments_deleteccomm?id="+id+"&cid="+cid;
+}

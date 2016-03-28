@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap/css/bootstrap.min.css">
 	<script type="text/javascript" src="../javascripts/jquery-2.2.1.js"></script>
 	<script type="text/javascript" src="../javascripts/admin_comments.js"></script>
-
+	<script type="text/javascript" src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
 	<style>
 	td, th{
 		text-align: center;
@@ -54,7 +54,23 @@
 					<div class="row">
 						<div class="col-md-2">
 						<!-- pic -->
-							<img src="<%= communityinfo[0]['pic']%>" style="width: 140px;height: 140px">
+							<img src="<%= communityinfo[0]['pic']%>" style="width: 140px;height: 140px" data-toggle="modal" data-target="#imgModal">
+							<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      
+							      <div class="modal-body">
+							        <img src="<%= communityinfo[0]['pic']%>"  style="width: 560px;height: 300px" >
+							        
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        
+							      </div>
+							    </div>
+							  </div>
+							</div>
+
 						</div>
 
 						<div class="col-md-10" style="text-align: left;">
@@ -84,15 +100,29 @@
 							
 						</tr>
 						<% for (var i = 0;i<commtinfo.length;i++) {%>
-						<tr onclick="showdetail(<%= commtinfo[i]['uid']%>)">
+						<tr onclick="showdetail(<%= commtinfo[i]['uid']%>)" data-toggle="modal" data-target="#commModal<%= commtinfo[i]['uid']%>">
 							<td width="20%" style="text-align: center;"><%= commtinfo[i]['uid']%></td>
 							<td width="80%" style="text-align: center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><%= commtinfo[i]['comment']%></td>
 							
 						</tr >	
-						<tr >
+						<!-- <tr >
 							<td></td>
 							<td><p id="<%= commtinfo[i]['uid']%>"  style="display: none"><%= commtinfo[i]['comment']%></p></td>
-						</tr>
+						</tr> -->
+						<div class="modal fade" id="commModal<%= commtinfo[i]['uid']%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      
+						      <div class="modal-body">
+						        <p><%= commtinfo[i]['comment']%></p>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						        <button type="button" class="btn btn-default" onclick="deleteccomm(<%= commtinfo[i]['id']%>,<%= commtinfo[i]['cid']%>)">删除</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
 						<% }%>
 						
 					</table>
