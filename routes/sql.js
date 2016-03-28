@@ -338,6 +338,55 @@ var notificationAllNumbers = function(callback){
 }
 /**** ****/
 
+/**** 用户相关 ****/
+var userSelectAll = function(count, callback){
+	var sql = "SELECT * FROM user ORDER BY registerTime limit "+count.start+","+count.num+"";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+var userAllNumbers = function(callback){
+	var sql = "SELECT COUNT(*) AS count FROM user";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+var userDeletaARecord = function(id, callback){
+	var sql = "DELETE FROM user WHERE id="+id;
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+var userSetLogin = function(id, callback){
+	var sql = "UPDATE user SET canLogin=ABS(canLogin - 1) WHERE id="+id;
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+var userSearchResult = function(username, callback){
+	var sql = "SELECT * FROM user WHERE name like '%"+username+"%'";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+/**** ****/
+
+/**** 系统设置相关 ****/
+var sysSettingLoginStatus = function(callback){
+	var sql = "SELECT setValue FROM sysSetting WHERE setName='loginStatus'";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+var sysSettingChangeLoginStatus = function(callback){
+	var sql = "UPDATE sysSetting SET setValue=ABS(setValue - 1) WHERE setName='loginStatus'";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+
+
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
 exports.adminSelectUsers = adminSelectUsers;
@@ -375,3 +424,11 @@ exports.queryCommentWithProdinfo = queryCommentWithProdinfo;
 exports.notificationAllNumbers = notificationAllNumbers;
 exports.queryCommunityWithId = queryCommunityWithId;
 exports.queryCommentWithComunityinfo = queryCommentWithComunityinfo;
+exports.userSelectAll = userSelectAll;
+exports.userAllNumbers = userAllNumbers;
+exports.userDeletaARecord = userDeletaARecord;
+exports.userSetLogin = userSetLogin;
+exports.userSearchResult = userSearchResult;
+exports.sysSettingLoginStatus = sysSettingLoginStatus;
+exports.sysSettingChangeLoginStatus = sysSettingChangeLoginStatus;
+
