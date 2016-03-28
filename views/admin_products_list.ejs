@@ -65,6 +65,7 @@
 
   		<table class="table" id="table">
   		<tr>
+  			<td>ID</td>
   			<td>名称</td>
   			<!-- <td>产地</td>
   			<td>厂家</td>
@@ -79,6 +80,7 @@
   		</tr>
 		<%for(var i=0;i<list.length;i++) {%>
 			<tr >
+			<td><%= list[i].id %></td>
   			<td><%= list[i].name %></td>
   			<!-- <td><%= list[i].region %></td>
   			<td><%= list[i].factory %></td>

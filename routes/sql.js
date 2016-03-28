@@ -143,6 +143,31 @@ var queryCommodityWithId = function(id,callback){
 		callback(err,results);
 	});
 }
+
+var modifyRecordFromCommodity =function(pvt,callback){
+	var property = pvt['property'].split(',');
+	var value = pvt['value'].split(',');
+
+	var table = pvt['table'];
+	var id = value[0];
+
+	var string = "" ;
+	for(var i=1;i<property.length;i++){
+		if(value[i] == "'"+"'"){
+			continue;
+		}
+		if(string == "") {
+			string = string + property[i] + "=" + value[i];
+		}
+		string = string + "," + property[i] + "=" + value[i];
+		
+	}
+	var sql = "update commodity set "+ string +" where id="+id;
+	console.log("||||||||||"+sql);
+	client.query(sql,function(err,results){
+		callback(err,results);
+	}) 
+}
 /**** ****/
 
 
@@ -439,4 +464,5 @@ exports.userSearchResult = userSearchResult;
 exports.sysSettingLoginStatus = sysSettingLoginStatus;
 exports.sysSettingChangeLoginStatus = sysSettingChangeLoginStatus;
 exports.deleteCommentFromCommentByid = deleteCommentFromCommentByid;
+exports.modifyRecordFromCommodity = modifyRecordFromCommodity;
 

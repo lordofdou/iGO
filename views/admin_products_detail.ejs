@@ -71,7 +71,17 @@
 	<div style="margin-top: 120px">
 
 		<form method="post" action="/admin_products/modify" id="form"  enctype="multipart/form-data" style="margin-top: 100px">
-	  		<div class="row">
+			<div class="row" style="margin-top: 15px">
+	  			<div class="col-md-3"></div>
+	  			<div class="col-md-6">
+			        <div class="input-group " >
+					  <span class="input-group-addon" >ID</span>
+					  <input type="text" class="form-control" placeholder="id" id="id" name="id" value="<%= prodinfo[0]['id']%>">
+					</div>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+	  		<div class="row" style="margin-top: 15px">
 	  			<div class="col-md-3"></div>
 	  			<div class="col-md-6">
 			        <div class="input-group">
@@ -81,7 +91,7 @@
 				</div>
 				<div class="col-md-3"></div>
 			</div>
-
+			
 			<div class="row" style="margin-top: 15px">
 	  			<div class="col-md-3"></div>
 	  			<div class="col-md-6">
@@ -166,13 +176,17 @@
 					</div>
 					<div>
 						<ul id="picul" style="border:1px solid #cccccc;list-style-type: none;">
-							<% for (var i=0;i<des.length;i++) {%>
-							<li style="background: url(<%= prodinfo[0]['pic']%>) no-repeat center center;list-style-type: none;margin-right:40px">
+							<% string = prodinfo[0]['pic']%>
+							
+							<% pic = string.split('|')%>
+							
+							<% for (var i=0;i<pic.length;i++) {%>
+							<li style="background: url(<%= pic[i]%>) no-repeat center center;list-style-type: none;margin-right:40px">
 								<input type="file" id="p<%= i%>" name="p<%= i%>" ></input>	
 							</li>
 							<% }%>
 							<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
-								<input type="file" id="p0" name="p0" ></input>	
+								<input type="file" id="pplus" name="pplus" ></input>	
 							</li>	
 						</ul>
 					</div>	  
@@ -190,25 +204,17 @@
 					</div>
 					<div>
 						<ul id="descul" style="border:1px solid #cccccc;list-style-type: none;">
+							<% string = prodinfo[0]['description'] %>
+							
+						  	<% des = string.split('|') %>
 							<% for (var i=0;i<des.length;i++) {%>
-						  		<img src="<%= des[i]%>" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal<%= i%>">
-						  		<div class="modal fade" id="imgModal<%= i%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      
-								      <div class="modal-body">
-								        <img src="<%= prodinfo[0]['pic']%>" style="width: 560px;height: 300px" >
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								        
-								      </div>
-								    </div>
-								  </div>
+						  		<li style="background: url(<%= des[i]%>) no-repeat center center;list-style-type: none;margin-right:40px">
+									<input type="file" id="d<%= i%>" name="d<%= i%>" ></input>	
+								</li>
 						  	<% }%>
 
 							<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
-								<input type="file" id="d1" name="d1" ></input>	
+								<input type="file" id="dplus" name="dplus" ></input>	
 							</li>	
 						</ul>
 					</div>	  
@@ -229,7 +235,9 @@
 
 	</div>
 
-	
+	<% string = "ab|bc|cd"%>
+	<% array = string.split('|')%>
+	<%= array[1]%>
 
 
 </body>
