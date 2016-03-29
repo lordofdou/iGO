@@ -112,6 +112,12 @@ var modifyRecordfromTable = function(ipvt,callback){
 
 
 /**** 商品相关 ****/
+var commoditySelectAll = function(callback){
+	var sql = "SELECT * FROM commodity";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
 var queryCommodityWithCid = function(cid,callback){
 	var sql = "select * from commodity where cid="+cid;
 	client.query(sql,function(err,results){
@@ -371,8 +377,15 @@ var notificationAllNumbers = function(callback){
 /**** ****/
 
 /**** 用户相关 ****/
+var userSelectAllNoPage = function(callback){
+	var sql = "SELECT * FROM user ORDER BY registerTime DESC";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
 var userSelectAll = function(count, callback){
-	var sql = "SELECT * FROM user ORDER BY registerTime limit "+count.start+","+count.num+"";
+	var sql = "SELECT * FROM user ORDER BY registerTime DESC limit "+count.start+","+count.num+"";
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});
@@ -416,6 +429,62 @@ var sysSettingChangeLoginStatus = function(callback){
 		callback(err, results);
 	});
 }
+/**** ****/
+
+/**** 订单相关 ****/
+var ordersSelectAll = function(count, callback){
+	var sql = "SELECT * FROM orders ORDER BY time desc limit "+count.start+","+count.num+"";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+var ordersAllNumbers = function(callback){
+	var sql = "SELECT COUNT(*) AS count FROM orders";
+	client.query(sql, function(err, results){
+		callback(err, results[0]['count']);
+	});
+}
+
+var ordersAllDoNumbers = function(callback){
+	var sql = "SELECT COUNT(*) AS count FROM orders WHERE sid=(SELECT id FROM orderstatus WHERE status='待发货')";
+	client.query(sql, function(err, results){
+		callback(err, results[0]['count']);
+	});
+}
+var ordersSelectAllDo = function(count, callback){
+	var sql = "SELECT * FROM orders WHERE sid=(SELECT id FROM orderstatus WHERE status='待发货') ORDER BY time DESC LIMIT "+count.start+","+count.num+"";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+
+/**** ****/
+
+/**** 订单状态相关 ****/
+//订单状态是否是待发货
+var ordersIsWaitToSend = function(id, callback){
+	var sql = "SELECT * FROM orders WHERE id="+id+" AND sid=(SELECT id FROM orderstatus WHERE status='待发货')";
+	client.query(sql, function(err, results){
+		callback(err, results.length);
+	})
+}
+
+//待发货 -> 待收货 
+var orderStatusChangeStatusToSend = function(id, callback){
+	var sql = "UPDATE orders SET sid=(SELECT id FROM orderstatus WHERE status='待收货') WHERE id=" + id;
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+var orderStatusSelectAll = function(callback){
+	var sql = "SELECT * FROM orderstatus";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+/**** ****/
+
 
 
 
@@ -434,6 +503,7 @@ exports.activityInsertARecord = activityInsertARecord;
 exports.activitySelectAllRecord = activitySelectAllRecord;
 exports.activityGetFirstPopId = activityGetFirstPopId;
 exports.queryCommodityWithCid = queryCommodityWithCid;
+exports.commoditySelectAll = commoditySelectAll;
 exports.activitySetPid = activitySetPid;
 exports.statusInsertARecord = statusInsertARecord;
 exports.statusSelectAllRecord = statusSelectAllRecord;
@@ -457,6 +527,7 @@ exports.notificationAllNumbers = notificationAllNumbers;
 exports.queryCommunityWithId = queryCommunityWithId;
 exports.queryCommentWithComunityinfo = queryCommentWithComunityinfo;
 exports.userSelectAll = userSelectAll;
+exports.userSelectAllNoPage = userSelectAllNoPage;
 exports.userAllNumbers = userAllNumbers;
 exports.userDeletaARecord = userDeletaARecord;
 exports.userSetLogin = userSetLogin;
@@ -465,4 +536,14 @@ exports.sysSettingLoginStatus = sysSettingLoginStatus;
 exports.sysSettingChangeLoginStatus = sysSettingChangeLoginStatus;
 exports.deleteCommentFromCommentByid = deleteCommentFromCommentByid;
 exports.modifyRecordFromCommodity = modifyRecordFromCommodity;
+
+exports.ordersSelectAll = ordersSelectAll; 
+exports.ordersAllDoNumbers = ordersAllDoNumbers;
+exports.ordersAllNumbers = ordersAllNumbers;
+exports.ordersSelectAllDo = ordersSelectAllDo;
+
+
+exports.ordersIsWaitToSend = ordersIsWaitToSend;
+exports.orderStatusSelectAll = orderStatusSelectAll;
+exports.orderStatusChangeStatusToSend = orderStatusChangeStatusToSend;
 
