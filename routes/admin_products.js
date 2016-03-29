@@ -287,7 +287,16 @@ router.post('/modify',function(req,res,results){
 	
 })
 
+router.get('/search',function(req,res,next){
+	var value = req.query.value;
+
+
+	res.render('admin_products_search',{admin_name: req.session.username,list:""});
+})
+
 router.get("/add",function(req,res,next){
+
+	
 	res.render('admin_products_add',{admin_name: req.session.username});
 });
 
@@ -302,6 +311,7 @@ router.get("/detail",function(req,res,next){
 		res.render('admin_products_detail',{admin_name: req.session.username,prodinfo:results});
 	});
 	// res.render('admin_products_add',{admin_name: req.session.username});
-
 });
+
+
 module.exports = router;
