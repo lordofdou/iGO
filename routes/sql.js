@@ -21,6 +21,13 @@ var connect = function(){
 
 /**** 管理员相关 ****/
 
+//管理员数量
+var adminAllNumbers = function(callback){
+	var sql = "SELECT COUNT(*) AS count FROM admin";
+	client.query(sql, function(err, results){
+		callback(results[0]['count']);
+	});
+}
 //查询管理员id 和 name
 var adminSelectUsers = function(callback){
 	var sql = "SELECT id,name FROM admin;";
@@ -112,6 +119,12 @@ var modifyRecordfromTable = function(ipvt,callback){
 
 
 /**** 商品相关 ****/
+var commodityAllNumbers = function(callback){
+	var sql = "SELECT COUNT(*) AS count FROM commodity";
+	client.query(sql, function(err, results){
+		callback(results[0]['count']);
+	});
+}
 var commoditySelectAll = function(callback){
 	var sql = "SELECT * FROM commodity";
 	client.query(sql, function(err, results){
@@ -310,6 +323,12 @@ var queryCommunityWithId = function(id,callback){
 /*
 *评论信息相关操作
 */
+var commentAllNumbers = function(callback){
+	var sql = "SELECT COUNT(*) AS count FROM comment";
+	client.query(sql, function(err, results){
+		callback(results[0]['count']);
+	});
+}
 //根据评论ID计数
 var countByPidFromComment = function(pagination,products,community,callback){
 	// console.log("-------"+pid);
@@ -490,6 +509,7 @@ var orderStatusSelectAll = function(callback){
 
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
+exports.adminAllNumbers = adminAllNumbers;
 exports.adminSelectUsers = adminSelectUsers;
 exports.adminUsernameByID = adminUsernameByID;
 exports.usernameRegConfirm = usernameRegConfirm;
@@ -504,6 +524,7 @@ exports.activitySelectAllRecord = activitySelectAllRecord;
 exports.activityGetFirstPopId = activityGetFirstPopId;
 exports.queryCommodityWithCid = queryCommodityWithCid;
 exports.commoditySelectAll = commoditySelectAll;
+exports.commodityAllNumbers = commodityAllNumbers;
 exports.activitySetPid = activitySetPid;
 exports.statusInsertARecord = statusInsertARecord;
 exports.statusSelectAllRecord = statusSelectAllRecord;
@@ -517,6 +538,7 @@ exports.queryIdAndName = queryIdAndName;
 exports.countByPidFromComment = countByPidFromComment;
 exports.countByCidFromComment = countByCidFromComment;
 exports.queryIdandTitle = queryIdandTitle;
+exports.commentAllNumbers = commentAllNumbers;
 exports.getLengthOfCommunity = getLengthOfCommunity;
 exports.getLengthOfCommodity = getLengthOfCommodity;
 exports.notificationAddRecory = notificationAddRecory;
