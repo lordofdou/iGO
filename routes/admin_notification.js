@@ -17,20 +17,7 @@ var PER_PAGE = 10;
 
 router.get('/', function(req, res, next){
 
-	 //使用 极光推送
-			client.push().setPlatform(JPush.ALL)
-			    .setAudience(JPush.ALL)
-			    .setNotification('Hi~', JPush.android("哈哈哈哈", null, 1))
-			    .send(function(err, res) {
-			        if (err) {
-			            res.render('fail', {title : "推送失败", message: err.message});
-		    			return;
-			        } 
-			        // else {
-			        //     console.log('Sendno: ' + res.sendno);
-			        //     console.log('Msg_id: ' + res.msg_id);
-			        // }
-			    });
+	
 
 	//没有登录进入不了此界面
 	if(!req.session.username){
@@ -116,6 +103,20 @@ router.post('/add', function(req, res, next){
 		      return;		
 		    } 
 
+		     //使用 极光推送
+			client.push().setPlatform(JPush.ALL)
+			    .setAudience(JPush.ALL)
+			    .setNotification('Hi~', JPush.android(info.title, null, 1))
+			    .send(function(err, res) {
+			        if (err) {
+			            res.render('fail', {title : "推送失败", message: err.message});
+		    			return;
+			        } 
+			        // else {
+			        //     console.log('Sendno: ' + res.sendno);
+			        //     console.log('Msg_id: ' + res.msg_id);
+			        // }
+			    });
 
 	    	res.redirect('/admin_notification');
 	    });

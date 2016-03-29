@@ -75,7 +75,32 @@ router.get('/', function(req, res, next){
 	}
 
 	//获取数据库信息
-	res.render('admin_general', {admin_name: req.session.username});
+	//订单数量
+	sql.ordersAllNumbers(function(err, ordersCount){
+		//管理员数量
+		sql.adminAllNumbers(function(adminCount){
+			//用户数
+			sql.userAllNumbers(function(err, userNumbers){
+				var userCount = userNumbers[0]['count'];
+
+				//商品数量
+				sql.commodityAllNumbers(function(commodityCount){
+						//帖子数量
+						sql.statusAllNumber(function(statusCount){
+
+							//评论数量
+							sql.commentAllNumbers(function(commentCount){
+								res.render('admin_general', {admin_name: req.session.username, ordersCount:ordersCount,adminCount:adminCount,userCount:userCount,commodityCount:commodityCount,commentCount:commentCount,statusCount:statusCount});
+							});
+
+						});
+
+				});
+			});
+		});
+	});
+
+	
 });
 
 router.get('/logout', function(req, res, next){
