@@ -290,9 +290,16 @@ router.post('/modify',function(req,res,results){
 router.get('/search',function(req,res,next){
 	var value = req.query.value;
 
-
-	res.render('admin_products_search',{admin_name: req.session.username,list:""});
-})
+	sql.connect();
+	sql.searchFromCommodity(value,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.render('admin_products_search',{admin_name: req.session.username,list:results});
+	});
+	// res.render('admin_products_search',{admin_name: req.session.username,list:""});
+});
 
 router.get("/add",function(req,res,next){
 

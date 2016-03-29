@@ -187,6 +187,30 @@ var modifyRecordFromCommodity =function(pvt,callback){
 		callback(err,results);
 	}) 
 }
+
+var searchFromCommodity = function(value,callback){
+	var sql;
+	if(!isNaN(value)){
+		//value is a number
+		sql = "select * from commodity where id="+value+
+										" or cid="+value+
+										" or price="+value+
+										" or sale="+value+
+										" or storage="+value+
+										" or count="+value;
+	}else{
+		//value is not a number
+		sql = "select * from commodity where name like '%"+value+"%'"+
+										" or region like '%"+value+"%'"+
+										" or factory like '%"+value+"%'";
+	}
+	if(value==""){
+		sql = "select * from commodity where id=0";
+	}
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
 /**** ****/
 
 
@@ -568,4 +592,6 @@ exports.ordersSelectAllDo = ordersSelectAllDo;
 exports.ordersIsWaitToSend = ordersIsWaitToSend;
 exports.orderStatusSelectAll = orderStatusSelectAll;
 exports.orderStatusChangeStatusToSend = orderStatusChangeStatusToSend;
+
+exports.searchFromCommodity = searchFromCommodity;
 

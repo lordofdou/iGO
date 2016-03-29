@@ -83,8 +83,8 @@
   			<% }else{ %>
   			<%  icon = "glyphicon-ok"; %>
   			<% } %>
-  			<td><a onclick="onSale(<%= list[i].id %>,<%= list[i].onSale %>,<%= list[i].cid%>,'<%= title%>')"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
-	  		<td><a onclick="d(<%= list[i].id %>,<%= list[i].cid%>,'<%= title%>')"><span class=" glyphicon glyphicon-remove"></span></a></td>
+  			<td><a onclick="onSale(<%= list[i].id %>,<%= list[i].onSale %>,<%= list[i].cid%>,0)"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
+	  		<td><a onclick="d(<%= list[i].id %>,<%= list[i].cid%>,0)"><span class=" glyphicon glyphicon-remove"></span></a></td>
 	  		<td><a onclick="detail(<%= list[i].id %>)"><span style="color:blue;"class=" glyphicon glyphicon-list-alt"></span></a></td>
 	  		</tr>
   		<% } %>
