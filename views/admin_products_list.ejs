@@ -82,12 +82,29 @@
 			<tr >
 			<td><%= list[i].id %></td>
   			<td><%= list[i].name %></td>
-  			<!-- <td><%= list[i].region %></td>
-  			<td><%= list[i].factory %></td>
-  			<td><img src="<%= list[i].pic %>"></td> -->
   			<td><%= list[i].price %></td>
   			<td><%= list[i].sale %></td>
-  			<td><%= list[i].storage %></td>
+  			<td style="cursor: pointer;" data-toggle="modal" data-target="#stroageModal<%= i%>" ><%= list[i].storage %></td>
+  				<div class="modal fade" id="stroageModal<%= i%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="myModalLabel">修改库存</h4>
+				      </div>
+				      <div class="modal-body">
+				        <div class="input-group">
+						  <span class="input-group-addon" id="basic-addon1">库存</span>
+						  <input type="text" class="form-control" name="new<%= list[i].id %>" value="<%= list[i].storage %>" aria-describedby="basic-addon1">
+						</div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				        <button type="button" class="btn btn-primary" onclick="modifystorage(<%= list[i].id %>)">提交</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
   			<td><%= list[i].count %></td>
   			<% if(list[i].onSale) { %>
   			<%	icon = "glyphicon-remove"; %>

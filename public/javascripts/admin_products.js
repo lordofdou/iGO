@@ -74,3 +74,9 @@ function detail(id) {
 	window.location.href="/admin_products/detail?id="+id;
 }
 
+function modifystorage(id) {
+  value = $('input[name="new'+id+'"]').val();
+  // alert(value);
+  window.location.href="/admin_products/modifystorage?id="+id+"&value="+value;
+}
+
