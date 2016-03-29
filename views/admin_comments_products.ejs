@@ -66,13 +66,17 @@
 
 					<div class="col-md-2" >
 					<!-- pic -->
-						<img src="<%= prodinfo[0]['pic']%>" style="width: 200px;" data-toggle="modal" data-target="#imgModal">
+						<% string = prodinfo[0]['pic']%>
+						<% picArray = string.split('|')%>
+
+						<img src="<%= picArray[0]%>" style="width: 200px;" data-toggle="modal" data-target="#imgModal">
 						<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 						  <div class="modal-dialog" role="document">
 						    <div class="modal-content">
 						      
 						      <div class="modal-body">
-						        <img src="<%= prodinfo[0]['pic']%>" style="width: 560px;height: 300px" >
+
+						        <img src="<%= picArray[0]%>" style="width: 560px;height: 300px" >
 						      </div>
 						      <div class="modal-footer">
 						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

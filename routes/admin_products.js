@@ -287,7 +287,23 @@ router.post('/modify',function(req,res,results){
 	
 })
 
+router.get('/search',function(req,res,next){
+	var value = req.query.value;
+
+	sql.connect();
+	sql.searchFromCommodity(value,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		res.render('admin_products_search',{admin_name: req.session.username,list:results});
+	});
+	// res.render('admin_products_search',{admin_name: req.session.username,list:""});
+});
+
 router.get("/add",function(req,res,next){
+
+	
 	res.render('admin_products_add',{admin_name: req.session.username});
 });
 
@@ -302,6 +318,28 @@ router.get("/detail",function(req,res,next){
 		res.render('admin_products_detail',{admin_name: req.session.username,prodinfo:results});
 	});
 	// res.render('admin_products_add',{admin_name: req.session.username});
-
 });
+
+router.get('/modifystorage',function(req,res,results){
+	var ipvt = new Array();
+	ipvt.id = req.query.id;
+	ipvt.property = "storage";
+	ipvt.value = req.query.value;
+	ipvt.table = "commodity";
+	cid = req.query.cid;
+	category = req.query.category;
+	
+	sql.connect();
+	sql.modifyRecordfromTable(ipvt,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		var url = "/admin_products/query?id="+cid+"&category="+category;
+		res.redirect(encodeURI(url));
+	});
+
+})
+
+
 module.exports = router;

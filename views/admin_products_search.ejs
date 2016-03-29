@@ -12,23 +12,10 @@
 	<title>
 		iGo后台-商品
 	</title>
-	<script type="text/javascript">
-		function add(j){
-			window.location.href="/admin_products/add?category="+j;
-		}
-
-		function onSale(i,j,m,n){
-			window.location.href="/admin_products/onSale?id="+i+"&value="+j+"&cid="+m+"&category="+n;
-		}
-		function d(i,j,m){
-			window.location.href="/admin_products/delete?id="+i+"&cid="+j+"&category="+m;
-
-		}
-	</script>
 </head>
 <body>
+	
 	<!-- 导航条 -->
-
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 	    	<div class="navbar-header">
@@ -50,18 +37,19 @@
 				 <ul class="nav navbar-nav navbar-right">
 			        <li><a href="#"><%= admin_name %></a></li>
 			        <li><a href="/admin_general/logout" style="color:#900">注销</a></li>
-			      </ul>
+			     </ul>
 
 			</div>
-		<div>	
+		</div>	
 	</nav>
 	<a href="javascript:history.go(-1);" class="btn btn-default" style="margin-top: 80px;margin-left: 1000px">返回</a><hr/>
-	<!-- 商品分类 -->
+
+	<!-- product list -->
 	<div id="products" class="panel panel-default" style="margin-top: 100px">
 
   		<!-- Default panel contents -->
   		<div class="panel-heading">
-  			<h1 class="panel-title"><%= title%> </h1>
+  			<h1 class="panel-title">搜索结果</h1>
   		</div>
 
   		<table class="table" id="table">
@@ -83,49 +71,28 @@
 			<tr >
 			<td><%= list[i].id %></td>
   			<td><%= list[i].name %></td>
+  			<!-- <td><%= list[i].region %></td>
+  			<td><%= list[i].factory %></td>
+  			<td><img src="<%= list[i].pic %>"></td> -->
   			<td><%= list[i].price %></td>
   			<td><%= list[i].sale %></td>
-  			<td style="cursor: pointer;" data-toggle="modal" data-target="#stroageModal<%= i%>" ><%= list[i].storage %></td>
-  				<div class="modal fade" id="stroageModal<%= i%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				  <div class="modal-dialog" role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        <h4 class="modal-title" id="myModalLabel">修改<%= list[i].name %>库存</h4>
-				      </div>
-				      <div class="modal-body">
-				        <div class="input-group">
-						  <span class="input-group-addon" id="basic-addon1">库存</span>
-						  <input type="text" class="form-control" name="new<%= list[i].id %>" value="<%= list[i].storage %>" aria-describedby="basic-addon1">
-						</div>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				        <button type="button" class="btn btn-primary" onclick="modifystorage(<%= list[i].id %>,<%= list[i].cid %>,'<%= title%>')">提交</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
+  			<td><%= list[i].storage %></td>
   			<td><%= list[i].count %></td>
   			<% if(list[i].onSale) { %>
   			<%	icon = "glyphicon-remove"; %>
   			<% }else{ %>
   			<%  icon = "glyphicon-ok"; %>
   			<% } %>
-  			<td><a onclick="onSale(<%= list[i].id %>,<%= list[i].onSale %>,<%= list[i].cid%>,'<%= title%>')"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
-	  		<td><a onclick="d(<%= list[i].id %>,<%= list[i].cid%>,'<%= title%>')"><span class=" glyphicon glyphicon-remove"></span></a></td>
+  			<td><a onclick="onSale(<%= list[i].id %>,<%= list[i].onSale %>,<%= list[i].cid%>,0)"><span style="color:blue;" class="glyphicon <%= icon %>" aria-hidden="true"></span></a></td>
+	  		<td><a onclick="d(<%= list[i].id %>,<%= list[i].cid%>,0)"><span class=" glyphicon glyphicon-remove"></span></a></td>
 	  		<td><a onclick="detail(<%= list[i].id %>)"><span style="color:blue;"class=" glyphicon glyphicon-list-alt"></span></a></td>
 	  		</tr>
   		<% } %>
   		</table>
 	  	</div>
-	  	<div>
-  			<div style="text-align: center;">
-				<button id="append"class="btn btn-default" onclick="add('<%= title%>')">添加</button>
-				<!-- <a href="javascript:history.go(-1);" class="btn btn-default" style="margin-top: 80px;margin-left: 1000px">返回</a><hr/> -->
-			</div>
+	  	
 
-  		</div>
+	
 
 </body>
 </html>

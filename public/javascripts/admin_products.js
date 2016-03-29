@@ -46,6 +46,12 @@ $(document).ready(function(){
 		$('form').submit();	
 	});
 
+  $('#search').click(function(){
+    value = $('input[name="search"]').val()
+    // alert(value);
+    window.location.href="/admin_products/search?value="+value;
+  })
+
 });
 
 function drop(i) {
@@ -66,5 +72,12 @@ function query(i,j) {
 
 function detail(id) {
 	window.location.href="/admin_products/detail?id="+id;
+}
+
+function modifystorage(id,cid,category) {
+  value = $('input[name="new'+id+'"]').val();
+  // alert(value);
+  // console.log(category);
+  window.location.href="/admin_products/modifystorage?id="+id+"&value="+value+"&cid="+cid+"&category="+category;
 }
 

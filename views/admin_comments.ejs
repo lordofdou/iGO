@@ -73,7 +73,7 @@ td a{
 			  		<% 		if(plist[i] == null || plist[i][1] == null) {%>
 			  		<% 			continue;%>
 			  		<% 		}%>
-				  		<tr onclick="pdetail(<%= i%>)">
+				  		<tr onclick="pdetail(<%= i%>)" style="cursor:pointer">
 				  			<td><%= i%></td>
 				  			<td><%= plist[i][0]%></td>
 				  			<td><%= plist[i][1]%></td>
@@ -117,7 +117,7 @@ td a{
 			  		<% 		if(clist[i] == null || clist[i][1] == null) {%>
 			  		<% 			continue;%>
 			  		<% 		}%>
-				  		<tr onclick="cdetail(<%= i%>)">
+				  		<tr onclick="cdetail(<%= i%>)" style="cursor:pointer">
 				  			<td><%= i%></td>
 				  			<td><%= clist[i][0]%></td>
 				  			<td><%= clist[i][1]%></td>
