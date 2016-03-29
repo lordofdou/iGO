@@ -33,7 +33,7 @@ router.get('/', function(req, res, next) {
 		pagination['status'] = 1;
 	}
 
-	pagination['range'] = 2;
+	pagination['range'] = 10;
 	
 
 
