@@ -528,6 +528,15 @@ var orderStatusSelectAll = function(callback){
 }
 /**** ****/
 
+/**** 收货地址相关****/
+var addressSelectAll = function(callback){
+	var sql = "SELECT * FROM address";
+	client.query(sql, function(err, results){
+		callback(err, results);
+	});
+}
+/**** ****/
+
 
 
 
@@ -594,4 +603,6 @@ exports.orderStatusSelectAll = orderStatusSelectAll;
 exports.orderStatusChangeStatusToSend = orderStatusChangeStatusToSend;
 
 exports.searchFromCommodity = searchFromCommodity;
+
+exports.addressSelectAll = addressSelectAll;
 

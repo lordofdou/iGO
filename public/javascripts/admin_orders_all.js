@@ -15,4 +15,14 @@ $(document).ready(function(){
 	});
 
 	
+	$('tr[idnumber]').click(function(){
+
+		$('#contactNameArea').text($(this).attr('contactName'));
+		$('#contactTelArea').text($(this).attr('contactTel'));
+		$('#contactRegionArea').text($(this).attr('contactRegion'));
+		$('#contactAddressArea').text($(this).attr('contactAddress'));
+
+		$('#contactModal').modal('show');
+	});
+
 });

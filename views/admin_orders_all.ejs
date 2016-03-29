@@ -3,6 +3,7 @@
 <title>iGO后台－订单</title>
 <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript" src="/javascripts/jquery-2.2.1.js"></script>
+<script type="text/javascript" src="/stylesheets/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/javascripts/admin_orders_all.js"></script>
 
 <style>
@@ -64,7 +65,11 @@ td, th{
 		<tr><td style="width:20px;">#</td><td>订单号</td><td>用户</td><td>商品</td><td>创建时间</td><td>状态</td></tr>
 		<% for(var i = 0; i<orders.length; i++){%>
 
-		<tr>
+		<tr idNumber="<%= orders[i]['id']%>" contactName="<%= orders[i]['address']['name']%>"
+			contactAddress="<%= orders[i]['address']['address']%>"
+			contactRegion="<%= orders[i]['address']['region']%>"
+			contactTel="<%= orders[i]['address']['tel']%>" 
+			style="cursor:pointer;">
 			<td><%= i+1%></td>
 			<td><%= orders[i]['code']%></td>
 			<td><a href="/admin_user?username=<%= orders[i]['username']%>"><%= orders[i]['username']%></a></td>
@@ -97,6 +102,47 @@ td, th{
 	</nav>
 	<%}%>
 	    
+</div>
+
+
+<div class="modal fade bs-example-modal-sm" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">收货地址</h4>
+      </div>
+      <div class="modal-body">
+      
+      	<dl class="dl-horizontal">
+		<p>
+		  <dt>收件人：</dt>
+		  <dd id="contactNameArea"></dd>
+		</p>
+
+		<p>
+		  <dt>联系方式：</dt>
+		  <dd id="contactTelArea"></dd>
+		</p>
+
+		<p>
+		  <dt>区域：</dt>
+		  <dd id="contactRegionArea"></dd>
+		</p>
+
+		<p>
+		  <dt>详细地址：</dt>
+		  <dd id="contactAddressArea"></dd>
+		</p>
+		</dl>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>

@@ -71,7 +71,32 @@ router.get('/', function(req, res, next) {
 			    		}
 			    	}
 
-			    	res.render('admin_orders', {admin_name: req.session.username, orders: results, pagesNum: pagesNum, currentPage: currentPage});
+			    	sql.addressSelectAll(function(err, address){
+			    		for (var i = 0; i < results.length; i++) {
+			    			for(var addresN in address){
+			    				var addres = address[addresN];
+			    				if(results[i]['aid'] == addres['id']){
+			    					results[i]['address'] = addres;
+			    					break;
+			    				}
+			    			}
+			    		}
+
+			    		sql.addressSelectAll(function(err, address){
+				    		for (var i = 0; i < results.length; i++) {
+				    			for(var addresN in address){
+				    				var addres = address[addresN];
+				    				if(results[i]['aid'] == addres['id']){
+				    					results[i]['address'] = addres;
+				    					break;
+				    				}
+				    			}
+				    		}
+							res.render('admin_orders', {admin_name: req.session.username, orders: results, pagesNum: pagesNum, currentPage: currentPage});
+			    		});
+
+			    		// res.render('admin_orders', {admin_name: req.session.username, orders: results, pagesNum: pagesNum, currentPage: currentPage});
+			    	});
 
 		    	});
 		    });
@@ -158,9 +183,23 @@ router.get('/all', function(req, res, next) {
 								}
 							}	
 						}
-						res.render('admin_orders_all', {admin_name: req.session.username, orders: results, pagesNum: pagesNum, currentPage: currentPage});
-			    	});
 
+
+						sql.addressSelectAll(function(err, address){
+				    		for (var i = 0; i < results.length; i++) {
+				    			for(var addresN in address){
+				    				var addres = address[addresN];
+				    				if(results[i]['aid'] == addres['id']){
+				    					results[i]['address'] = addres;
+				    					break;
+				    				}else{
+				    					results[i]['address'] = {'id':'0', 'address':'未匹配到', 'uid':'0', 'tel':'未匹配到', 'region':'未匹配到', 'name':'未匹配到'};
+				    				}
+				    			}
+				    		}
+							res.render('admin_orders_all', {admin_name: req.session.username, orders: results, pagesNum: pagesNum, currentPage: currentPage});
+			    		});
+			    	});
 		    	});
 		    });
 		});

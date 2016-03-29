@@ -21,5 +21,16 @@ $(document).ready(function(){
 		var href = "/admin_orders/send?page=" + currentPage + "&id=" + idNumber;
 		window.location.href = href;
 	});
+
+	$('tr[idNumber]').click(function(){
+
+		$('#contactNameArea').text($(this).attr('contactName'));
+		$('#contactTelArea').text($(this).attr('contactTel'));
+		$('#contactRegionArea').text($(this).attr('contactRegion'));
+		$('#contactAddressArea').text($(this).attr('contactAddress'));
+
+		$('#contactModal').modal('show');
+	});
+
 	
 });
