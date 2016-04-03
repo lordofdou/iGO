@@ -473,6 +473,18 @@ var queryUserWithId = function(id,callback){
 		callback(err,results);
 	});
 }
+
+var modifyRecordInUser = function(ipvt,callback){
+	id = ipvt.id;
+	values = ipvt.value.split(',');
+	setting = " name="+values[0]+", sex="+values[1]+", icon="+values[2];
+	var sql = "update user set "+setting+" where id="+id;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+
+
+}
 /**** ****/
 
 /**** 系统设置相关 ****/
@@ -692,3 +704,4 @@ exports.queryAddressWithUid = queryAddressWithUid;
 exports.queryFromOrdersByUid = queryFromOrdersByUid;
 exports.ConvertAidToAddress = ConvertAidToAddress;
 exports.ConvertPidToProduct = ConvertPidToProduct;
+exports.modifyRecordInUser = modifyRecordInUser;

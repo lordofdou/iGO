@@ -38,8 +38,7 @@ router.get('/',function(req,res,next){
 			// res.send(results[0]['icon']);
 			res.send(results);
 		});
-	}
-	
+	}	
 })
 
 //register
@@ -70,96 +69,79 @@ json
 */
 //####################################
 router.post("/modify",function(req,res,next){
-	// console.log(req.body.id+req.body.name+req.body.sex+id.body.icon)
 	var AVATAR_UPLOAD_FOLDER = '/userUpload/';
-	var form = new formidable.IncomingForm();
-
+	
+	var form = new formidable.IncomingForm(); 
     form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
-
  // //    //上传产品图片
     form.parse(req,function(error,fields,files){
-    	console.log("#####")
-    	res.send('no');
-  //   	if (error) {
-	 //      res.render('fail', {title : "上传失败", message: err});
-	 //      return;		
-	 //    } 
-	 //    // console.log(fields);
-	 //    // console.log(files);
-	 //    //一般数据获取
-	 //    var name = fields.name;
-	 //    var region = fields.region;
-		// var factory = fields.factory;
-		// var price = fields.price;
-		// var sale  = fields.sale;
-		// var storage = fields.storage;
-		// var count = fields.count;
-		// var cid = fields.category;
-		// var onSale = fields.onSale;
+    	if (error) {
+	      res.render('fail', {title : "上传失败", message: err});
+	      return;		
+	    } 
+	    // console.log(fields);
+	    // console.log(files);
+	    //一般数据获取
+	    var id = fields.id;
+	    var name = fields.name;
+		var sex = fields.sex;
 
-		// //图片存储与地址存储
-		// var picString;
-		// var descString;
-		// var picArray = new Array();
-		// var descArray = new Array();
+		
 
-		// var extName = 'png';  //后缀名
-	 //    var avatarName;		  //随机数文件名
-	 //    var newPath;		  //文件存储路径
-		// for (var key in files){
-		// 	// console.log(key[0]);
-		// 	if(files[key]["size"]==0){
-		// 		continue;
-		// 	}
-		// 	avatarName = Math.random() + '.' + extName;
-		// 	//存储路径
-	 //    	newPath= form.path + avatarName;
-	 //    	//重命名图片并同步到磁盘上
-	 //    	fs.renameSync(files[key]["path"], newPath);
-	 //    	//访问路径
-	 //    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
+		//图片存储与地址存储
+		var picString;
+		
+		var picArray = new Array();
+		
+
+		var extName = 'png';  //后缀名
+	    var avatarName;		  //随机数文件名
+	    var newPath;		  //文件存储路径
+		for (var key in files){
+			// console.log(key[0]);
+			if(files[key]["size"]==0){
+				continue;
+			}
+			avatarName = Math.random() + '.' + extName;
+			//存储路径
+	    	newPath= form.path + avatarName;
+	    	//重命名图片并同步到磁盘上
+	    	fs.renameSync(files[key]["path"], newPath);
+	    	//访问路径
+	    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
 	    	
-	 //    	if(key[0]=='p'){
-	 //    		picArray.push(newPath);
-	 //    	}else{
-	 //    		descArray.push(newPath);
-	 //    	}
+	    	if(key[0]=='p'){
+	    		picArray.push(newPath);
+	    	}else{
+	    		descArray.push(newPath);
+	    	}
 
 
-		// }
+		}
 
-		// picString = picArray.join('|');
-		// descString = descArray.join('|');
+		
+		
 
-		// var pvt = new Array();
-		// pvt.property = "name,cid,region,pic,factory,description,price,sale,storage,count,onSale"
-		// // "'"+ +"'"+       ","+
-		// pvt.value = "'"+name+"'"+","+
-		// 			cid+","+
-		// 			"'"+region+"'"+","+
-		// 			"'"+picString+"'"+","+
-		// 			"'"+factory+"'"+","+
-		// 			"'"+descString+"'"+","+
-		// 			price+","+
-		// 			sale+","+
-		// 			storage+","+
-		// 			count+","+
-		// 			onSale;
-		// pvt.table = "commodity"
+		var ipvt = new Array();
+		ipvt.id = id;
+		ipvt.property = "name,sex,icon";
+		// "'"+ +"'"+       ","+
+		ipvt.value = "'"+name+"'"+","+
+					sex+","+
+					"'"+picArray[0]+"'";
+		ipvt.table = "user"
 
-		// sql.connect();
-		// sql.insertRecordintoTable(pvt,function(err,results){
-		// 	if(err){
-		// 		res.send(err.message);
-		// 		return;
-		// 	}
-		// 	res.redirect('/admin_products');
-		// });
+		sql.connect();
+		sql.modifyRecordInUser(ipvt,function(err,results){
+			if(err){
+				res.send(err.message);
+				return;
+			}
+			res.send("success");
+		});
 		// insertRecordintoTable
 		
     });
-    
-    //上传描述图片
 });
 
 //get address list
