@@ -457,6 +457,22 @@ var userSearchResult = function(username, callback){
 		callback(err, results);
 	});
 }
+
+var insertUsernameAndPasswordIntoUser =function(username,password,callback){
+	var sql = "insert into user (name,password) values "+"("+"'"+username+"'"+","+"'"+password+"'"+")";
+	// console.log("-------------------"+sql);
+	//"insert into "+table+" ( "+property+" ) "+"values"+" ( "+value+" )";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
+var queryUserWithId = function(id,callback){
+	var sql = "select name,icon,sex from user where id="+id;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
 /**** ****/
 
 /**** 系统设置相关 ****/
@@ -502,6 +518,13 @@ var ordersSelectAllDo = function(count, callback){
 	});
 }
 
+var queryFromOrdersByUid = function(uid,callback){
+	var sql = "select * from orders where uid="+uid;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+}
+
 /**** ****/
 
 /**** 订单状态相关 ****/
@@ -535,9 +558,66 @@ var addressSelectAll = function(callback){
 		callback(err, results);
 	});
 }
+
+var queryAddressWithUid = function(uid,callback){
+	var sql = "select * from address where uid="+uid;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+}
 /**** ****/
 
+var ConvertAidToAddress = function(orders,callback){
+	var condition = "";
+	for(var key in orders){
+		if(orders[key].length == 0){
+			continue;
+		}
+		if (condition == "") {
+			condition += "id=" + orders[key]['aid'];
+		}
+		condition += " or id=" + orders[key]['aid'];
+		 
+	}
+	var sql = "select * from address where "+condition;
+	client.query(sql,function(err,results){
+		for(var key in orders){
+			for(var i in results){
+				if(orders[key]['aid'] == results[i]['id']){
+					orders[key]['address'] = results[i];
+				}
+			}
+		}
+		callback(err,orders);
+	})
+}
+var ConvertPidToProduct = function(orders,callback){
+	var condition = "";
+	for(var key in orders){
+		if(orders[key].length == 0){
+			continue;
+		}
+		if (condition == "") {
+			condition += "id=" + orders[key]['pid'];
+		}
+		condition += " or id=" + orders[key]['pid'];
+		 
+	}
+	var sql = "select * from commodity where "+condition;
+	console.log("-------"+sql)
+	client.query(sql,function(err,results){
+		for(var key in orders){
+			for(var i in results){
+				if(orders[key]['pid'] == results[i]['id']){
+					orders[key]['product'] = results[i];
+				}
+			}
+		}
+		callback(err,orders);
+	})
 
+}
+/******/
 
 
 exports.connect = connect;
@@ -606,3 +686,9 @@ exports.searchFromCommodity = searchFromCommodity;
 
 exports.addressSelectAll = addressSelectAll;
 
+exports.insertUsernameAndPasswordIntoUser = insertUsernameAndPasswordIntoUser;
+exports.queryUserWithId = queryUserWithId;
+exports.queryAddressWithUid = queryAddressWithUid;
+exports.queryFromOrdersByUid = queryFromOrdersByUid;
+exports.ConvertAidToAddress = ConvertAidToAddress;
+exports.ConvertPidToProduct = ConvertPidToProduct;

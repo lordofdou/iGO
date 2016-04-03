@@ -18,6 +18,8 @@ var products = require('./routes/admin_products');
 var notification = require('./routes/admin_notification');
 var user = require('./routes/admin_user');
 var orders = require('./routes/admin_orders');
+var mobile_profile = require('./routes/mobile_profile');
+var mobile_orders = require('./routes/mobile_orders');
 
 var app = express();
 
@@ -63,6 +65,10 @@ app.use('/admin_notification', notification);
 app.use('/admin_user', user);
 
 app.use('/admin_orders', orders);
+
+app.use('/mobile_profile', mobile_profile);
+
+app.use('/mobile_orders',mobile_orders);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
