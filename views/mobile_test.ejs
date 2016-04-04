@@ -1,113 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../stylesheets/admin_admin.css">
-	<link rel="stylesheet" type="text/css" href="../stylesheets/iGo.css">
-	<!-- <link rel="stylesheet" type="text/css" href="../stylesheets/fileinput.min.css"> -->
-
+	<title>mobile_test</title>
 	<script type="text/javascript" src="../javascripts/jquery-2.2.1.js"></script>
-	<script type="text/javascript" src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../javascripts/admin_products.js"></script>
-	<script type="text/javascript" src="../javascripts/jquery.md5.js"></script>
-	<!-- <script type="text/javascript" src="../javascripts/fileinput.min.js"></script> -->
-	<title>
-		iGo后台-商品
-	</title>
 	<script type="text/javascript">
-		$(document).ready(function(){
-
-		// 监控input的输入
-		var desNum = 1;
-		var lastNum = desNum;
-
-	  	$('body').on('change', 'input[type="file"]', function(){
-	  		var src = getObjectURL(this.files[0]);
-	  		// console.log(src);
-	  		rawbackground = $(this).parent().css('background'); 
-	  		console.log(rawbackground);
-
-	  		$(this).parent().css('background', 'url(' + src + ') no-repeat center center').css('background-size', '100%');
-	  		lastNum = desNum
-	  		desNum++;
-
-	  		var label='p';
-	  		tmp = $(this).attr("id");
-	  		if(tmp[0] == 'p'){
-	  			label='p';
-	  		}else{
-	  			label='d'
-	  		}
-
-	  		if(rawbackground == 'rgba(0, 0, 0, 0) url("http://127.0.0.1:3000/images/activity_add.png") no-repeat scroll 50% 50% / auto padding-box border-box') {
-		  		var desDom='<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px"><input type="file" id="'+label+desNum+'" name="'+label+desNum+'"></input></li>';
-		  		$(this).parent().after(desDom);
-	  		}
-	  	});
-
-	  	// 获取文件url
-	  	function getObjectURL(file) {
-	        var url = null;
-	        if (window.createObjectURL != undefined) {
-	            url = window.createObjectURL(file)
-	        } else if (window.URL != undefined) {
-	            url = window.URL.createObjectURL(file)
-	        } else if (window.webkitURL != undefined) {
-	            url = window.webkitURL.createObjectURL(file)
-	        }
-	        return url
-	    };
-		
-		$('#submit').click(function(){	
-				
-			$('form').submit();	
+		$('#regsubmit').click(function(){
+			$('#reg').submit();
 		});
 
-	  $('#search').click(function(){
-	    value = $('input[name="search"]').val()
-	    // alert(value);
-	    window.location.href="/admin_products/search?value="+value;
-	  })
+		$('#addressaddbutton').click(function(){
+			$('#addressadd').submit();
+		});
 
-	});
+		$(document).ready(function(){
 
-	function drop(i) {
-		
-		if($('#'+i).css("display") == "none"){
+	
+			var desNum = 1;
+			var lastNum = desNum;
+
+		  	$('body').on('change', 'input[type="file"]', function(){
+		  		var src = getObjectURL(this.files[0]);
+		  		// console.log(src);
+		  		rawbackground = $(this).parent().css('background'); 
+		  		console.log(rawbackground);
+
+		  		$(this).parent().css('background', 'url(' + src + ') no-repeat center center').css('background-size', '100%');
+		  		lastNum = desNum
+		  		desNum++;
+
+		  		var label='p';
+		  		tmp = $(this).attr("id");
+		  		if(tmp[0] == 'p'){
+		  			label='p';
+		  		}else{
+		  			label='d'
+		  		}
+
+		  		if(rawbackground == 'rgba(0, 0, 0, 0) url("http://127.0.0.1:3000/images/activity_add.png") no-repeat scroll 50% 50% / auto padding-box border-box') {
+			  		var desDom='<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px"><input type="file" id="'+label+desNum+'" name="'+label+desNum+'"></input></li>';
+			  		$(this).parent().after(desDom);
+		  		}
+		  	});
+
+		  	// 获取文件url
+		  	function getObjectURL(file) {
+		        var url = null;
+		        if (window.createObjectURL != undefined) {
+		            url = window.createObjectURL(file)
+		        } else if (window.URL != undefined) {
+		            url = window.URL.createObjectURL(file)
+		        } else if (window.webkitURL != undefined) {
+		            url = window.webkitURL.createObjectURL(file)
+		        }
+		        return url
+		    };
 			
-			$('#'+i).css("display","block");
-		}else{
+			$('#modsubmit').click(function(){
 
-			$('#'+i).css("display","none");
+				$('#modify').submit();
+				// alert('ssss');
+			});
+
+		});
+
+		
+
+		function sign(){
+			var uid = $('input[name="uid"]').val();
+			// alert(uid);
+			window.location.href="/mobile_profile?id="+uid;
 		}
-	}
-	//查询具体分类的商品
-	function query(i,j) {
-		window.location.href="/admin_products/query?id="+i+"&category="+j;
+		function addresslist(){
+			var uid = $('input[name="address"]').val();
+			// alert(id);
+			window.location.href="/mobile_profile/addresslist?uid="+uid;
+		}
+		function count(){
+			var uid = $('input[name="orderCount"]').val();
+			window.location.href="/mobile_orders/count?uid="+uid;
+		}
 
-	}
-
-	function detail(id) {
-		window.location.href="/admin_products/detail?id="+id;
-	}
-
-	function modifystorage(id,cid,category) {
-	  value = $('input[name="new'+id+'"]').val();
-	  // alert(value);
-	  // console.log(category);
-	  window.location.href="/admin_products/modifystorage?id="+id+"&value="+value+"&cid="+cid+"&category="+category;
-	}
-	function save(ul){
-		console.log(ul);
-		$('#'+ul).hide();
-	}
-	function modify(ul){
-		// console.log(ul);
-		$('#'+ul).show();
-	}
-
-	// 样式
+		function orderlist(){
+			var uid = $('input[name="orderlist"]').val();
+			window.location.href="/mobile_orders/list?uid="+uid;
+		}
 	</script>
 	<style type="text/css">
 		input[type='file']{
@@ -125,75 +101,70 @@
 	</style>
 </head>
 <body>
-	<!-- 导航条 -->
-
-	
-	
-	<!-- 表单 -->
-  	<form method="post" action="/mobile_profile/modify" id="form"  enctype="multipart/form-data" style="margin-top: 80px">
-  		<div class="row">
-  			<div class="col-md-3"></div>
-  			<div class="col-md-6">
-		        <div class="input-group">
-				  <span class="input-group-addon" >id</span>
-				  <input type="text" class="form-control" placeholder="name" id="id" name="id">
-				</div>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
-
-		<div class="row" style="margin-top: 15px">
-  			<div class="col-md-3"></div>
-  			<div class="col-md-6">
-		        <div class="input-group " >
-				  <span class="input-group-addon" >name</span>
-				  <input type="text" class="form-control" placeholder="region" id="name" name="name">
-				</div>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
-		
-		<div class="row" style="margin-top: 15px">
-  			<div class="col-md-3"></div>
-  			<div class="col-md-6">
-		        <div class="input-group " >
-				  <span class="input-group-addon" >sex</span>
-				  <input type="text" class="form-control" placeholder="factory" id="sex" name="sex">
-				</div>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
-		
-		<div class="row" style="margin-top: 15px;">
-			<div class="col-md-3"></div>
-			<div class="col-md-6">	
-				<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
-					图片
-				</div>
-				<div>
-					<ul id="picul" style="border:1px solid #cccccc;list-style-type: none;display: none">
-						<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
-							<input type="file" id="p1" name="p1" ></input>	
-						</li>	
-					</ul>
-				</div>	  
-				<div style="text-align: right;border: 1px solid #cccccc;height: 42px;">
-					<button type="button" class="btn btn-default" style="margin-top:4px ;font-size: 10px" onclick="save('picul')">保存</button>
-					<button type="button" class="btn btn-default" style="margin-top:4px;margin-right: 7px;font-size: 10px "onclick="modify('picul')">选取</button>
-				</div>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
-	</form>
-	<!-- 提交按钮 -->
-	<div class="row" style="margin-top: 15px">
-		<div class="col-md-3"></div>
-		<div class="col-md-6" style="text-align: right;">
-			<button type="button" class="btn btn-primary" id="submit">确认</button>
-		</div>
-		<div class="col-md-3"></div>
+	req
+	<div>
+		<h1>register</h1>
+		<form method="post" id='reg' action="/mobile_profile/register">
+			username:<input name="username"></input>
+			password:<input name="password"></input>
+			<button id="regsubmit" type="submit">submit</button>
+		</form>
 	</div>
-	
+	<div>
+		<h1>signin</h1>
+		uid:<input name="uid"></input>
+		<button id="signin" type="submit" onclick="sign()">signin</button>	
+	</div>
+	<div>
+		<h1>modifyprofile</h1>
+
+		<form method="post" id='modify' action="/mobile_profile/modify">
+			id:<input name="id"></input>
+			name:<input name="name"></input>
+			sex:<input name="sex"></input>
+			<!-- <div>
+				<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
+					icon
+				</div>
+				<ul id="descul" style="border:1px solid #cccccc;list-style-type: none">
+					<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
+						<input type="file" id="icon" name="icon" ></input>	
+					</li>	
+				</ul>
+			</div> -->
+
+			<button id="modsubmit" type="submit">submit</button>
+		</form>
+	</div>
+
+	<div>
+		<h1>Address_List</h1>
+		uid:<input name="address"></input>
+		<button onclick="addresslist()">list</button>
+	</div>
+
+	<div>
+		<h1>Address_add</h1>
+		<form method="post" id="addressadd" action="/mobile_profile/addressList_add">
+			region:<input name="region"></input>
+			address:<input name="address"></input>
+			uid:<input name="uid"></input>
+			tel:<input name="tel"></input>
+			name:<input name="name"></input>
+			<button id="addressaddbutton" type="submit">submit</button>
+		</form>
+	</div>
+	<div>
+		<h1>orderCount</h1>
+		uid:<input name="orderCount"></input>
+		<button onclick="count()">count</button>
+	</div>
+
+	<div>
+		<h1>orderCount</h1>
+		uid:<input name="orderlist"></input>
+		<button onclick="orderlist()">count</button>
+	</div>
 
 </body>
 </html>

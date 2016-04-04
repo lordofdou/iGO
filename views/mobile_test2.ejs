@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../stylesheets/admin_admin.css">
+	<link rel="stylesheet" type="text/css" href="../stylesheets/iGo.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../stylesheets/fileinput.min.css"> -->
+
+	<script type="text/javascript" src="../javascripts/jquery-2.2.1.js"></script>
+	<script type="text/javascript" src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../javascripts/admin_products.js"></script>
+	<script type="text/javascript" src="../javascripts/jquery.md5.js"></script>
+	<!-- <script type="text/javascript" src="../javascripts/fileinput.min.js"></script> -->
+	<title>
+		iGo后台-商品
+	</title>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+		// 监控input的输入
+		var desNum = 1;
+		var lastNum = desNum;
+
+	  	$('body').on('change', 'input[type="file"]', function(){
+	  		var src = getObjectURL(this.files[0]);
+	  		// console.log(src);
+	  		rawbackground = $(this).parent().css('background'); 
+	  		console.log(rawbackground);
+
+	  		$(this).parent().css('background', 'url(' + src + ') no-repeat center center').css('background-size', '100%');
+	  		lastNum = desNum
+	  		desNum++;
+
+	  		var label='p';
+	  		tmp = $(this).attr("id");
+	  		if(tmp[0] == 'p'){
+	  			label='p';
+	  		}else{
+	  			label='d'
+	  		}
+
+	  		if(rawbackground == 'rgba(0, 0, 0, 0) url("http://127.0.0.1:3000/images/activity_add.png") no-repeat scroll 50% 50% / auto padding-box border-box') {
+		  		var desDom='<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px"><input type="file" id="'+label+desNum+'" name="'+label+desNum+'"></input></li>';
+		  		$(this).parent().after(desDom);
+	  		}
+	  	});
+
+	  	// 获取文件url
+	  	function getObjectURL(file) {
+	        var url = null;
+	        if (window.createObjectURL != undefined) {
+	            url = window.createObjectURL(file)
+	        } else if (window.URL != undefined) {
+	            url = window.URL.createObjectURL(file)
+	        } else if (window.webkitURL != undefined) {
+	            url = window.webkitURL.createObjectURL(file)
+	        }
+	        return url
+	    };
+		
+		$('#submit').click(function(){	
+				
+			$('form').submit();	
+		});
+
+	  $('#search').click(function(){
+	    value = $('input[name="search"]').val()
+	    // alert(value);
+	    window.location.href="/admin_products/search?value="+value;
+	  })
+
+	});
+
+	function drop(i) {
+		
+		if($('#'+i).css("display") == "none"){
+			
+			$('#'+i).css("display","block");
+		}else{
+
+			$('#'+i).css("display","none");
+		}
+	}
+	//查询具体分类的商品
+	function query(i,j) {
+		window.location.href="/admin_products/query?id="+i+"&category="+j;
+
+	}
+
+	function detail(id) {
+		window.location.href="/admin_products/detail?id="+id;
+	}
+
+	function modifystorage(id,cid,category) {
+	  value = $('input[name="new'+id+'"]').val();
+	  // alert(value);
+	  // console.log(category);
+	  window.location.href="/admin_products/modifystorage?id="+id+"&value="+value+"&cid="+cid+"&category="+category;
+	}
+	function save(ul){
+		console.log(ul);
+		$('#'+ul).hide();
+	}
+	function modify(ul){
+		// console.log(ul);
+		$('#'+ul).show();
+	}
+
+	// 样式
+	</script>
+	<style type="text/css">
+		input[type='file']{
+			width: 100%;
+			height: 200px;
+			overflow: hidden;
+			
+		    /*position:absolute;*/
+		    /*right:0;
+		    top:0;*/
+		    opacity: 0;
+		    cursor:pointer;
+		    
+		}
+	</style>
+</head>
+<body>
+	<!-- 导航条 -->
+
+	
+	
+	<!-- 表单 -->
+  	<form method="post" action="/mobile_profile/modify" id="form"  enctype="multipart/form-data" style="margin-top: 80px">
+  		<div class="row">
+  			<div class="col-md-3"></div>
+  			<div class="col-md-6">
+		        <div class="input-group">
+				  <span class="input-group-addon" >id</span>
+				  <input type="text" class="form-control" placeholder="name" id="id" name="id">
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+
+		<div class="row" style="margin-top: 15px">
+  			<div class="col-md-3"></div>
+  			<div class="col-md-6">
+		        <div class="input-group " >
+				  <span class="input-group-addon" >name</span>
+				  <input type="text" class="form-control" placeholder="region" id="name" name="name">
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		
+		<div class="row" style="margin-top: 15px">
+  			<div class="col-md-3"></div>
+  			<div class="col-md-6">
+		        <div class="input-group " >
+				  <span class="input-group-addon" >sex</span>
+				  <input type="text" class="form-control" placeholder="factory" id="sex" name="sex">
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		
+		<div class="row" style="margin-top: 15px;">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">	
+				<div  class="img-rounded" style="background-color:#eeeeee;text-align: center;font-size: 15px;height: 34px;padding-top: 5px;border: 1px solid #cccccc;">
+					图片
+				</div>
+				<div>
+					<ul id="picul" style="border:1px solid #cccccc;list-style-type: none;display: none">
+						<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px">
+							<input type="file" id="p1" name="p1" ></input>	
+						</li>	
+					</ul>
+				</div>	  
+				<div style="text-align: right;border: 1px solid #cccccc;height: 42px;">
+					<button type="button" class="btn btn-default" style="margin-top:4px ;font-size: 10px" onclick="save('picul')">保存</button>
+					<button type="button" class="btn btn-default" style="margin-top:4px;margin-right: 7px;font-size: 10px "onclick="modify('picul')">选取</button>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</form>
+	<!-- 提交按钮 -->
+	<div class="row" style="margin-top: 15px">
+		<div class="col-md-3"></div>
+		<div class="col-md-6" style="text-align: right;">
+			<button type="button" class="btn btn-primary" id="submit">确认</button>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	
+
+</body>
+</html>

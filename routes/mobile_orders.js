@@ -19,9 +19,11 @@ router.get('/count',function(req,res,next){
             res.send(err.message);
             return;
         }
-        count = results.length;
-        // console.log("----"+results.length)
-        res.send("count:"+count);
+        var count = new Array();
+        count['count'] = results.length;
+        // count = results.length;
+        // console.log(count);
+        res.send(count);
     });
 });
 
