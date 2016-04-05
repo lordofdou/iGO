@@ -641,21 +641,32 @@ var queryRecordFromPop = function(callback){
 
 var queryRecordFromPopular = function(pop,callback){
 	var sql = "select * from popular";
+	
 	client.query(sql,function(err,results){
 		var activity = new Array();
+		
 		var index;
 		for(var key in pop){
-			index = pop[key]['pop'];
-			console.log(index);
+			// index = pop[key]['pop'];
 			
-			activity[index] = new Array();
+	
+			// activity[key] = new Array();
+			array = new Array();
 			for(var i=0;i<results.length;i++){
 				if(results[i]['popid'] == pop[key]['id']){
-					// console.log(results[i]['popid'])
-					activity[index].push(results[i]);
+					array.push(results[i])
+					// activity[key].push(results[i]);
 				}
 			}
+			
+			activity[key] = {"name":pop[key]['pop'],"data":array};
+			
+			// activity[pop[key]['pop']] = array;
+			// console.log(activity)
+			
+			
 		}
+		console.log(activity.length);
 		callback(err,activity);
 	});
 }
