@@ -458,11 +458,13 @@ var userSearchResult = function(username, callback){
 	});
 }
 
-var insertUsernameAndPasswordIntoUser =function(username,password,callback){
-	var sql = "insert into user (name,password) values "+"("+"'"+username+"'"+","+"'"+password+"'"+")";
+var insertTelAndPasswordIntoUser =function(tel,password,callback){
+	var validation = Math.random();
+	var sql = "insert into user (tel,password,validation) values "+"("+"'"+tel+"'"+","+"'"+password+"'"+","+"'"+validation+"'"+")";
 	// console.log("-------------------"+sql);
 	//"insert into "+table+" ( "+property+" ) "+"values"+" ( "+value+" )";
 	client.query(sql,function(err,results){
+		results['validation'] = validation;
 		callback(err,results);
 	});
 }
@@ -482,8 +484,6 @@ var modifyRecordInUser = function(ipvt,callback){
 	client.query(sql,function(err,results){
 		callback(err,results);
 	})
-
-
 }
 /**** ****/
 
@@ -630,7 +630,36 @@ var ConvertPidToProduct = function(orders,callback){
 
 }
 /******/
+/**/
+var queryRecordFromPop = function(callback){
+	var sql = "select * from pop";
+	client.query(sql,function(err,results){
+		// console.log("pop length="+results.length)
+		callback(err,results);
+	})
+}
 
+var queryRecordFromPopular = function(pop,callback){
+	var sql = "select * from popular";
+	client.query(sql,function(err,results){
+		var activity = new Array();
+		var index;
+		for(var key in pop){
+			index = pop[key]['pop'];
+			console.log(index);
+			
+			activity[index] = new Array();
+			for(var i=0;i<results.length;i++){
+				if(results[i]['popid'] == pop[key]['id']){
+					// console.log(results[i]['popid'])
+					activity[index].push(results[i]);
+				}
+			}
+		}
+		callback(err,activity);
+	});
+}
+/**/
 
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
@@ -698,10 +727,12 @@ exports.searchFromCommodity = searchFromCommodity;
 
 exports.addressSelectAll = addressSelectAll;
 
-exports.insertUsernameAndPasswordIntoUser = insertUsernameAndPasswordIntoUser;
+exports.insertTelAndPasswordIntoUser = insertTelAndPasswordIntoUser;
 exports.queryUserWithId = queryUserWithId;
 exports.queryAddressWithUid = queryAddressWithUid;
 exports.queryFromOrdersByUid = queryFromOrdersByUid;
 exports.ConvertAidToAddress = ConvertAidToAddress;
 exports.ConvertPidToProduct = ConvertPidToProduct;
 exports.modifyRecordInUser = modifyRecordInUser;
+exports.queryRecordFromPop = queryRecordFromPop;
+exports.queryRecordFromPopular = queryRecordFromPopular;

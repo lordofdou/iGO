@@ -45,14 +45,16 @@ router.get('/',function(req,res,next){
 //receive:username,password(MD5ed);
 //send:id
 router.post('/register',function(req,res,next){
+	// console.log("---------"+req.body);
 	var tel = req.body.tel;
 	var password = req.body.password;
 	sql.connect();
-	sql.insertUsernameAndPasswordIntoUser(tel,password,function(err,results){
+	sql.insertTelAndPasswordIntoUser(tel,password,function(err,results){
 		if(err){
 			res.send(err.message);
 		}
-		res.send("success");
+		res.send('success');
+		// res.send(results);
 	});
 });
 
