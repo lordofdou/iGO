@@ -45,10 +45,10 @@ router.get('/',function(req,res,next){
 //receive:username,password(MD5ed);
 //send:id
 router.post('/register',function(req,res,next){
-	var username = req.body.username;
+	var tel = req.body.tel;
 	var password = req.body.password;
 	sql.connect();
-	sql.insertUsernameAndPasswordIntoUser(username,password,function(err,results){
+	sql.insertUsernameAndPasswordIntoUser(tel,password,function(err,results){
 		if(err){
 			res.send(err.message);
 		}
