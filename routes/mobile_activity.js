@@ -17,7 +17,9 @@ router.get('/',function(req,res,next){
 			// console.log(err);
 			// console.log(results2);
 			// var arr = {'data':results2};
-			res.send(results2);
+			var ret = {"value":results2,"status":"success"}
+			// res.send(results2);
+			res.send(ret);
 
 		})
 	})

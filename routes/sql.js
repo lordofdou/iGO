@@ -645,7 +645,7 @@ var queryRecordFromPopular = function(pop,callback){
 	client.query(sql,function(err,results){
 		var activity = new Array();
 		
-		var index;
+		// var last;
 		for(var key in pop){
 			// index = pop[key]['pop'];
 			
@@ -660,13 +660,15 @@ var queryRecordFromPopular = function(pop,callback){
 			}
 			
 			activity[key] = {"name":pop[key]['pop'],"data":array};
-			
+			console.log(key);
+			// last=key;
 			// activity[pop[key]['pop']] = array;
 			// console.log(activity)
 			
 			
 		}
-		console.log(activity.length);
+		
+		// console.log(activity.length);
 		callback(err,activity);
 	});
 }
