@@ -21,6 +21,8 @@ var orders = require('./routes/admin_orders');
 var mobile_profile = require('./routes/mobile_profile');
 var mobile_orders = require('./routes/mobile_orders');
 var mobile_activity = require('./routes/mobile_activity');
+var mobile_product = require('./routes/mobile_product');
+
 var app = express();
 
 
@@ -71,6 +73,9 @@ app.use('/mobile_profile', mobile_profile);
 app.use('/mobile_orders',mobile_orders);
 
 app.use('/mobile_activity',mobile_activity);
+
+app.use('/mobile_product',mobile_product);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

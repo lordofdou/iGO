@@ -41,6 +41,58 @@ router.get('/',function(req,res,next){
 	}	
 })
 
+router.get('/login',function(req,res,next){
+	var tel = req.query.tel;
+	var password = req.query.password;
+	// console.log("tel:"+tel+"password:"+password);
+	sql.connect();
+	sql.queryUserWithTelAndPassword(tel,password,function(err,results){
+		if(err){
+			res.send(err.message);
+			return ;
+		}
+		if(results.length == 0){
+			res.send("user does not exist");
+		}else{
+			sql.updateUserByTelWithLastLoginTime(tel,password,function(err,results3){
+				if(err){
+					res.send(err.message);
+					return;
+				}
+				sql.queryUserWithTel(tel,password,function(err,results){
+					if(err){
+						res.send(err.message);
+						return;
+					}
+					var ret = {"id":results[0]['id'],"validation":results[0]['validation']};
+					res.send(ret);
+
+				});
+
+			})
+		}
+		
+	});
+	// sql.queryUserWithTel(tel,password,function(err,results){
+	// 	if(err){
+	// 		res.send(err.message);
+	// 		return;
+	// 	}
+	// 	if(results.length){
+			// sql.updateUserByTelWithLastLoginTime(tel,function(err,results3){
+			// 	if(err){
+			// 		res.send(err.message);
+			// 		return;
+			// 	}
+			// })
+			// var ret = {"id":results[0]['id'],"validation":results[0]['validation']};
+			// res.send(ret);
+	// 	}else{
+	// 		res.send("user does not exist");
+	// 	}
+	// });
+
+})
 //register
 //receive:username,password(MD5ed);
 //send:id
@@ -49,15 +101,62 @@ router.post('/register',function(req,res,next){
 	var tel = req.body.tel;
 	var password = req.body.password;
 	sql.connect();
-	sql.insertTelAndPasswordIntoUser(tel,password,function(err,results){
+	sql.queryUserWithTel(tel,password,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		if(results.length){
+			res.send("user has existed")
+		}else{
+			sql.insertTelAndPasswordIntoUser(tel,password,function(err,results){
+				if(err){
+					res.send(err.message);
+					return;
+				}
+				sql.queryUserWithTel(tel,password,function(err,results2){
+					if(err){
+						res.send(err.message);
+						return;
+					}
+					var ret = {"id":results2[0]['id'],"validation":results2[0]['validation']};
+					res.send(ret);
+				});
+				// res.send('success');
+				// res.send(results);
+			});
+		}
+	});
+	
+});
+
+router.post('/password_modify',function(req,res,next){
+
+	var tel = req.body.tel;
+	var password = req.body.password;
+
+	sql.connect();
+	sql.queryUserWithTel(tel,password,function(err,results){
 		if(err){
 			res.send(err.message);
 		}
-		res.send('success');
-		// res.send(results);
-	});
-});
+		// console.log(results.length);
+		if(results.length == 0){
+			res.send("user does not register")
+		}else{
 
+			sql.updateUserByTelWithPassword(tel,password,function(err,results){
+				if(err){
+					res.send(err.message);
+					return;
+				}
+				res.send("success");
+			});
+		}
+
+	});
+
+});
 //modify individual profile
 //receive:
 /*
@@ -87,6 +186,7 @@ router.post("/modify",function(req,res,next){
 	    var id = fields.id;
 	    var name = fields.name;
 		var sex = fields.sex;
+		var validation = fields.validation;
 
 		
 
@@ -173,9 +273,9 @@ router.get('/addressList',function(req,res,next){
 		}
 		res.send("success");
 	});
-
 	// res.send('addressList');
 })
+
 
 //append an address to addresss list
 //receive:

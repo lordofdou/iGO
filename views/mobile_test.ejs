@@ -66,9 +66,10 @@
 		
 
 		function sign(){
-			var uid = $('input[name="uid"]').val();
-			// alert(uid);
-			window.location.href="/mobile_profile?id="+uid;
+			var tel = $('input[name="signtel"]').val();
+			var password = $('input[name="signpassword"]').val();
+			// alert(tel+password);
+			window.location.href="/mobile_profile/login?tel="+tel+"&password="+password;
 		}
 		function addresslist(){
 			var uid = $('input[name="address"]').val();
@@ -104,6 +105,7 @@
 	req
 	<div>
 		<h1>register</h1>
+		<!-- <form method="post" id='reg' action="/mobile_profile/password_modify"> -->
 		<form method="post" id='reg' action="/mobile_profile/register">
 			tel:<input name="tel"></input>
 			password:<input name="password"></input>
@@ -112,7 +114,8 @@
 	</div>
 	<div>
 		<h1>signin</h1>
-		uid:<input name="uid"></input>
+		tel:<input name="signtel"></input>
+		password:<input name="signpassword"></input>
 		<button id="signin" type="submit" onclick="sign()">signin</button>	
 	</div>
 	<div>

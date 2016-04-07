@@ -460,9 +460,12 @@ var userSearchResult = function(username, callback){
 
 var insertTelAndPasswordIntoUser =function(tel,password,callback){
 	var validation = Math.random();
-	var sql = "insert into user (tel,password,validation) values "+"("+"'"+tel+"'"+","+"'"+password+"'"+","+"'"+validation+"'"+")";
-	// console.log("-------------------"+sql);
-	//"insert into "+table+" ( "+property+" ) "+"values"+" ( "+value+" )";
+	var registerTime = new Date().getTime();
+	var sql = "insert into user (tel,password,registerTime,validation) values "+"("+"'"+tel+"'"+","+
+																					"'"+password+"'"+","+
+																					"'"+registerTime+"'"+","+
+																					"'"+validation+"'"+")";
+	
 	client.query(sql,function(err,results){
 		results['validation'] = validation;
 		callback(err,results);
@@ -673,6 +676,44 @@ var queryRecordFromPopular = function(pop,callback){
 	});
 }
 /**/
+var queryUserWithTel = function(tel,password,callback){
+	var sql = "select * from user where tel="+"'"+tel+"'";
+	client.query(sql,function(err,results){
+		 callback(err,results);
+	});
+}
+
+var updateUserByTelWithPassword = function(tel,password,callback){
+	var sql = "update user set password="+"'"+password+"'"+"where tel="+"'"+tel+"'";
+	client.query(sql,function(err,results){
+		 callback(err,results);
+	});
+}
+
+var updateUserByTelWithLastLoginTime = function(tel,password,callback){
+	var lastLoginTime = new Date().getTime();
+	var sql = "update user set lastLoginTime="+"'"+lastLoginTime+"'"+"where tel="+"'"+tel+"'";
+	// console.log(sql);
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+}
+
+var queryUserWithTelAndPassword = function(tel,password,callback){
+	var sql = "select * from user where tel="+"'"+tel+"'"+" and password="+"'"+password+"'";
+	// console.log(sql);
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+
+var queryUserWithIdAndValidation = function(id,validation,callback){
+	var sql = "select * from user where tel="+"'"+tel+"'"+" and validation="+"'"+validation+"'";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+/**/
 
 exports.connect = connect;
 exports.loginConfirm = loginConfirm;
@@ -749,3 +790,8 @@ exports.ConvertPidToProduct = ConvertPidToProduct;
 exports.modifyRecordInUser = modifyRecordInUser;
 exports.queryRecordFromPop = queryRecordFromPop;
 exports.queryRecordFromPopular = queryRecordFromPopular;
+exports.queryUserWithTel = queryUserWithTel;
+exports.updateUserByTelWithPassword = updateUserByTelWithPassword;
+exports.updateUserByTelWithLastLoginTime = updateUserByTelWithLastLoginTime;
+exports.queryUserWithTelAndPassword = queryUserWithTelAndPassword;
+exports.queryUserWithIdAndValidation = queryUserWithIdAndValidation;
