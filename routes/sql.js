@@ -619,7 +619,7 @@ var ConvertPidToProduct = function(orders,callback){
 		 
 	}
 	var sql = "select * from commodity where "+condition;
-	console.log("-------"+sql)
+	// console.log("-------"+sql)
 	client.query(sql,function(err,results){
 		for(var key in orders){
 			for(var i in results){
@@ -663,7 +663,7 @@ var queryRecordFromPopular = function(pop,callback){
 			}
 			
 			activity[key] = {"name":pop[key]['pop'],"data":array};
-			console.log(key);
+			// console.log(key);
 			// last=key;
 			// activity[pop[key]['pop']] = array;
 			// console.log(activity)
@@ -707,11 +707,78 @@ var queryUserWithTelAndPassword = function(tel,password,callback){
 	});
 }
 
-var queryUserWithIdAndValidation = function(id,validation,callback){
-	var sql = "select * from user where tel="+"'"+tel+"'"+" and validation="+"'"+validation+"'";
+var queryUserWithIdAndValidation = function(req,id,validation,callback){
+	var sql = "select * from user where id="+"'"+id+"'"+" and validation="+"'"+validation+"'";
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
+}
+/**/
+var deleteFromAddressById = function(id,callback){
+	var sql = "delete from address where id="+id;
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+}
+/**/
+var queryCommunityWithRange = function(range,callback){
+	var id = range['start'];
+	var range = range['length'];
+
+	var sql = "select * from community where id>="+id+" limit "+range;
+	// console.log(sql);
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+}
+
+var queryCommentWithCommunityinfo =function(comminfo,callback){
+	var commdetail = comminfo[0];
+	var sql = "select * from comment where id="+commdetail['cid'];
+	client.query(sql,function(err,results){
+		commdetail['comment'] = results;
+		callback(err,commdetail);
+	});
+}
+
+var ConvertUidToUser = function(detail,callback){
+	var comment = detail['comment'];
+	var conditon = "";
+	for(var key in comment){
+		if(conditon == ""){
+			conditon += " id="+comment[key]['uid'];
+		}else{
+			conditon += "or id="+comment[key]['uid'];
+		}
+
+	}
+	var sql = "select * from user where "+conditon;
+	client.query(sql,function(err,results){
+		for(var i in comment){
+			for(var j in results){
+				if(comment[i]['uid'] == results[j]['id']){
+					detail['comment'][i]['user'] = results[j]; 
+				}
+			}
+		}
+		callback(err,detail);
+	}); 
+}
+
+var insertIntoCommentWithContent = function(content,callback){
+	var sql = "insert into comment (uid,cid,comment) values "+"("+content.uid+
+																  content.cid+
+																  "'"+content.comment+"'"+")";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+}
+
+var increCountInCommodityById = function(id,count,callback){
+	var sql = "update commodity set count="+count+" where id="+id;
+	client.query(sql,function(err,require){
+		callback(err,results);
+	})
 }
 /**/
 
@@ -795,3 +862,10 @@ exports.updateUserByTelWithPassword = updateUserByTelWithPassword;
 exports.updateUserByTelWithLastLoginTime = updateUserByTelWithLastLoginTime;
 exports.queryUserWithTelAndPassword = queryUserWithTelAndPassword;
 exports.queryUserWithIdAndValidation = queryUserWithIdAndValidation;
+exports.deleteFromAddressById = deleteFromAddressById;
+
+exports.queryCommunityWithRange = queryCommunityWithRange;
+exports.queryCommentWithCommunityinfo = queryCommentWithCommunityinfo;
+exports.ConvertUidToUser = ConvertUidToUser;
+exports.insertIntoCommentWithContent = insertIntoCommentWithContent;
+exports.increCountInCommodityById = increCountInCommodityById;

@@ -27,23 +27,29 @@ router.get('/',function(req,res,next){
 		res.render('mobile_test');
 	}else{
 		var id = req.query.id;  
-
+		var validation = req.query.validation;
 		sql.connect();
-		sql.queryUserWithId(id,function(err,results){
+		sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
+		// sql.queryUserWithId(id,function(err,results){
 			if(err){
 				res.send(err.message);
 				return ;
 			}
-			 
+			// console.log(results[0])
 			// res.send(results[0]['icon']);
-			res.send(results);
+			if(results.length == 0){
+				res.send("fail");
+			}else{
+				res.send(results[0]);
+			}
+			
 		});
 	}	
 })
 
-router.get('/login',function(req,res,next){
-	var tel = req.query.tel;
-	var password = req.query.password;
+router.post('/login',function(req,res,next){
+	var tel = req.body.tel;
+	var password = req.body.password;
 	// console.log("tel:"+tel+"password:"+password);
 	sql.connect();
 	sql.queryUserWithTelAndPassword(tel,password,function(err,results){
@@ -170,80 +176,91 @@ json
 */
 //####################################
 router.post("/modify",function(req,res,next){
-	var AVATAR_UPLOAD_FOLDER = '/userUpload/';
-	
-	var form = new formidable.IncomingForm(); 
-    form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
- // //    //上传产品图片
-    form.parse(req,function(error,fields,files){
-    	if (error) {
-	      res.render('fail', {title : "上传失败", message: err});
-	      return;		
-	    } 
-	    // console.log(fields);
-	    // console.log(files);
-	    //一般数据获取
-	    var id = fields.id;
-	    var name = fields.name;
-		var sex = fields.sex;
-		var validation = fields.validation;
 
-		
+	var id = req.body.id;
+	var validation = req.body.validation
 
-		//图片存储与地址存储
-		var picString;
-		
-		var picArray = new Array();
-		
-
-		var extName = 'png';  //后缀名
-	    var avatarName;		  //随机数文件名
-	    var newPath;		  //文件存储路径
-		for (var key in files){
-			// console.log(key[0]);
-			if(files[key]["size"]==0){
-				continue;
-			}
-			avatarName = Math.random() + '.' + extName;
-			//存储路径
-	    	newPath= form.path + avatarName;
-	    	//重命名图片并同步到磁盘上
-	    	fs.renameSync(files[key]["path"], newPath);
-	    	//访问路径
-	    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
-	    	
-	    	if(key[0]=='p'){
-	    		picArray.push(newPath);
-	    	}else{
-	    		descArray.push(newPath);
-	    	}
-
-
+	sql.connect()
+	sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
 		}
 
-		
-		
+		if(results.length == 0){
+			res.send("validation is out-of-date");
+		}else{
+			var AVATAR_UPLOAD_FOLDER = '/userUpload/';
+			
+			var form = new formidable.IncomingForm(); 
+		    form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
+		 // //    //上传产品图片
+		    form.parse(req,function(error,fields,files){
+		    	if (error) {
+			      res.render('fail', {title : "上传失败", message: err});
+			      return;		
+			    } 
+			    // console.log(fields);
+			    // console.log(files);
+			    //一般数据获取
+			    var id = fields.id;
+			    var name = fields.name;
+				var sex = fields.sex;	
 
-		var ipvt = new Array();
-		ipvt.id = id;
-		ipvt.property = "name,sex,icon";
-		// "'"+ +"'"+       ","+
-		ipvt.value = "'"+name+"'"+","+
-					sex+","+
-					"'"+picArray[0]+"'";
-		ipvt.table = "user"
+				//图片存储与地址存储
+				var picString;
+				
+				var picArray = new Array();
+				
 
-		sql.connect();
-		sql.modifyRecordInUser(ipvt,function(err,results){
-			if(err){
-				res.send(err.message);
-				return;
-			}
-			res.send("success");
-		});
-		// insertRecordintoTable
-		
-    });
+				var extName = 'png';  //后缀名
+			    var avatarName;		  //随机数文件名
+			    var newPath;		  //文件存储路径
+				for (var key in files){
+					// console.log(key[0]);
+					if(files[key]["size"]==0){
+						continue;
+					}
+					avatarName = Math.random() + '.' + extName;
+					//存储路径
+			    	newPath= form.path + avatarName;
+			    	//重命名图片并同步到磁盘上
+			    	fs.renameSync(files[key]["path"], newPath);
+			    	//访问路径
+			    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
+			    	
+			    	if(key[0]=='p'){
+			    		picArray.push(newPath);
+			    	}else{
+			    		descArray.push(newPath);
+			    	}
+
+
+				}
+				var ipvt = new Array();
+				ipvt.id = id;
+				ipvt.property = "name,sex,icon";
+				// "'"+ +"'"+       ","+
+				ipvt.value = "'"+name+"'"+","+
+							sex+","+
+							"'"+picArray[0]+"'";
+				ipvt.table = "user"
+
+				sql.connect();
+				sql.modifyRecordInUser(ipvt,function(err,results){
+					if(err){
+						res.send(err.message);
+						return;
+					}
+					res.send("success");
+				});
+				// insertRecordintoTable
+				
+		    });
+		}
+
+	});
+	
 });
 
 //get address list
@@ -264,15 +281,30 @@ json
 ]
 */
 router.get('/addressList',function(req,res,next){
-	var uid = req.query.uid;
+	var id = req.query.uid;
+	var validation = req.query.validation;
 	sql.connect();
-	sql.queryAddressWithUid(uid,function(err,results){
+	sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
 		if(err){
 			res.send(err.message);
 			return;
 		}
-		res.send("success");
-	});
+
+		if(results.length == 0){
+			res.send("validation is out-of-date");
+		}else{
+			var uid = req.query.uid;
+			sql.connect();
+			sql.queryAddressWithUid(uid,function(err,results){
+				if(err){
+					res.send(err.message);
+					return;
+				}
+				res.send(results);
+			});
+		}
+	})
+	
 	// res.send('addressList');
 })
 
@@ -290,32 +322,72 @@ json
 }
 */
 router.post('/addressList_add',function(req,res,next){
-	id = req.body.id;
-	address = req.body.address;
-	uid = req.body.uid;
-	tel = req.body.tel;
-	region = req.body.region;
-	name = req.body.name;
 
-	var pvt = new Array();
-	pvt['property'] = "address,uid,tel,region,name ";
-	pvt['value'] = "'"+address+"'"+","+
-					uid+","+
-					"'"+tel+"'"+","+
-					"'"+region+"'"+","+
-					"'"+name+"'";
-	pvt['table'] = "address";
+	var id = req.body.id;
+	var address = req.body.validation;
+
 	sql.connect();
-	sql.insertRecordintoTable(pvt,function(err,results){
+	sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
 		if(err){
 			res.send(err.message);
 			return;
 		}
-		res.send("success");
+
+		if(results.length == 0){
+			res.send("validation is out-of-date");
+		}else{
+			id = req.body.id;
+			address = req.body.address;
+			uid = req.body.uid;
+			tel = req.body.tel;
+			region = req.body.region;
+			name = req.body.name;
+
+			var pvt = new Array();
+			pvt['property'] = "address,uid,tel,region,name ";
+			pvt['value'] = "'"+address+"'"+","+
+							uid+","+
+							"'"+tel+"'"+","+
+							"'"+region+"'"+","+
+							"'"+name+"'";
+			pvt['table'] = "address";
+			sql.connect();
+			sql.insertRecordintoTable(pvt,function(err,results){
+				if(err){
+					res.send(err.message);
+					return;
+				}
+				res.send("success");
+			});
+		}
 	});
 
-
 })
+
+router.get('/addressList_remove',function(req,res,results){
+	var id = req.query.id;
+	var validation = req.query.validation;
+	sql.connect();
+	sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
+		}
+
+		if(results.length == 0){
+			res.send("validation is out-of-date");
+		}else{
+
+			sql.deleteFromAddressById(id,function(err,results){
+				if(err){
+					res.send(err.message);
+					return;
+				}
+				res.send("success");
+			})
+		}
+	});
+});
 
 //
 

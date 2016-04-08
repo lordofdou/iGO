@@ -22,6 +22,8 @@ var mobile_profile = require('./routes/mobile_profile');
 var mobile_orders = require('./routes/mobile_orders');
 var mobile_activity = require('./routes/mobile_activity');
 var mobile_product = require('./routes/mobile_product');
+var mobile_status = require('./routes/mobile_status');
+
 
 var app = express();
 
@@ -67,14 +69,17 @@ app.use('/admin_notification', notification);
 app.use('/admin_user', user);
 
 app.use('/admin_orders', orders);
-
+//c
 app.use('/mobile_profile', mobile_profile);
-
+//c
 app.use('/mobile_orders',mobile_orders);
-
+//c
 app.use('/mobile_activity',mobile_activity);
 
 app.use('/mobile_product',mobile_product);
+//c
+app.use('/mobile_status',mobile_status);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
