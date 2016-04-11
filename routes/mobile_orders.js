@@ -12,19 +12,34 @@ json
 }
 */
 router.get('/count',function(req,res,next){
-    var uid = req.query.uid;
+    var id = req.query.id;
+    var validation = req.query.validation
     sql.connect();
-    sql.queryFromOrdersByUid(uid,function(err,results){
+    sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
         if(err){
             res.send(err.message);
+
             return;
         }
-        var count = new Array();
-        count['count'] = results.length;
-        // count = results.length;
-        // console.log(count);
-        res.send(count);
+
+        if(results.length == 0){
+            res.send("validation is out-of-date");
+        }else{
+           sql.queryFromOrdersByUid(id,function(err,results){
+                if(err){
+                    res.send(err.message);
+                    return;
+                }
+                // var count = new Array();
+                // count['count'] = results.length;
+                count = {"count":results.length}
+                // count = results.length;
+                // console.log(count);
+                res.send(count);
+            }); 
+        }
     });
+    
 });
 
 //get detailed order list
@@ -84,7 +99,8 @@ router.get('/list',function(req,res,next){
                     res.send(err.message);
                     return;
                 }
-                res.send(results3);
+                var ret = {"value":results3,"status":'success'}
+                res.send(ret);
             });
         })
         // count = results.length;

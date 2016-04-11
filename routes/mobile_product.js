@@ -62,4 +62,18 @@ router.get('/fav',function(req,res,next){
 	})
 })
 
+router.get('/search',function(req,res,next){
+	var value = req.query.value;
+
+	sql.connect();
+	sql.searchFromCommodity(value,function(err,results){
+		if(err){
+			res.send(err.message);
+			return;
+		}
+		var ret = {"value":result,"status":'success'}
+		res.send(ret);
+	});
+	// res.render('admin_products_search',{admin_name: req.session.username,list:""});
+});
 module.exports = router;

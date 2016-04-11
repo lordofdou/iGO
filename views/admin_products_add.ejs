@@ -15,67 +15,7 @@
 	<title>
 		iGo后台-商品
 	</title>
-	<script type="text/javascript">
-		$(document).ready(function(){
-
-	// 监控input的输入
-			var desNum = 1;
-			var lastNum = desNum;
-
-		  	$('body').on('change', 'input[type="file"]', function(){
-		  		var src = getObjectURL(this.files[0]);
-		  		// console.log(src);
-		  		rawbackground = $(this).parent().css('background'); 
-		  		console.log(rawbackground);
-
-		  		$(this).parent().css('background', 'url(' + src + ') no-repeat center center').css('background-size', '100%');
-		  		lastNum = desNum
-		  		desNum++;
-
-		  		var label='p';
-		  		tmp = $(this).attr("id");
-		  		if(tmp[0] == 'p'){
-		  			label='p';
-		  		}else{
-		  			label='d'
-		  		}
-
-		  		if(rawbackground == 'rgba(0, 0, 0, 0) url("http://127.0.0.1:3000/images/activity_add.png") no-repeat scroll 50% 50% / auto padding-box border-box') {
-			  		var desDom='<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px"><input type="file" id="'+label+desNum+'" name="'+label+desNum+'"></input></li>';
-			  		$(this).parent().after(desDom);
-		  		}
-		  	});
-
-		  	// 获取文件url
-		  	function getObjectURL(file) {
-		        var url = null;
-		        if (window.createObjectURL != undefined) {
-		            url = window.createObjectURL(file)
-		        } else if (window.URL != undefined) {
-		            url = window.URL.createObjectURL(file)
-		        } else if (window.webkitURL != undefined) {
-		            url = window.webkitURL.createObjectURL(file)
-		        }
-		        return url
-		    };
-			
-			$('#submit').click(function(){	
-					
-				$('form').submit();	
-			});
-
-		});
-
-		function save(ul){
-			console.log(ul);
-			$('#'+ul).hide();
-		}
-		function modify(ul){
-			// console.log(ul);
-			$('#'+ul).show();
-		}
-	// 样式
-	</script>
+	
 	<style type="text/css">
 		input[type='file']{
 			width: 100%;
