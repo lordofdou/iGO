@@ -71,6 +71,7 @@ router.post('/login',function(req,res,next){
 						return;
 					}
 					var ret = {"id":results[0]['id'],"validation":results[0]['validation']};
+					// console.log("validation:"+results[0]['validation']);
 					res.send(ret);
 
 				});
@@ -179,7 +180,8 @@ router.post("/modify",function(req,res,next){
 
 	var id = req.body.id;
 	var validation = req.body.validation
-
+	console.log("id:"+id+"---validation:"+validation);
+	console.log(req.body);
 	sql.connect()
 	sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
 		if(err){
@@ -201,7 +203,7 @@ router.post("/modify",function(req,res,next){
 			      return;		
 			    } 
 			    // console.log(fields);
-			    // console.log(files);
+			    // console.log("icon:"+files);
 			    //一般数据获取
 			    var id = fields.id;
 			    var name = fields.name;

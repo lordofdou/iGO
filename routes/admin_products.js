@@ -42,7 +42,7 @@ router.get('/',function(req,res,next) {
 
 router.get('/query',function(req,res,next) {
 	var cid = req.query.id;
-	console.log(req.query.id);
+	// console.log(req.query.id);
 	var category = req.query.category;
 	//sql query
 	sql.connect();
@@ -110,8 +110,8 @@ router.get("/delete",function(req,res,next) {
 });
 
 router.post("/",function(req,res,next){
+	// console.log(req.body.p1);
 	
-
 	var form = new formidable.IncomingForm(); 
     form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
  // //    //上传产品图片
@@ -152,6 +152,7 @@ router.post("/",function(req,res,next){
 	    	newPath= form.path + avatarName;
 	    	//重命名图片并同步到磁盘上
 	    	fs.renameSync(files[key]["path"], newPath);
+	    	// console.log("path:"+files[key]["path"]);
 	    	//访问路径
 	    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
 	    	

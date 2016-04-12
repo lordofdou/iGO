@@ -21,10 +21,12 @@ $(document).ready(function(){
   		}else{
   			label='d'
   		}
+      var HostAndPort = window.location.host;
 //url("http://192.168.1.105:3000/images/activity_add.png") no-repeat scroll 50% 50% / auto padding-box border-box
-  		if(rawbackground == 'rgba(0, 0, 0, 0) url("http://127.0.0.1:3000/images/activity_add.png") no-repeat scroll 50% 50% / auto padding-box border-box') {
+  		if(rawbackground == 'rgba(0, 0, 0, 0) url("http://'+HostAndPort+'/images/activity_add.png") no-repeat scroll 50% 50% / auto padding-box border-box') {
 	  		var desDom='<li style="background: url(../images/activity_add.png) no-repeat center center;list-style-type: none;margin-right:40px"><input type="file" id="'+label+desNum+'" name="'+label+desNum+'"></input></li>';
-	  		$(this).parent().after(desDom);
+	  		// console.log("sss"+window.location.host);
+        $(this).parent().after(desDom);
   		}
   	});
 
