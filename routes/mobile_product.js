@@ -10,15 +10,15 @@ router.get('/',function(req,res,next){
 			res.send(err.message);
 			return;
 		}
-		key=0
+		key=0;
 		string = result[key]['pic'];
 		result[key]['pic'] = string.split('|');
 
 		string = result[key]['description'];
 		result[key]['description'] = string.split('|');
 
-		string = result[key]['description_title'];
-		result[key]['description_title'] = string.split('|');
+		// string = result[key]['description_title'];
+		// result[key]['description_title'] = string.split('|');
 		result.push(null);
 		sql.queryCommentWithProdinfo(result,function(err,result2){
 			if(err){
@@ -31,8 +31,9 @@ router.get('/',function(req,res,next){
 					res.send(err.message);
 					return;
 				}
-				result3.splice('pid',1);
-				result3.splice('uid',1);
+				
+				// result3.splice('pid',1);
+				// result3.splice('uid',1);
 				res.send(result3);
 			});
 

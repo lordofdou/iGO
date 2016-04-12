@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
+var formidable = require('formidable');
+var fs = require('fs');
+var path=require('path');
 var mysql = require('mysql');
 var client;
 var DATABASE_NAME = "iGO";
@@ -484,6 +486,7 @@ var modifyRecordInUser = function(ipvt,callback){
 	values = ipvt.value.split(',');
 	setting = " name="+values[0]+", sex="+values[1]+", icon="+values[2];
 	var sql = "update user set "+setting+" where id="+id;
+	console.log("sql:"+sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	})
@@ -743,6 +746,7 @@ var queryCommentWithCommunityinfo =function(comminfo,callback){
 
 var ConvertUidToUser = function(detail,callback){
 	var comment = detail['comment'];
+
 	var conditon = "";
 	for(var key in comment){
 		if(conditon == ""){
@@ -752,7 +756,15 @@ var ConvertUidToUser = function(detail,callback){
 		}
 
 	}
-	var sql = "select * from user where "+conditon;
+	var sql;
+	if(conditon == ""){
+		sql = "select * from user where id=-1";
+	}else{
+		sql = "select * from user where "+conditon;
+	}
+
+	
+	// console.log(sql);
 	client.query(sql,function(err,results){
 		for(var i in comment){
 			for(var j in results){
@@ -779,6 +791,14 @@ var increCountInCommodityById = function(id,count,callback){
 	client.query(sql,function(err,require){
 		callback(err,results);
 	})
+}
+var queryUserWithFieldsAndFiles = function(fields, files, callback){
+	var id = fields.id;
+	var validation = fields.validation;
+	var sql = "select * from user where id="+"'"+id+"'"+" and validation="+"'"+validation+"'";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
 }
 /**/
 
@@ -862,6 +882,7 @@ exports.updateUserByTelWithPassword = updateUserByTelWithPassword;
 exports.updateUserByTelWithLastLoginTime = updateUserByTelWithLastLoginTime;
 exports.queryUserWithTelAndPassword = queryUserWithTelAndPassword;
 exports.queryUserWithIdAndValidation = queryUserWithIdAndValidation;
+exports.queryUserWithFieldsAndFiles = queryUserWithFieldsAndFiles;
 exports.deleteFromAddressById = deleteFromAddressById;
 
 exports.queryCommunityWithRange = queryCommunityWithRange;
@@ -869,3 +890,4 @@ exports.queryCommentWithCommunityinfo = queryCommentWithCommunityinfo;
 exports.ConvertUidToUser = ConvertUidToUser;
 exports.insertIntoCommentWithContent = insertIntoCommentWithContent;
 exports.increCountInCommodityById = increCountInCommodityById;
+

@@ -178,40 +178,36 @@ json
 //####################################
 router.post("/modify",function(req,res,next){
 
-	var id = req.body.id;
-	var validation = req.body.validation
-	console.log("id:"+id+"---validation:"+validation);
-	console.log(req.body);
-	sql.connect()
-	sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
-		if(err){
-			res.send(err.message);
-			return;
-		}
-
-		if(results.length == 0){
-			res.send("validation is out-of-date");
-		}else{
-			var AVATAR_UPLOAD_FOLDER = '/userUpload/';
-			
-			var form = new formidable.IncomingForm(); 
-		    form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
-		 // //    //上传产品图片
-		    form.parse(req,function(error,fields,files){
-		    	if (error) {
-			      res.render('fail', {title : "上传失败", message: err});
-			      return;		
-			    } 
-			    // console.log(fields);
-			    // console.log("icon:"+files);
-			    //一般数据获取
-			    var id = fields.id;
+	
+	
+	var AVATAR_UPLOAD_FOLDER = '/userUpload/';			
+	var form = new formidable.IncomingForm(); 
+    form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
+ 
+    form.parse(req,function(error,fields,files){
+    	if (error) {
+	      res.send(error.message);
+	      return;		
+	    } 
+	    console.log(fields);
+	    console.log(files);
+	    sql.connect();
+	    sql.queryUserWithFieldsAndFiles(fields,files,function(error,results){
+	    	if (error) {
+		      res.send(error.message);
+		      console.log("fields and files:"+error.message)
+		      return;		
+		    }
+		    if (results.length == 0) {
+		    	res.send("validation is out-of-date");
+		    	console.log("validation is out-of-date");
+		    }else{
+		    	var id = fields.id;
+			    var validation = fields.validation
 			    var name = fields.name;
-				var sex = fields.sex;	
-
-				//图片存储与地址存储
+				var sex = fields.sex;
 				var picString;
-				
+		
 				var picArray = new Array();
 				
 
@@ -230,13 +226,8 @@ router.post("/modify",function(req,res,next){
 			    	fs.renameSync(files[key]["path"], newPath);
 			    	//访问路径
 			    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
-			    	
-			    	if(key[0]=='p'){
-			    		picArray.push(newPath);
-			    	}else{
-			    		descArray.push(newPath);
-			    	}
-
+			    	console.log("newPath:"+newPath);
+			    	picArray.push(newPath);
 
 				}
 				var ipvt = new Array();
@@ -252,18 +243,22 @@ router.post("/modify",function(req,res,next){
 				sql.modifyRecordInUser(ipvt,function(err,results){
 					if(err){
 						res.send(err.message);
+						console.log("modify:"+err.message)
 						return;
 					}
 					res.send("success");
 				});
-				// insertRecordintoTable
-				
-		    });
-		}
 
+		    }
+
+	    });
+	 
 	});
-	
+		
 });
+	
+	
+
 
 //get address list
 //receive:id
