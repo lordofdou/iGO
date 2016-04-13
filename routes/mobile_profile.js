@@ -178,15 +178,16 @@ json
 //####################################
 router.post("/modify",function(req,res,next){
 
-	
-	
+
+	console.log("------");
 	var AVATAR_UPLOAD_FOLDER = '/userUpload/';			
 	var form = new formidable.IncomingForm(); 
     form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
- 
+ 	
     form.parse(req,function(error,fields,files){
     	if (error) {
-	      res.send(error.message);
+	      res.send("parse:"+error.message);
+	      console.log(error.message);
 	      return;		
 	    } 
 	    console.log(fields);
@@ -206,6 +207,7 @@ router.post("/modify",function(req,res,next){
 			    var validation = fields.validation
 			    var name = fields.name;
 				var sex = fields.sex;
+				sex = parseInt(sex);
 				var picString;
 		
 				var picArray = new Array();
@@ -232,15 +234,25 @@ router.post("/modify",function(req,res,next){
 				}
 				var ipvt = new Array();
 				ipvt.id = id;
-				ipvt.property = "name,sex,icon";
-				// "'"+ +"'"+       ","+
-				ipvt.value = "'"+name+"'"+","+
-							sex+","+
-							"'"+picArray[0]+"'";
+				if(name != undefined){
+					ipvt.property = "name"
+					ipvt.value = "'"+name+"'";
+				}else if(sex != undefined){
+					ipvt.property = "sex"
+					ipvt.value = parseInt(sex);
+				}else if(picArray[0] != undefined){
+					ipvt.property = "icon"
+					ipvt.value = "'"+picArray[0]+"'";
+				}
+				// ipvt.property = "name,sex,icon";
+				
+				// ipvt.value = "'"+name+"'"+","+
+							// sex+","+
+							// "'"+picArray[0]+"'";
 				ipvt.table = "user"
 
 				sql.connect();
-				sql.modifyRecordInUser(ipvt,function(err,results){
+				sql.modifyRecordInUserOneColumn(ipvt,function(err,results){
 					if(err){
 						res.send(err.message);
 						console.log("modify:"+err.message)

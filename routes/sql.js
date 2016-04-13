@@ -213,6 +213,33 @@ var searchFromCommodity = function(value,callback){
 		callback(err,results);
 	});
 }
+
+var searchFromCommodityWithCid = function(cid,value,callback){
+	var sql;
+	if(!isNaN(value)){
+		//value is a number
+		sql = "select * from commodity where id="+value+
+										" or cid="+value+
+										" or price="+value+
+										" or sale="+value+
+										" or storage="+value+
+										" or count="+value+
+										" and cid="+cid;
+	}else{
+		//value is not a number
+		sql = "select * from commodity where name like '%"+value+"%'"+
+										" or region like '%"+value+"%'"+
+										" or factory like '%"+value+"%'"+
+										" and cid="+cid;
+	}
+	if(value==""){
+		sql = "select * from commodity where id=-1";
+	}
+	client.query(sql,function(err,results){
+		callback(err,results);
+	});
+
+}
 /**** ****/
 
 
@@ -491,6 +518,18 @@ var modifyRecordInUser = function(ipvt,callback){
 		callback(err,results);
 	})
 }
+
+var modifyRecordInUserOneColumn = function(ipvt,callback){
+	id = ipvt.id;
+	// values = ipvt.value.split(',');
+	// setting = " name="+values[0]+", sex="+values[1]+", icon="+values[2];
+	setting = ipvt.property+"="+ipvt.value;
+	var sql = "update user set "+setting+" where id="+id;
+	console.log("sql:"+sql);
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+} 
 /**** ****/
 
 /**** 系统设置相关 ****/
@@ -800,6 +839,7 @@ var queryUserWithFieldsAndFiles = function(fields, files, callback){
 		callback(err,results);
 	});
 }
+
 /**/
 
 exports.connect = connect;
@@ -890,4 +930,5 @@ exports.queryCommentWithCommunityinfo = queryCommentWithCommunityinfo;
 exports.ConvertUidToUser = ConvertUidToUser;
 exports.insertIntoCommentWithContent = insertIntoCommentWithContent;
 exports.increCountInCommodityById = increCountInCommodityById;
-
+exports.modifyRecordInUserOneColumn = modifyRecordInUserOneColumn;
+exports.searchFromCommodityWithCid = searchFromCommodityWithCid;
