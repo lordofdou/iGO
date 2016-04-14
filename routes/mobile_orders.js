@@ -110,4 +110,38 @@ router.get('/list',function(req,res,next){
 
 });
 
+//uid pid aid amount
+router.post('/add',function(req,res,next){
+    sql.connect();
+    var value = new Array();
+    value.uid = req.body.uid;
+    value.pid = req.body.pid;
+    value.aid = req.body.aid;
+    value.amount = req.body.amount;
+    sql.insertRecordIntoOrders(value,function(err,results){
+        if (err) {
+            res.send(err.message);
+            console.log(err.message);
+        }
+        sql.queryCommodityWithId(value.id,function(err,result){
+            if (err) {
+                res.send(err.message);
+                console.log(err.message);
+                return;
+            }
+            storage = result[0]['storage'];
+            storage -= 1;
+            sql.decreStorageInCommodityById(value.id,storage,function(err,results){
+                if (err) {
+                    res.send(err.message);
+                    console.log(err.message);
+                }
+                res.send('success');
+            })
+        });       
+    });
+
+
+})
+
 module.exports = router;

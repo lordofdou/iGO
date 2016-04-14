@@ -177,80 +177,126 @@ json
 */
 //####################################
 router.post("/modify",function(req,res,next){
+	// console.log('modify----');
+	// console.log("------");
 
-
-	console.log("------");
-	var AVATAR_UPLOAD_FOLDER = '/userUpload/';			
-	var form = new formidable.IncomingForm(); 
-    form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
- 	
-    form.parse(req,function(error,fields,files){
-    	if (error) {
-	      res.send("parse:"+error.message);
-	      console.log(error.message);
-	      return;		
-	    } 
-	    console.log(fields);
-	    console.log(files);
-	    sql.connect();
-	    sql.queryUserWithFieldsAndFiles(fields,files,function(error,results){
+	// console.log("id:"+req.body.id)
+	// console.log("validation:"+req.body.validation);
+	var id = req.body.id;
+	if (id == undefined) {
+		var AVATAR_UPLOAD_FOLDER = '/userUpload/';			
+		var form = new formidable.IncomingForm(); 
+	    form.path = __dirname + '/../public' + AVATAR_UPLOAD_FOLDER;
+	 	
+	    form.parse(req,function(error,fields,files){
 	    	if (error) {
-		      res.send(error.message);
-		      console.log("fields and files:"+error.message)
+		      res.send("parse:"+error.message);
+		      console.log(error.message);
+		      return;		
+		    } 
+		    // console.log(fields);
+		    // console.log(files);
+		    sql.connect();
+		    sql.queryUserWithFieldsAndFiles(fields,files,function(error,results){
+		    	if (error) {
+			      res.send(error.message);
+			      console.log("fields and files:"+error.message)
+			      return;		
+			    }
+			    if (results.length == 0) {
+			    	res.send("validation is out-of-date");
+			    	console.log("validation is out-of-date");
+			    }else{
+			    	var id = fields.id;
+				    var validation = fields.validation
+				    var name = fields.name;
+					var sex = fields.sex;
+					sex = parseInt(sex);
+					var picString;
+			
+					var picArray = new Array();
+					
+
+					var extName = 'png';  //后缀名
+				    var avatarName;		  //随机数文件名
+				    var newPath;		  //文件存储路径
+					for (var key in files){
+						// console.log(key[0]);
+						if(files[key]["size"]==0){
+							continue;
+						}
+						avatarName = Math.random() + '.' + extName;
+						//存储路径
+				    	newPath= form.path + avatarName;
+				    	//重命名图片并同步到磁盘上
+				    	fs.renameSync(files[key]["path"], newPath);
+				    	//访问路径
+				    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
+				    	// console.log("newPath:"+newPath);
+				    	picArray.push(newPath);
+
+					}
+					var ipvt = new Array();
+					ipvt.id = id;
+					// if(name != undefined){
+					// 	ipvt.property = "name"
+					// 	ipvt.value = "'"+name+"'";
+					// }else if(sex != undefined){
+					// 	ipvt.property = "sex"
+					// 	ipvt.value = parseInt(sex);
+					// }else if(picArray[0] != undefined){
+						ipvt.property = "icon"
+						ipvt.value = "'"+picArray[0]+"'";
+					// }
+					// ipvt.property = "name,sex,icon";
+					
+					// ipvt.value = "'"+name+"'"+","+
+								// sex+","+
+								// "'"+picArray[0]+"'";
+					ipvt.table = "user"
+
+					sql.connect();
+					sql.modifyRecordInUserOneColumn(ipvt,function(err,results){
+						if(err){
+							res.send(err.message);
+							console.log("modify:"+err.message)
+							return;
+						}
+						res.send("success");
+					});
+
+			    }
+
+		    });
+		 
+		});
+
+	}else{
+		id = req.body.id;
+		validation = req.body.validation;
+		sql.connect();
+		sql.queryUserWithIdAndValidation(req,id,validation,function(err,results){
+			if (err) {
+		      res.send(err.message);
+		      console.log("fields and files:"+err.message)
 		      return;		
 		    }
 		    if (results.length == 0) {
 		    	res.send("validation is out-of-date");
 		    	console.log("validation is out-of-date");
 		    }else{
-		    	var id = fields.id;
-			    var validation = fields.validation
-			    var name = fields.name;
-				var sex = fields.sex;
-				sex = parseInt(sex);
-				var picString;
-		
-				var picArray = new Array();
-				
-
-				var extName = 'png';  //后缀名
-			    var avatarName;		  //随机数文件名
-			    var newPath;		  //文件存储路径
-				for (var key in files){
-					// console.log(key[0]);
-					if(files[key]["size"]==0){
-						continue;
-					}
-					avatarName = Math.random() + '.' + extName;
-					//存储路径
-			    	newPath= form.path + avatarName;
-			    	//重命名图片并同步到磁盘上
-			    	fs.renameSync(files[key]["path"], newPath);
-			    	//访问路径
-			    	newPath = AVATAR_UPLOAD_FOLDER + avatarName;
-			    	console.log("newPath:"+newPath);
-			    	picArray.push(newPath);
-
-				}
-				var ipvt = new Array();
+		    	var sex = req.body.sex;
+		    	var name = req.body.name;
+		    	var ipvt = new Array();
 				ipvt.id = id;
-				if(name != undefined){
-					ipvt.property = "name"
-					ipvt.value = "'"+name+"'";
-				}else if(sex != undefined){
-					ipvt.property = "sex"
-					ipvt.value = parseInt(sex);
-				}else if(picArray[0] != undefined){
-					ipvt.property = "icon"
-					ipvt.value = "'"+picArray[0]+"'";
-				}
-				// ipvt.property = "name,sex,icon";
-				
-				// ipvt.value = "'"+name+"'"+","+
-							// sex+","+
-							// "'"+picArray[0]+"'";
-				ipvt.table = "user"
-
+		    	if (name == undefined) {
+		    		ipvt.property = "sex";
+		    		ipvt.value = parseInt(sex);
+		    	}else{
+		    		ipvt.property = "name";
+		    		ipvt.value = "'"+name+"'";
+		    	}
+		    	ipvt.table = "user"
 				sql.connect();
 				sql.modifyRecordInUserOneColumn(ipvt,function(err,results){
 					if(err){
@@ -260,12 +306,42 @@ router.post("/modify",function(req,res,next){
 					}
 					res.send("success");
 				});
-
 		    }
+		})
 
-	    });
-	 
-	});
+	}
+	// var form = new formidable.IncomingForm();
+	// form.uploadDir = '/tmp';
+	// form.on('error',function(err){
+	// 			// res.send(err);
+	// 			console.log("e:"+err);
+	// 	})
+	// 	.on('field',function(name,value){
+	// 		// if (form.type == 'multipart') {
+
+	// 		// }
+	// 		console.log('field:')
+	// 		console.log(name);
+	// 		console.log(value);
+	// 	})
+	// 	.on('file',function(name,value){
+	// 		console.log('file:')
+	// 		console.log(name);
+	// 		console.log(value);
+	// 	})
+	// 	.on('aborted',function(){
+	// 		res.send('aborted')
+	// 		console.log('aborted');
+	// 	})
+	// 	.on('end',function(){
+	// 		console.log('end');
+	// 	});
+	//  form.parse(req);
+	// console.log("------");
+	// console.log("id:"+req.body.id)
+	// console.log("validation:"+req.body.validation);
+
+	
 		
 });
 	

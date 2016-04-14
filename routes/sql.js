@@ -369,6 +369,7 @@ var getLengthOfCommunity = function(pagination,products,community,callback){
 
 var queryCommunityWithId = function(id,callback){
 	var sql = "select * from community where id="+id;
+	console.log("id:"+sql)
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -525,7 +526,7 @@ var modifyRecordInUserOneColumn = function(ipvt,callback){
 	// setting = " name="+values[0]+", sex="+values[1]+", icon="+values[2];
 	setting = ipvt.property+"="+ipvt.value;
 	var sql = "update user set "+setting+" where id="+id;
-	console.log("sql:"+sql);
+	// console.log("sql:"+sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	})
@@ -650,21 +651,30 @@ var ConvertAidToAddress = function(orders,callback){
 }
 var ConvertPidToProduct = function(orders,callback){
 	var condition = "";
+	// console.log("---------"+orders[0])
 	for(var key in orders){
-		if(orders[key].length == 0){
+		// if(orders[key].length == undefined || orders[key].length == null){
+		// 	continue;
+		// }
+		if(orders[key] == null){
 			continue;
 		}
 		if (condition == "") {
 			condition += "id=" + orders[key]['pid'];
+		}else{
+			condition += " or id=" + orders[key]['pid'];
 		}
-		condition += " or id=" + orders[key]['pid'];
+		
 		 
 	}
 	var sql = "select * from commodity where "+condition;
-	// console.log("-------"+sql)
+	console.log("-------"+sql)
 	client.query(sql,function(err,results){
 		for(var key in orders){
 			for(var i in results){
+				if(orders[key] == null){
+					continue;
+				}
 				if(orders[key]['pid'] == results[i]['id']){
 					orders[key]['product'] = results[i];
 				}
@@ -776,7 +786,8 @@ var queryCommunityWithRange = function(range,callback){
 
 var queryCommentWithCommunityinfo =function(comminfo,callback){
 	var commdetail = comminfo[0];
-	var sql = "select * from comment where id="+commdetail['cid'];
+	var sql = "select * from comment where cid="+commdetail['id'];
+	console.log("cvc:"+sql);
 	client.query(sql,function(err,results){
 		commdetail['comment'] = results;
 		callback(err,commdetail);
@@ -784,6 +795,7 @@ var queryCommentWithCommunityinfo =function(comminfo,callback){
 }
 
 var ConvertUidToUser = function(detail,callback){
+	
 	var comment = detail['comment'];
 
 	var conditon = "";
@@ -791,7 +803,7 @@ var ConvertUidToUser = function(detail,callback){
 		if(conditon == ""){
 			conditon += " id="+comment[key]['uid'];
 		}else{
-			conditon += "or id="+comment[key]['uid'];
+			conditon += " or id="+comment[key]['uid'];
 		}
 
 	}
@@ -803,7 +815,7 @@ var ConvertUidToUser = function(detail,callback){
 	}
 
 	
-	// console.log(sql);
+	console.log("u2u:"+sql);
 	client.query(sql,function(err,results){
 		for(var i in comment){
 			for(var j in results){
@@ -840,6 +852,36 @@ var queryUserWithFieldsAndFiles = function(fields, files, callback){
 	});
 }
 
+var insertRecordIntoOrders = function(value,callback){
+	var code = parseInt(Math.random()*Math.pow(10,13));
+	var time = new Date().getTime();
+	var sid = 2;
+	var sql = "insert into orders (code,uid,pid,time,sid,aid,amount) values ("+
+				"'"+code+"'"+
+				value.uid+
+				value.pid+
+				"'"+time+"'"+
+				value.sid+
+				value.aid+
+				value.amount+")";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+}
+
+var decreStorageInCommodityById = function(id,storage,callback){
+	var sql = "update commodity set storage="+storage+" where id="+id;
+	client.query(sql,function(err,require){
+		callback(err,results);
+	})
+}
+
+var queryFromCategoryByCategory = function(category,callback){
+	var sql = "select * from category where category="+"'"+category+"'";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+}
 /**/
 
 exports.connect = connect;
@@ -932,3 +974,6 @@ exports.insertIntoCommentWithContent = insertIntoCommentWithContent;
 exports.increCountInCommodityById = increCountInCommodityById;
 exports.modifyRecordInUserOneColumn = modifyRecordInUserOneColumn;
 exports.searchFromCommodityWithCid = searchFromCommodityWithCid;
+exports.insertRecordIntoOrders = insertRecordIntoOrders;
+exports.decreStorageInCommodityById = decreStorageInCommodityById;
+exports.queryFromCategoryByCategory = queryFromCategoryByCategory
