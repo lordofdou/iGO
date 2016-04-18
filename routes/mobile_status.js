@@ -53,7 +53,7 @@ router.get('/detail',function(req,res,next){
 		sql.ConvertPidToProduct(result,function(err,results){
 			if(err){
 				res.send(err.message);
-				console.log("p2p:"+err.message);
+				// console.log("p2p:"+err.message);
 				return;
 			}
 			for(var key in results){
@@ -88,8 +88,6 @@ router.get('/detail',function(req,res,next){
 						console.log("u2u:"+err.message);
 						return;
 					}
-					// result3.splice('pid',1);
-					// result3.splice('uid',1);
 					res.send(result3);
 				});
 			});
@@ -102,12 +100,16 @@ router.get('/detail',function(req,res,next){
 router.post('/comment',function(req,res,next){
 	var content = new Array();
 	content.uid = req.body.uid;
+	// console.log(content.uid)
 	content.cid = req.body.cid;
+	// console.log(content.cid)
 	content.comment = req.body.comment;
+	// console.log("content:"+content.)
 	sql.connect();
 	sql.insertIntoCommentWithContent(content,function(err,result){
 		if (err) {
 			res.send(err.message);
+			console.log("commetadd:"+err.message)
 			return;
 		}
 		res.send("success");

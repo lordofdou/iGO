@@ -184,7 +184,7 @@ var modifyRecordFromCommodity =function(pvt,callback){
 		
 	}
 	var sql = "update commodity set "+ string +" where id="+id;
-	console.log("||||||||||"+sql);
+	// console.log("||||||||||"+sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	}) 
@@ -305,7 +305,7 @@ var statusAllNumber = function(callback){
 //添加一条帖子
 var statusInsertARecord = function(info, callback){
 	var sql = "INSERT INTO community (pid, uid, time, count, description, title, pic, description_title) VALUES ("+ info.pid +", " + info.uid + ", " + info.time + ", " + info.count + ", '" + info.description + "', '" + info.title + "', '" + info.pic + "', '" + info.description_title + "');";
-	console.log(sql);
+	// console.log(sql);
 	client.query(sql, function(err, results){
 		callback(err, results);
 	});
@@ -369,7 +369,7 @@ var getLengthOfCommunity = function(pagination,products,community,callback){
 
 var queryCommunityWithId = function(id,callback){
 	var sql = "select * from community where id="+id;
-	console.log("id:"+sql)
+	// console.log("id:"+sql)
 	client.query(sql,function(err,results){
 		callback(err,results);
 	});
@@ -514,7 +514,7 @@ var modifyRecordInUser = function(ipvt,callback){
 	values = ipvt.value.split(',');
 	setting = " name="+values[0]+", sex="+values[1]+", icon="+values[2];
 	var sql = "update user set "+setting+" where id="+id;
-	console.log("sql:"+sql);
+	// console.log("sql:"+sql);
 	client.query(sql,function(err,results){
 		callback(err,results);
 	})
@@ -668,7 +668,7 @@ var ConvertPidToProduct = function(orders,callback){
 		 
 	}
 	var sql = "select * from commodity where "+condition;
-	console.log("-------"+sql)
+	// console.log("-------"+sql)
 	client.query(sql,function(err,results){
 		for(var key in orders){
 			for(var i in results){
@@ -787,7 +787,7 @@ var queryCommunityWithRange = function(range,callback){
 var queryCommentWithCommunityinfo =function(comminfo,callback){
 	var commdetail = comminfo[0];
 	var sql = "select * from comment where cid="+commdetail['id'];
-	console.log("cvc:"+sql);
+	// console.log("cvc:"+sql);
 	client.query(sql,function(err,results){
 		commdetail['comment'] = results;
 		callback(err,commdetail);
@@ -815,7 +815,7 @@ var ConvertUidToUser = function(detail,callback){
 	}
 
 	
-	console.log("u2u:"+sql);
+	// console.log("u2u:"+sql);
 	client.query(sql,function(err,results){
 		for(var i in comment){
 			for(var j in results){
@@ -829,9 +829,13 @@ var ConvertUidToUser = function(detail,callback){
 }
 
 var insertIntoCommentWithContent = function(content,callback){
-	var sql = "insert into comment (uid,cid,comment) values "+"("+content.uid+
-																  content.cid+
-																  "'"+content.comment+"'"+")";
+
+	var time = new Date().getTime()
+	var sql = "insert into comment (uid,cid,comment,time) values "+"("+content.uid+","+
+																  content.cid+","+
+																  "'"+content.comment+"'"+","+
+																  "'"+time+"'"+")";
+	// console.log("sql:"+sql)
 	client.query(sql,function(err,results){
 		callback(err,results);
 	})
@@ -857,12 +861,12 @@ var insertRecordIntoOrders = function(value,callback){
 	var time = new Date().getTime();
 	var sid = 2;
 	var sql = "insert into orders (code,uid,pid,time,sid,aid,amount) values ("+
-				"'"+code+"'"+
-				value.uid+
-				value.pid+
-				"'"+time+"'"+
-				value.sid+
-				value.aid+
+				"'"+code+"'"+","+
+				value.uid+","+
+				value.pid+","+
+				"'"+time+"'"+","+
+				value.sid+","+
+				value.aid+","+
 				value.amount+")";
 	client.query(sql,function(err,results){
 		callback(err,results);
@@ -935,21 +939,15 @@ exports.sysSettingLoginStatus = sysSettingLoginStatus;
 exports.sysSettingChangeLoginStatus = sysSettingChangeLoginStatus;
 exports.deleteCommentFromCommentByid = deleteCommentFromCommentByid;
 exports.modifyRecordFromCommodity = modifyRecordFromCommodity;
-
 exports.ordersSelectAll = ordersSelectAll; 
 exports.ordersAllDoNumbers = ordersAllDoNumbers;
 exports.ordersAllNumbers = ordersAllNumbers;
 exports.ordersSelectAllDo = ordersSelectAllDo;
-
-
 exports.ordersIsWaitToSend = ordersIsWaitToSend;
 exports.orderStatusSelectAll = orderStatusSelectAll;
 exports.orderStatusChangeStatusToSend = orderStatusChangeStatusToSend;
-
 exports.searchFromCommodity = searchFromCommodity;
-
 exports.addressSelectAll = addressSelectAll;
-
 exports.insertTelAndPasswordIntoUser = insertTelAndPasswordIntoUser;
 exports.queryUserWithId = queryUserWithId;
 exports.queryAddressWithUid = queryAddressWithUid;
@@ -966,7 +964,6 @@ exports.queryUserWithTelAndPassword = queryUserWithTelAndPassword;
 exports.queryUserWithIdAndValidation = queryUserWithIdAndValidation;
 exports.queryUserWithFieldsAndFiles = queryUserWithFieldsAndFiles;
 exports.deleteFromAddressById = deleteFromAddressById;
-
 exports.queryCommunityWithRange = queryCommunityWithRange;
 exports.queryCommentWithCommunityinfo = queryCommentWithCommunityinfo;
 exports.ConvertUidToUser = ConvertUidToUser;
@@ -977,3 +974,4 @@ exports.searchFromCommodityWithCid = searchFromCommodityWithCid;
 exports.insertRecordIntoOrders = insertRecordIntoOrders;
 exports.decreStorageInCommodityById = decreStorageInCommodityById;
 exports.queryFromCategoryByCategory = queryFromCategoryByCategory
+
