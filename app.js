@@ -23,7 +23,7 @@ var mobile_orders = require('./routes/mobile_orders');
 var mobile_activity = require('./routes/mobile_activity');
 var mobile_product = require('./routes/mobile_product');
 var mobile_status = require('./routes/mobile_status');
-
+var mobile_notification = require('./routes/mobile_notification');
 
 var app = express();
 
@@ -79,6 +79,8 @@ app.use('/mobile_activity',mobile_activity);
 app.use('/mobile_product',mobile_product);
 //c
 app.use('/mobile_status',mobile_status);
+
+app.use('/mobile_notification',mobile_notification);
 
 
 // catch 404 and forward to error handler

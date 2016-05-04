@@ -835,7 +835,7 @@ var insertIntoCommentWithContent = function(content,callback){
 																  content.cid+","+
 																  "'"+content.comment+"'"+","+
 																  "'"+time+"'"+")";
-	// console.log("sql:"+sql)
+	console.log("sql:"+sql)
 	client.query(sql,function(err,results){
 		callback(err,results);
 	})
@@ -882,6 +882,13 @@ var decreStorageInCommodityById = function(id,storage,callback){
 
 var queryFromCategoryByCategory = function(category,callback){
 	var sql = "select * from category where category="+"'"+category+"'";
+	client.query(sql,function(err,results){
+		callback(err,results);
+	})
+}
+
+var queryAllRecordInNotification = function(callback){
+	var sql = "select * from notification order by createTime DESC";
 	client.query(sql,function(err,results){
 		callback(err,results);
 	})
@@ -974,4 +981,5 @@ exports.searchFromCommodityWithCid = searchFromCommodityWithCid;
 exports.insertRecordIntoOrders = insertRecordIntoOrders;
 exports.decreStorageInCommodityById = decreStorageInCommodityById;
 exports.queryFromCategoryByCategory = queryFromCategoryByCategory
+exports.queryAllRecordInNotification = queryAllRecordInNotification
 
