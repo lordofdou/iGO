@@ -1,0 +1,16 @@
+{
+  "name": "Ubuntu手机助手",
+  "main": "index.html",
+   "window": {
+   		"title":"Ubuntu手机助手",
+        "width": 1010,
+        "height": 580,
+        "toolbar": false,
+        "resizable":false,
+        "frame":true
+    },
+   "webkit": {
+  	"plugin":true
+  }
+}
+

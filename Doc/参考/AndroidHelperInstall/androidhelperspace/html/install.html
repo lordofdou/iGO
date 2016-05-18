@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html;charset=utf-8">
+    <link href="../html/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../html/css/home_main.css" rel="stylesheet" type="text/css"/>
+    <script src="../html/jquery-2.1.4/jquery.min.js"></script>
+    <script src="../html/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script>
+		
+    function deleteRow(r)
+    {
+        var i=r.parentNode.parentNode.rowIndex;
+		var data=document.getElementById('myTable').rows[i].cells[0].innerHTML;
+        document.getElementById('myTable').deleteRow(i);
+		window.location.href="../cgi-bin/install.sh?"+data;
+    }
+    </script>
+</head>
+<body>
+    <button class="btn btn-primary" onClick="installfun()" >从本地安装</button>
+    <table id="myTable" class="table table-hover table-striped" border="0">
+    <tr id="app"><td>软件名称</td><td>操作</td></tr>
+    </table>
+    <form id='form1' action='../cgi-bin/installlocal.sh' target='cgi' accept-charset='UTF-8'>
+	 <input type='hidden' name='path' >
+	</form>
+	
+	<iframe name='cgi' style='display:none;' src=' ' ></iframe>
+	
+    <input type='file' class='btn btn-primary' id='fileDialog' style='display:none;' accept=".apk"/> 
+    
+    <script>
+        var chooser = document.querySelector('#fileDialog');
+        chooser.addEventListener('change', function (evt) {
+        	dopath(this.value);
+        }, false);
+        
+        function dopath(path)
+		{
+			var form1=document.getElementById('form1');
+			if(path==null)
+			{
+				return false;
+			}
+			
+			if(path){
+				form1.path.value=path;
+				form1.charset='utf-8';
+				form1.submit();
+				frames.top.statusreload();
+			}
+			else{
+				alert('请输入路径！');
+				return false ;
+			}
+		}
+		
+        function installfun(){
+		   document.getElementById('fileDialog').click();
+        }
+    </script> 
+</body>
+</html>

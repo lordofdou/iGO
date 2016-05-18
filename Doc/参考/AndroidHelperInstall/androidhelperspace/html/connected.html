@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html;charset=utf-8">
+    <link href="./bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="./css/home_main.css" rel="stylesheet" type="text/css"/>
+    <script src="./jquery-2.1.4/jquery.min.js"></script>
+    <script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script>
+    	function changepage()
+		{
+			frames.top.document.getElementById('mid_ifram_style').src="./noconnect.html";
+			frames.top.document.getElementById('status_ifram_style').src="./status_window.html";
+		}
+    </script>
+    <title>status_window</title>
+</head>
+<body style="height: auto;width: auto;	overflow:scroll;overflow-x:hidden;overflow-y:hidden;">
+	<button class="btn btn-primary" onClick="changepage();">断开链接</button>
+</body>
+</html>

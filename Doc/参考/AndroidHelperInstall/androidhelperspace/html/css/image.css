@@ -1,0 +1,77 @@
+li{
+	list-style:none;
+}
+
+.hidden{
+	display:none;
+}
+
+.image_imgBox { 
+	height: auto; 
+}
+
+.image_layBox { 
+	height: auto; 
+	width: 480px; 
+	margin-top: 1%; 
+	margin-left: 22%; 
+	position: fixed; 
+	border: 7px solid #FFF; 
+	z-index: 20; 
+	background: #FFF; 
+	display: none; 
+	_display:none!important 
+}
+.image_Close { 
+	position: absolute; 
+	top: 0%; 
+	right: 0%; 
+	cursor: pointer; 
+}
+
+.image_imgBox ul li { 
+	float: left; 
+	height: 95px; 
+	margin: 1px 1px 1px 1px; 
+	cursor: pointer; 
+}
+
+.smallimage{
+	width:185px;
+	height:93px;
+}
+
+.bigimage{
+	width:100%;
+}
+
+#image_checkbox{
+	width: 14px;
+	height:14px;
+	position: absolute; 
+	margin-left: 90%;
+}
+
+.choose{
+	
+}
+
+.choosediv{
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

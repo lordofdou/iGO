@@ -1,0 +1,26 @@
+#body{
+	overflow:scroll;
+	overflow-x:hidden;
+}
+
+#appimg {
+	width: 31px;
+	vertical-align: middle;
+}
+
+#name {
+	vertical-align: middle;
+}
+
+#path {
+	vertical-align: middle;
+}
+
+#size{
+	vertical-align: middle;
+}
+
+#fuxuan{
+	margin-top: 11%;
+	width: 45px;
+}

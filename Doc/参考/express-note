@@ -1,0 +1,92 @@
+一.安装
+before：npm install -g express 
+after:npm install -g express-generator; npm install -g express;express -V
+没有express-generator无法创建应用程序
+
+二.创建项目
+express exp
+默认为jade模板，与html的语法格式区别比较大，优点在于代码简洁，书写快速，
+html
+	head
+    body
+express -e(--ejs) exp
+可以使用ejs模板，与html的语法格式相近，于容易上手，
+之后安装依赖文件的步骤相同：cd exp&&npm install
+
+三.启动项目
+before:$ node app.js
+after:$ DEBUG=exp npm start
+s
+四.中间件
+
+1.Express is a routing and middleware web framework that has minimal functionality of its own: An Express application is essentially a series of middleware function calls.
+express是路由和中间件构成的web框架，本身只具有极少的功能，express应用实质上是依稀类中间件函数的调用。
+
+中间件就是函数
+
+Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle. The next middleware function is commonly denoted by a variable named next.
+
+中间件函数是有权使用request对象和response对象的函数和下一个函数，第二个函数通常被成为next
+
+2.五大类中间件
+（1）应用级中间件:
+在应用app.js中定义和使用的中间件，必须使用app.use()函数将中间件函数和app对象进行绑定
+var app = express();
+
+app.use(function (req, res, next) {
+  console.log('Time:', Date.now());
+  next();
+});
+
+这个匿名的function就是一个应用级中间件
+app.use('/user/:id', function(req, res, next) {
+  console.log('Request URL:', req.originalUrl);
+  next();
+}, function (req, res, next) {
+  console.log('Request Type:', req.method);
+  next();
+});
+使用next()request-response循环传递给下一个中间件
+
+（2）路由级中间件
+在路由（如index.js）中定义和使用的中间件
+var app = express();
+var router = express.Router();
+
+router.use(function (req, res, next) {
+  console.log('Time:', Date.now());
+  next();
+});
+这个匿名的function就是一个路由级中间件
+
+（3）错误处理中间件
+进行错误处理的中间件
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+（4）内置中间件（4.x后唯一一个内置中间件）
+app.use(express.static(path.join(__dirname, 'public')));
+
+（5）第三方中间件
+在第三方模块中定义和使用的中间件
+var express = require('express');
+var app = express();
+var cookieParser = require('cookie-parser');
+
+// load the cookie-parsing middleware
+app.use(cookieParser());
+
+cookieParser()是cookie-parser模块中的中间件
+
+中间件的绑定通用模式
+app.xxx(path,function)
+xxx代表了对于那一种http请求进行处理
+path代表对来自那个网页的信息进行处理，如果不指定则默认对来自所有网页请求进行处理
+function中间件函数，对于第三方中间件和路由级中间件要提前用request()制定模块，第三方中间件只要指定模块名，
+路由级中间件要带上相对路径
+
+
+
+

@@ -1,0 +1,32 @@
+#body{
+	overflow:scroll;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	-webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+#search{
+	float:right;
+}
+
+#status_ifram_style{
+	margin-left: 0px;
+	height: 35px;
+	width: 150px;
+}
+
+#left_bar{
+	margin-left: 10px;
+}
+
+#mid_ifram_style {
+	margin-right: 3px;
+	margin-left: 5px;
+	height: 500px;
+	width: 83%;
+}
+#load{
+	margin-top: 5%;
+	margin-left: 40%;
+}

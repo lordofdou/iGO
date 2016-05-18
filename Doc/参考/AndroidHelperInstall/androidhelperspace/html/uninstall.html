@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html;charset=utf-8">
+    <link href="../html/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../html/css/unistall.css" rel="stylesheet" type="text/css"/>
+    <script src="../html/jquery-2.1.4/jquery.min.js"></script>
+    <script src="../html/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <title>卸载</title>
+    
+</head>
+<body>
+	<script>
+		var allselecte="";
+		var allselectu="";
+		function iselect(r)
+		{
+			var i=r.parentNode.parentNode.rowIndex;
+			var datae=document.getElementById('myTable').rows[i].cells[3].innerHTML;
+			var datau=document.getElementById('myTable').rows[i].cells[5].innerHTML;
+			if(r.checked==true)
+			{
+				allselecte+=datae+" ";
+				allselectu+=datau+" ";
+			}
+			else
+			{	
+				allselecte=allselecte.replace(datae,"");
+				allselectu=allselectu.replace(datau,"");
+			}
+			
+		}
+		
+		function iexport(mypath)
+		{
+			window.location.href="../cgi-bin/apkexport.sh?"+allselecte+";"+mypath;
+			frames.top.statusreload();
+		}
+		
+		function uninstall()
+		{	
+			window.location.href="../cgi-bin/uninstall.sh?"+allselectu;
+			frames.top.statusreload();
+		}
+   </script>
+   <div style="position: fixed; top: 1%; right: 1%;">
+	<button class="btn btn-primary" onClick="uninstall()" id="uninstall">卸载</button>
+	<button class="btn btn-primary" onClick="outapk()" id="export">导出</button>
+    </div>
+    <table id="myTable" class="table table-hover table-striped" border="0" style="margin-top: 5%;">
+    <tr id="app"><td style='vertical-align: middle;'>标记</td><td style='vertical-align: middle;'>图标</td><td style='vertical-align: middle;'>软件名称</td><td style='vertical-align: middle;'>安装路径</td><td style='vertical-align: middle;'>文件大小</td><td style='vertical-align: middle;'>软件包名</td></tr>
+    </table>
+	
+    <input type='file' class='btn btn-primary' id='fileDialog' style='display:none;' target='cgi' nwdirectory/> 
+    
+    <script>
+    
+        var chooser = document.querySelector('#fileDialog');
+        chooser.addEventListener('change', function (evt) {
+        	dopath(this.value);
+        }, false);
+        
+        function dopath(path)
+		{
+			var form1=document.getElementById('form1');
+			if(path==null)
+			{
+				return false;
+			}
+			
+			if(path){
+			    iexport(path);
+			}
+			else{
+				alert('请输入路径！');
+				return false ;
+			}
+		}
+		
+		function outapk(){
+		    document.getElementById('fileDialog').click();
+		}
+		
+    </script> 
+    
+</body>
+</html>

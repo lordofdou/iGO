@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html;charset=utf-8">
+    <link href="../html/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../html/css/home_main.css" rel="stylesheet" type="text/css"/>
+    <script src="../html/jquery-2.1.4/jquery.min.js"></script>
+    <script src="../html/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
+    <title>首页</title>
+</head>
+<body id="body">
+	
+	<div id="shot_screen_div">
+		<img src="" class="img-rounded" id="shotscreen" /> 
+	</div>
+	
+	<div id="phone_status_div">
+		<div class="container">
+		  
+		  <table class="table table-hover table-striped" id="table">
+		    <thead>
+		      <tr>
+		        <h1>手机信息</h1>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>手机型号：</td>
+		        <td id="model"></td>
+		      </tr>
+			  <tr>
+		        <td>手机厂商：</td>
+		        <td id="brand"></td>
+		      </tr>
+			  <tr>
+		        <td>安卓版本：</td>
+		        <td id="android"></td>
+		      </tr>
+		      <tr>
+		        <td>剩余电量：</td>
+		        <td id="battery"><progress max="100" value="1"><ie style="width:20%;"></ie></progress></td>
+		      </tr>
+		      <tr>
+		        <td>系统内存：</td>
+		        <td id="rom"><progress max="100" value="1"><ie style="width:20%;"></ie></progress>M</td>
+		      </tr>   
+		      <tr>
+		        <td>内存设备：</td>
+		        <td id="sd"><progress max="100" value="1"><ie style="width:20%;"></ie></progress>G</td>
+		      </tr>
+		    </tbody>
+		  </table>
+		</div>
+	</div>
+	
+</body>
+</html>

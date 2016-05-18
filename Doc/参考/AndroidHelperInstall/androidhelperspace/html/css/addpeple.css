@@ -1,0 +1,67 @@
+﻿@charset "utf-8";
+
+#msgbox{
+	position:absolute;
+	left:25%;
+	top:25%;
+	width:426px;
+	height:282px;
+	z-index:10000;
+	display:none;
+}
+.titlerow{
+	padding:0px 20px;
+	line-height:50px;
+	height:50px;
+	font-weight:bold;
+	font-size:20px;
+}
+
+.contentrow{
+	height:77px;
+	line-height:77px;
+	padding:0px 30px;
+	font-size:x-large;
+}
+
+.addrow{
+	height:77px;
+	line-height:77px;
+	padding:0px 30px;
+	font-size:x-large;
+}
+
+.close_btn{
+	font-family:arial;
+	font-size:30px;
+	font-weight:700;
+	color:#999;
+	text-decoration:none;
+	float:right;
+	padding-right:4px;
+}
+
+.inputBox{
+	border:1px solid #c3c3c3;
+	padding:1px 3px 6px 3px;
+	border-radius:5px;
+	margin-left:5px;
+}
+
+#txtName{
+	width:60%;
+	border:none;
+}
+
+#txtphone{
+	width:60%;
+	border:none;
+}
+
+#addbtn{
+	padding:10px 95px;
+	margin-left:87px;
+	margin-top:40px;
+	border-radius:5px;
+}
+

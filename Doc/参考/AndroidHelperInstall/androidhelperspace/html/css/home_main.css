@@ -1,0 +1,34 @@
+#body{
+	overflow:scroll;
+	overflow-x:hidden;
+	overflow-y:hidden;
+}
+
+#phone_status_div {
+	float: left;
+	width: 50%;
+}
+
+#phone_status{
+	float: right;
+	width: 250px;
+}
+
+#table{
+	width: 50%;
+}
+
+#shot_screen_div{
+	margin-left: 10%;
+	margin-top: 5%;
+}
+
+#shotscreen{
+	width: 25%;
+	float:left;
+}
+
+
+
+
+

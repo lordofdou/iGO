@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html;charset=utf-8">
+    <link href="./bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="./css/main.css" rel="stylesheet" type="text/css"/>
+    <script src="./jquery-2.1.4/jquery.min.js"></script>
+    <script src="./js/reload.js"></script>
+    <script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+	<script charset="gbk" src="http://www.baidu.com/js/opensug.js"></script>
+    <title>Ubuntu手机助手</title>
+</head>
+<body id="body">
+<div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand">Ubuntu 手机助手</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+				<li class="active"><a href="../cgi-bin/readsys.sh" target="iframe_window" onclick="reload(this)">首页</a></li>
+				<li ><a href="./pleasewaiting.html" target="iframe_window">找软件</a></li>
+				<li ><a href="./pleasewaiting.html" target="iframe_window">玩游戏</a></li>
+				<li ><a href="./pleasewaiting.html" target="iframe_window">热门应用</a></li>
+				<li ><a href="./pleasewaiting.html" target="iframe_window">今日热点</a></li>
+				<li ><a href="./pleasewaiting.html" target="iframe_window">壁纸主题</a></li>
+				<li ><a href="./pleasewaiting.html" target="iframe_window">电子书</a></li>
+				
+            </ul>
+        </div>
+        
+        <div id="search">
+		  <form class="navbar-form navbar-left" role="search" action="http://www.baidu.com/baidu" target="iframe_window" >
+		     <div class="form-group">
+		        <input type="text" class="form-control" name="word" placeholder="Search in baidu" baiduSug="1">
+		     </div>
+		     <button type="submit" class="btn btn-default" >搜索</button>
+		  </form>   
+	   </div>
+    </nav>
+	  
+	
+	  
+	  <div class="row" id="left_bar">
+      <div class="span3 bs-docs-sidebar">
+      	
+		<ul class="nav nav-list bs-docs-sidenav navbar-left">
+			<li><iframe id="status_ifram_style" name="status_iframe_window" src="./status_window.html" frameborder=0 scrolling="no"> </iframe></li>
+			<li>资源管理</li>
+				<li><a href="/cgi-bin/music.cgi" target="iframe_window" onclick="reload(this)">我的音乐</a></li>
+				<li><a href="/cgi-bin/photo.cgi" target="iframe_window" onclick="reload(this)">我的图片</a></li>
+				<li><a href="/cgi-bin/video.cgi" target="iframe_window" onclick="reload(this)">我的视频</a></li>
+				<li><a href="/cgi-bin/msg.cgi" target="iframe_window" onclick="reload(this)">我的短信</a></li>
+			
+			<li>通讯录管理</li>
+				<li><a href="/cgi-bin/check.cgi" target="iframe_window" onclick="reload(this)">备份和恢复</a></li>
+			
+			<li>应用管理</li>
+				<li><a href="../cgi-bin/appstore.sh" target="iframe_window" onclick="reload(this)">安装</a></li>
+				<li><a href="../cgi-bin/readapp.sh" target="iframe_window" onclick="reload(this)">卸载</a></li>
+		</ul>
+		
+        </div>
+        	<div id="load"><img src="./image/waiting.gif" /></div>
+			<iframe style="visibility:hidden" onreadystatechange="stateChangeIE(this)" onload="stateChangeFirefox(this)" name="iframe_window" id="mid_ifram_style" src="" frameborder=0 ></iframe>
+        </div>
+	</div>
+	
+</body>
+</html>
